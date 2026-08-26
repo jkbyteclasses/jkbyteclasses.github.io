@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam Survey Form - JK Byte</title>
+    <style>
+        :root {
+            --bg-color: #f0f2f5;
+            --text-main: #1d1d1f;
+            --accent: #4facfe;
+            --input-bg: #ffffff;
+            --border-color: #e1e3e8;
+            --primary-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            margin: 0;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .header-simple {
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            box-sizing: border-box;
+        }
+        
+        .header-simple a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 600;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+        
+        .header-simple a:hover {
+            color: var(--accent);
+        }
+
+        .form-container {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            width: 100%;
+            max-width: 480px;
+            margin: 40px 20px;
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            border: 1px solid rgba(255,255,255,0.5);
+            box-sizing: border-box;
+        }
+
+        .form-container h2 {
+            text-align: center;
+            margin-top: 0;
+            font-size: 28px;
+            margin-bottom: 30px;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 16px;
+            margin-bottom: 24px;
+            border: 2px solid var(--border-color);
+            border-radius: 14px;
+            font-size: 16px;
+            background-color: var(--input-bg);
+            box-sizing: border-box;
+            outline: none;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(79, 172, 254, 0.15);
+            transform: translateY(-2px);
+        }
+
+        button {
+            width: 100%;
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 16px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(79, 172, 254, 0.3);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(79, 172, 254, 0.4);
+        }
+
+        .success-msg {
+            display: none;
+            text-align: center;
+            color: #10b981;
+            background: #d1fae5;
+            padding: 15px;
+            border-radius: 12px;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+
+        .link-container {
+            text-align: center;
+            margin-top: 25px;
+        }
+
+        .link-container a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        /* Stylish Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: auto; /* Pushes footer to the bottom */
+            margin-bottom: 30px;
+            width: 100%;
+        }
+
+        .team-badge {
+            display: inline-block;
+            padding: 10px 25px;
+            background: #1d1d1f;
+            color: white;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+            margin-bottom: 15px;
+        }
+
+        .team-badge span {
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        .team-badge:hover {
+            transform: scale(1.05);
+        }
+
+        .contact-info {
+            font-size: 14px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .contact-info a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .contact-info a:hover {
+            color: #4facfe;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-simple">
+        <a href="index.html">← Return to Home</a>
+    </div>
+
+    <div class="form-container">
+        <h2>Candidate Details</h2>
+        <form id="surveyForm">
+            
+            <label>Full Name</label>
+            <input type="text" id="studentName" placeholder="Enter your full name" required />
+
+            <label>Select Exam Type</label>
+            <select id="instructorType" required>
+                <option value="" disabled selected>Choose option...</option>
+                <option value="Basic Computer Instructor">Basic Computer Instructor</option>
+                <option value="Senior Computer Instructor">Senior Computer Instructor</option>
+            </select>
+
+            <label>Category</label>
+            <input type="text" id="category" placeholder="Enter category (e.g., General, OBC, EWS, etc.)" required />
+
+            <label>Marks Obtained</label>
+            <input type="number" id="marks" placeholder="Enter number out of 200" min="0" max="200" step="0.01" required />
+
+            <button type="submit">Submit Details</button>
+            <div id="successMessage" class="success-msg">Data Submitted Successfully!</div>
+        </form>
+
+        <div class="link-container">
+            <a href="results.html">View Survey Leaderboard →</a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="team-badge">MADE BY <span>TEAM JKBYTE</span></div>
+        <div class="contact-info">
+            Contact us: <a href="mailto:teamjkbyte@gmail.com">teamjkbyte@gmail.com</a>
+        </div>
+    </footer>
+
+    <!-- Firebase Modular SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        // Aapki Firebase Configuration 
+        const firebaseConfig = {
+            apiKey: "AIzaSyBLK2-2BJsYhwxKfcggWKdfRQI1lf_-tkM",
+            authDomain: "computerinstructorsurvey.firebaseapp.com",
+            projectId: "computerinstructorsurvey",
+            storageBucket: "computerinstructorsurvey.firebasestorage.app",
+            messagingSenderId: "878135244517",
+            appId: "1:878135244517:web:f74375930e55ba645b460c"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        document.getElementById('surveyForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const btn = e.target.querySelector('button');
+            btn.innerText = "Processing...";
+            btn.disabled = true;
+
+            const name = document.getElementById('studentName').value;
+            const type = document.getElementById('instructorType').value;
+            const category = document.getElementById('category').value;
+            const marks = document.getElementById('marks').value;
+
+            // Validate Marks
+            if(parseFloat(marks) > 200 || parseFloat(marks) < 0) {
+                alert("Please enter a valid number between 0 and 200.");
+                btn.innerText = "Submit Details";
+                btn.disabled = false;
+                return;
+            }
+
+            try {
+                await addDoc(collection(db, "instructor_survey"), {
+                    student_name: name,
+                    bharti_type: type,
+                    category: category,
+                    marks_obtained: parseFloat(marks),
+                    timestamp: new Date()
+                });
+                
+                document.getElementById('surveyForm').reset();
+                document.getElementById('successMessage').style.display = "block";
+                btn.innerText = "Submit Details";
+                btn.disabled = false;
+                
+                setTimeout(() => {
+                    document.getElementById('successMessage').style.display = "none";
+                }, 4000);
+
+            } catch (error) {
+                console.error("Error: ", error);
+                alert("Submission Failed: " + error.message);
+                btn.innerText = "Submit Details";
+                btn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>

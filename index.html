@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JK Byte Classes | Premium Learning</title>
+    <style>
+        :root {
+            --bg-color: #f5f5f7;
+            --text-main: #1d1d1f;
+            --text-muted: #86868b;
+            --primary-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --card-bg: rgba(255, 255, 255, 0.8);
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Glass Header */
+        header {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            padding: 18px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        /* Colorful Hero Section */
+        .hero {
+            text-align: center;
+            padding: 100px 20px;
+            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(79,172,254,0.1) 0%, rgba(0,242,254,0) 70%);
+            z-index: 0;
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            100% { transform: rotate(360deg); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 800;
+            margin: 0 0 15px 0;
+            letter-spacing: -1.2px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: var(--text-muted);
+            margin: 0 auto 40px auto;
+            max-width: 600px;
+            line-height: 1.5;
+        }
+
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 16px 36px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 600;
+            box-shadow: 0 10px 20px rgba(79, 172, 254, 0.3);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 25px rgba(79, 172, 254, 0.4);
+        }
+
+        /* Interactive Grid */
+        .section-title {
+            text-align: center;
+            font-size: 34px;
+            font-weight: 700;
+            margin: 80px 0 40px 0;
+        }
+
+        .grid-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            padding: 40px 30px;
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.5);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            text-align: center;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            border-color: rgba(79, 172, 254, 0.3);
+        }
+
+        .card h3 {
+            font-size: 24px;
+            margin-bottom: 12px;
+            color: #333;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        /* Stylish Footer */
+        footer {
+            text-align: center;
+            padding: 60px 20px 40px;
+            margin-top: 60px;
+        }
+
+        .team-badge {
+            display: inline-block;
+            padding: 10px 25px;
+            background: #1d1d1f;
+            color: white;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .team-badge span {
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        .team-badge:hover {
+            transform: scale(1.05);
+        }
+
+        .contact-info {
+            font-size: 15px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .contact-info a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .contact-info a:hover {
+            color: #4facfe;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">JK Byte Classes</div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Computer Instructor Exam Survey</h1>
+            <p>Participate in the nationwide survey for the recent Computer Instructor Recruitment Exam. Share your marks and analyze the expected cut-off.</p>
+            <a href="survey.html" class="btn-primary">Join The Survey Now</a>
+        </div>
+    </section>
+
+    <h2 class="section-title">Exclusive Study Material</h2>
+    <div class="grid-container">
+        <div class="card">
+            <h3>Programming Notes</h3>
+            <p>Download high-quality, easy-to-understand notes for Python, C++, Java, and Web Development.</p>
+        </div>
+        <div class="card">
+            <h3>Previous Year Papers</h3>
+            <p>Access complete previous year question papers for all major IT and Computer Science exams with solutions.</p>
+        </div>
+        <div class="card">
+            <h3>Mock Tests</h3>
+            <p>Test your knowledge with our premium mock tests designed strictly according to the latest syllabus.</p>
+        </div>
+    </div>
+
+    <footer>
+        <div class="team-badge">MADE BY <span>TEAM JKBYTE</span></div>
+        <div class="contact-info">
+            Contact us: <a href="mailto:teamjkbyte@gmail.com">teamjkbyte@gmail.com</a>
+        </div>
+    </footer>
+
+</body>
+</html>

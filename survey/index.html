@@ -29,37 +29,64 @@
         .theme-toggle { background: var(--surface-color); border: none; font-size: 20px; cursor: pointer; width: 40px; height: 40px; border-radius: 50%; box-shadow: var(--shadow-out); transition: 0.3s; }
         .theme-toggle:hover { box-shadow: var(--shadow-in); }
 
-        .form-container { background: var(--surface-color); width: 100%; max-width: 480px; margin: 30px 20px; padding: 40px; border-radius: 24px; box-shadow: var(--shadow-out); box-sizing: border-box; }
+        /* Container me responsive margin theek kiya gaya hai */
+        .form-container { background: var(--surface-color); width: calc(100% - 40px); max-width: 480px; margin: 30px auto; padding: 40px; border-radius: 24px; box-shadow: var(--shadow-out); box-sizing: border-box; }
         .form-container h2 { text-align: center; margin-top: 0; background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 28px; }
         
         label { display: block; font-size: 15px; font-weight: 700; margin-bottom: 10px; color: var(--text-muted); }
         
-        /* 3D Inset Inputs -*/
-input, select { 
-    width: 100%; 
-    padding: 16px; 
-    margin-bottom: 25px; 
-    border-radius: 12px; 
-    font-size: 16px; 
-    color: var(--text-main); 
-    box-shadow: var(--shadow-in); 
-    box-sizing: border-box; 
-    outline: none; 
-    transition: 0.3s;    
-    border: 2px solid transparent; 
-    background: linear-gradient(var(--surface-color), var(--surface-color)) padding-box, var(--brand-gradient) border-box;
-}
-input:focus, select:focus { 
-    box-shadow: 0 0 12px rgba(0, 210, 255, 0.4), inset 2px 2px 5px rgba(0, 210, 255, 0.4), inset -2px -2px 5px rgba(223, 32, 185, 0.2); 
-}
+        /* 3D Inset Inputs - Rangeen border ke sath */
+        input, select { 
+            width: 100%; 
+            padding: 16px; 
+            margin-bottom: 25px; 
+            border-radius: 12px; 
+            font-size: 16px; 
+            color: var(--text-main); 
+            box-shadow: var(--shadow-in); 
+            box-sizing: border-box; 
+            outline: none; 
+            transition: 0.3s;
+            border: 2px solid transparent; 
+            background: linear-gradient(var(--surface-color), var(--surface-color)) padding-box, var(--brand-gradient) border-box;
+        }
+        input:focus, select:focus { 
+            box-shadow: 0 0 12px rgba(0, 210, 255, 0.4), inset 2px 2px 5px rgba(0, 210, 255, 0.4), inset -2px -2px 5px rgba(223, 32, 185, 0.2); 
+        }
         
         button { width: 100%; background: var(--brand-gradient); color: white; border: none; padding: 18px; border-radius: 16px; font-size: 18px; font-weight: 800; cursor: pointer; box-shadow: 0 10px 20px rgba(0, 210, 255, 0.3); transition: 0.3s; }
         button:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(223, 32, 185, 0.4); }
         button:active { transform: translateY(2px); box-shadow: 0 5px 10px rgba(0, 210, 255, 0.2); }
 
-        .link-container { text-align: center; margin-top: 25px; }
-        .link-container a { color: #df20b9; text-decoration: none; font-weight: 800; font-size: 16px; padding: 10px 20px; border-radius: 20px; box-shadow: var(--shadow-out); display: inline-block; transition: 0.3s;}
-        .link-container a:hover { box-shadow: var(--shadow-in); }
+        /* NAYE LINKS KI DESIGN */
+        .link-container { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            gap: 15px; /* Dono buttons ke beech gap */
+            margin-top: 25px; 
+        }
+        .link-container a { 
+            color: #df20b9; 
+            text-decoration: none; 
+            font-weight: 800; 
+            font-size: 16px; 
+            padding: 12px 20px; 
+            border-radius: 20px; 
+            box-shadow: var(--shadow-out); 
+            display: flex; 
+            align-items: center;
+            justify-content: center;
+            gap: 10px; /* Text aur icon ke beech jagah */
+            transition: 0.3s;
+            width: 80%; /* Dono buttons ki size barabar rakhne ke liye */
+            box-sizing: border-box;
+        }
+        .link-container a:hover { box-shadow: var(--shadow-in); transform: translateY(-2px); }
+        
+        /* Telegram link ke liye special color */
+        .telegram-link { color: #0088cc !important; }
+        [data-theme="dark"] .telegram-link { color: #33aadd !important; }
 
         .success-msg { display: none; text-align: center; color: #10b981; margin-top: 20px; font-weight: 800; }
     </style>
@@ -92,8 +119,19 @@ input:focus, select:focus {
             <button type="submit">Submit Details</button>
             <div id="successMessage" class="success-msg">Data Saved Successfully!</div>
         </form>
+        
+        <!-- YAHAN BADLAV KIYA GAYA HAI -->
         <div class="link-container">
             <a href="results/">View Leaderboard →</a>
+            
+            <!-- TELEGRAM BUTTON -->
+            <a href="https://t.me/computer_instructor_pass_student" target="_blank" class="telegram-link">
+                <!-- Telegram SVG Icon -->
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.888-.667 3.473-1.512 5.79-2.511 6.952-2.998 3.305-1.385 3.992-1.625 4.437-1.632z"/>
+                </svg>
+                Join Telegram
+            </a>
         </div>
     </div>
 

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leaderboard - JK Byte</title>
-    <link rel="icon" type="image/png" href="../../logo_2.png">
+    <link rel="icon" type="image/png" href="../../logo.png">
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
@@ -12,68 +12,64 @@
 
     <style>
         :root {
-            --bg-color: #f4f6f9;
-            --surface-color: #ffffff;
-            --text-main: #1d1d1f;
-            --text-muted: #6e6e73;
-            --border-color: rgba(0,0,0,0.1);
-            --brand-gradient: linear-gradient(135deg, #d81b60 0%, #00bcd4 100%);
-            --shadow: 0 10px 30px rgba(0,0,0,0.06);
-            --th-bg: #f8f9fa;
+            --bg-color: #ecf0f3; --surface-color: #ecf0f3; --text-main: #2d3748; --text-muted: #718096;
+            --brand-gradient: linear-gradient(135deg, #df20b9 0%, #00d2ff 100%);
+            --shadow-out: 9px 9px 16px rgb(163,177,198,0.6), -9px -9px 16px rgba(255,255,255, 0.8);
+            --shadow-in: inset 6px 6px 10px 0 rgba(163,177,198, 0.6), inset -6px -6px 10px 0 rgba(255,255,255, 0.8);
+            --logo-bg: transparent; --th-bg: #e2e8f0;
         }
         [data-theme="dark"] {
-            --bg-color: #0d1117;
-            --surface-color: #161b22;
-            --text-main: #f0f6fc;
-            --text-muted: #8b949e;
-            --border-color: rgba(255,255,255,0.1);
-            --shadow: 0 10px 30px rgba(0,0,0,0.4);
-            --th-bg: #0d1117;
+            --bg-color: #1a1f24; --surface-color: #1a1f24; --text-main: #e2e8f0; --text-muted: #a0aec0;
+            --shadow-out: 8px 8px 16px rgba(0,0,0,0.4), -8px -8px 16px rgba(255,255,255,0.05);
+            --shadow-in: inset 5px 5px 10px rgba(0,0,0,0.6), inset -5px -5px 10px rgba(255,255,255,0.05);
+            --logo-bg: #ffffff; --th-bg: #12161a;
         }
 
-        body { font-family: system-ui, sans-serif; margin: 0; background: var(--bg-color); color: var(--text-main); display: flex; flex-direction: column; align-items: center; min-height: 100vh; transition: 0.3s; }
+        body { font-family: system-ui, sans-serif; margin: 0; background: var(--bg-color); color: var(--text-main); display: flex; flex-direction: column; align-items: center; min-height: 100vh; transition: 0.4s; }
         
-        .header-simple { width: 100%; padding: 15px 20px; background: var(--surface-color); border-bottom: 1px solid var(--border-color); box-sizing: border-box; display: flex; justify-content: space-between; align-items: center; }
-        .header-simple a { text-decoration: none; color: var(--text-main); font-weight: 600; display: flex; align-items: center; gap: 10px; }
-        .header-logo { width: 35px; height: 35px; border-radius: 50%; background: #fff; padding: 2px; }
+        .header-simple { width: 100%; padding: 15px 20px; background: var(--surface-color); box-shadow: var(--shadow-out); box-sizing: border-box; display: flex; justify-content: space-between; align-items: center; border-radius: 0 0 20px 20px; margin-bottom: 20px; }
+        .header-simple a { text-decoration: none; color: var(--text-main); font-weight: 700; display: flex; align-items: center; gap: 12px; }
+        .header-logo { width: 40px; height: 40px; border-radius: 50%; background: var(--logo-bg); box-shadow: var(--shadow-out); padding: 2px; }
         
-        .theme-toggle { background: transparent; border: none; font-size: 20px; cursor: pointer; }
+        .theme-toggle { background: var(--surface-color); border: none; font-size: 20px; cursor: pointer; width: 40px; height: 40px; border-radius: 50%; box-shadow: var(--shadow-out); transition: 0.3s; }
+        .theme-toggle:hover { box-shadow: var(--shadow-in); }
 
-        .container { background: var(--surface-color); padding: 40px; border-radius: 20px; box-shadow: var(--shadow); border: 1px solid var(--border-color); text-align: center; max-width: 500px; width: 90%; margin-top: 40px; }
-        .container h2 { margin-top: 0; background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .container { background: var(--surface-color); padding: 40px; border-radius: 24px; box-shadow: var(--shadow-out); text-align: center; max-width: 500px; width: 90%; margin-top: 20px; }
+        .container h2 { margin-top: 0; background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 28px; }
         
-        .btn-action { color: white; border: none; padding: 14px; border-radius: 20px; font-size: 15px; font-weight: 700; cursor: pointer; width: 100%; margin-bottom: 12px; transition: 0.3s; }
+        .btn-3d { color: white; border: none; padding: 16px; border-radius: 20px; font-size: 16px; font-weight: 800; cursor: pointer; width: 100%; margin-bottom: 15px; box-shadow: 0 10px 20px rgba(0, 210, 255, 0.2); transition: 0.3s; }
         .btn-view { background: var(--brand-gradient); }
-        .btn-excel { background: #10b981; }
-        .btn-action:hover { opacity: 0.9; transform: translateY(-2px); }
+        .btn-excel { background: linear-gradient(135deg, #10b981 0%, #059669 100%); box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2); }
+        .btn-3d:hover { transform: translateY(-3px); filter: brightness(1.1); }
+        .btn-3d:active { transform: translateY(2px); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
 
-        .table-container { display: none; width: 100%; max-width: 900px; background: var(--surface-color); border-radius: 20px; padding: 20px; box-sizing: border-box; margin: 30px 0; overflow-x: auto; border: 1px solid var(--border-color); }
+        .table-container { display: none; width: 100%; max-width: 900px; background: var(--surface-color); border-radius: 24px; padding: 25px; box-sizing: border-box; margin: 30px 0; overflow-x: auto; box-shadow: var(--shadow-in); }
         table { width: 100%; border-collapse: collapse; text-align: left; }
-        th, td { padding: 12px; border-bottom: 1px solid var(--border-color); }
-        th { background: var(--th-bg); color: #00bcd4; }
+        th, td { padding: 15px; border-bottom: 1px solid rgba(163,177,198,0.2); }
+        th { background: var(--th-bg); color: #df20b9; border-radius: 10px; }
     </style>
 </head>
 <body>
 
     <div class="header-simple">
         <a href="../">
-            <img src="../../logo_2.png" alt="Logo" class="header-logo"> ← Form
+            <img src="../../logo.png" alt="Logo" class="header-logo"> ← Back to Form
         </a>
         <button class="theme-toggle" id="themeToggle">🌙</button>
     </div>
 
     <div class="container">
         <h2>Live Leaderboard</h2>
-        <button id="viewBtn" class="btn-action btn-view">View Live Rankings</button>
-        <button id="downloadPdfBtn" class="btn-action btn-view" style="background: #e00078;">Download PDF</button>
-        <button id="downloadExcelBtn" class="btn-action btn-excel">Download Excel</button>
+        <button id="viewBtn" class="btn-3d btn-view">View Live Rankings</button>
+        <button id="downloadPdfBtn" class="btn-3d btn-view" style="background: linear-gradient(135deg, #f12711 0%, #f5af19 100%); box-shadow: 0 10px 20px rgba(241, 39, 17, 0.2);">Download PDF Report</button>
+        <button id="downloadExcelBtn" class="btn-3d btn-excel">Download Excel Report</button>
         <br><br>
-        <a href="../../" style="color:#00bcd4; font-weight:600; text-decoration:none;">Go to Home</a>
+        <a href="../../" style="color:#00d2ff; font-weight:800; text-decoration:none; padding:10px 20px; border-radius:20px; box-shadow:var(--shadow-out);">Go to Home</a>
     </div>
 
     <div id="tableContainer" class="table-container">
         <table>
-            <thead><tr><th>Rank</th><th>Name</th><th>Exam</th><th>Category</th><th>Marks</th></tr></thead>
+            <thead><tr><th>Rank</th><th>Student Name</th><th>Exam Type</th><th>Category</th><th>Marks</th></tr></thead>
             <tbody id="tableBody"></tbody>
         </table>
     </div>
@@ -98,36 +94,35 @@
             this.innerText = "Loading...";
             try {
                 let data = await fetchData();
-                document.getElementById('tableBody').innerHTML = data.map((d,i) => `<tr><td>#${i+1}</td><td>${d.student_name}</td><td>${d.bharti_type}</td><td>${d.category}</td><td style="color:#00bcd4; font-weight:bold;">${d.marks_obtained}</td></tr>`).join('');
+                document.getElementById('tableBody').innerHTML = data.map((d,i) => `<tr><td style="font-weight:bold;">#${i+1}</td><td>${d.student_name}</td><td>${d.bharti_type}</td><td>${d.category}</td><td style="color:#00d2ff; font-weight:800; font-size:16px;">${d.marks_obtained}</td></tr>`).join('');
                 tc.style.display = 'block';
             } catch(e) { alert("Error loading data"); }
             this.innerText = "View Live Rankings";
         };
 
         document.getElementById('downloadPdfBtn').onclick = async function() {
-            this.innerText = "Generating...";
+            this.innerText = "Generating PDF...";
             try {
                 let data = await fetchData();
                 let { jsPDF } = window.jspdf; let doc = new jsPDF();
-                doc.text("Leaderboard", 14, 20);
-                doc.autoTable({ startY:30, head: [['Rank', 'Name', 'Exam', 'Category', 'Marks']], body: data.map((d,i) => [i+1, d.student_name, d.bharti_type, d.category, d.marks_obtained]) });
-                doc.save('Leaderboard.pdf');
+                doc.setFontSize(20); doc.text("Computer Instructor - Leaderboard", 14, 20);
+                doc.autoTable({ startY:30, head: [['Rank', 'Name', 'Exam', 'Category', 'Marks']], body: data.map((d,i) => [i+1, d.student_name, d.bharti_type, d.category, d.marks_obtained]), headStyles: { fillColor: [223, 32, 185] } });
+                doc.save('Instructor_Leaderboard.pdf');
             } catch(e) {}
-            this.innerText = "Download PDF";
+            this.innerText = "Download PDF Report";
         };
 
         document.getElementById('downloadExcelBtn').onclick = async function() {
-            this.innerText = "Generating...";
+            this.innerText = "Generating Excel...";
             try {
                 let data = await fetchData();
-                let ws = XLSX.utils.json_to_sheet(data.map((d,i) => ({"Rank":i+1, "Name":d.student_name, "Exam":d.bharti_type, "Category":d.category, "Marks":d.marks_obtained})));
-                let wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, "Data");
-                XLSX.writeFile(wb, 'Leaderboard.xlsx');
+                let ws = XLSX.utils.json_to_sheet(data.map((d,i) => ({"Rank":i+1, "Student Name":d.student_name, "Exam Type":d.bharti_type, "Category":d.category, "Marks (Out of 200)":d.marks_obtained})));
+                let wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, "Leaderboard");
+                XLSX.writeFile(wb, 'Instructor_Leaderboard.xlsx');
             } catch(e) {}
-            this.innerText = "Download Excel";
+            this.innerText = "Download Excel Report";
         };
 
-        // Theme Toggle Logic
         const toggleBtn = document.getElementById('themeToggle');
         const currentTheme = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', currentTheme);

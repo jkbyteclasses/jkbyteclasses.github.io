@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Survey Results - Download</title>
+    <title>Survey Results - View & Download</title>
     
     <!-- jsPDF & AutoTable for PDF -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -20,6 +20,7 @@
             --accent: #4facfe;
             --primary-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
             --excel-gradient: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            --view-gradient: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
         }
 
         body {
@@ -60,8 +61,8 @@
         .content-wrapper {
             flex: 1;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
             width: 100%;
             margin-top: 80px; 
             padding: 20px;
@@ -79,6 +80,7 @@
             max-width: 500px;
             width: 100%;
             box-sizing: border-box;
+            margin-bottom: 30px;
         }
 
         .container h2 {
@@ -92,7 +94,7 @@
 
         .container p {
             color: var(--text-muted);
-            margin-bottom: 35px;
+            margin-bottom: 30px;
             line-height: 1.6;
             font-size: 16px;
         }
@@ -103,7 +105,7 @@
             border: none;
             padding: 16px 32px;
             border-radius: 30px;
-            font-size: 17px;
+            font-size: 16px;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -115,6 +117,15 @@
         .btn-download:hover {
             transform: translateY(-3px);
             box-shadow: 0 12px 25px rgba(79, 172, 254, 0.4);
+        }
+
+        .btn-view {
+            background: var(--view-gradient);
+            box-shadow: 0 8px 20px rgba(37, 117, 252, 0.3);
+        }
+        
+        .btn-view:hover {
+            box-shadow: 0 12px 25px rgba(37, 117, 252, 0.4);
         }
 
         .btn-excel {
@@ -135,17 +146,70 @@
 
         .back-link {
             display: inline-block;
-            margin-top: 15px;
+            margin-top: 10px;
             color: var(--accent);
             text-decoration: none;
             font-weight: 600;
         }
 
+        /* --- Live Table Styles --- */
+        .table-container {
+            display: none; /* Default hidden */
+            width: 100%;
+            max-width: 900px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            border: 1px solid rgba(255,255,255,0.5);
+            padding: 25px;
+            box-sizing: border-box;
+            margin-bottom: 40px;
+        }
+
+        .table-container h3 {
+            margin-top: 0;
+            font-size: 24px;
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 15px;
+        }
+
+        th, td {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: #f8fafc;
+            color: #4facfe;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        tr:hover {
+            background-color: #f1f5f9;
+        }
+        
+        .rank-col { font-weight: 700; color: #555; }
+        .marks-col { font-weight: 700; color: #10b981; }
+
         /* Stylish Footer */
         footer {
             text-align: center;
             padding: 20px;
-            margin-bottom: 20px;
+            margin-top: auto;
             width: 100%;
         }
 
@@ -171,10 +235,6 @@
             font-weight: 800;
         }
 
-        .team-badge:hover {
-            transform: scale(1.05);
-        }
-
         .contact-info {
             font-size: 14px;
             color: #666;
@@ -185,29 +245,46 @@
             color: var(--text-main);
             text-decoration: none;
             font-weight: 600;
-            transition: color 0.3s ease;
-        }
-
-        .contact-info a:hover {
-            color: #4facfe;
         }
     </style>
 </head>
 <body>
 
     <div class="header-simple">
-        <a href="../survey">← Back to Form</a>
+        <a href="../survey.html">← Back to Form</a>
     </div>
 
     <div class="content-wrapper">
         <div class="container">
             <h2>Survey Leaderboard</h2>
-            <p>Download the complete list of candidates sorted by highest marks in PDF or Excel format.</p>
+            <p>View the live leaderboard directly on your screen or download the complete list.</p>
             
+            <button id="viewBtn" class="btn-download btn-view">View Leaderboard Live</button>
             <button id="downloadPdfBtn" class="btn-download">Download PDF Report</button>
             <button id="downloadExcelBtn" class="btn-download btn-excel">Download Excel Report</button>
             <br>
             <a href="../index.html" class="back-link">Return to Home →</a>
+        </div>
+
+        <!-- Live Table UI -->
+        <div id="tableContainer" class="table-container">
+            <h3>Live Leaderboard Ranking</h3>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Student Name</th>
+                            <th>Exam Type</th>
+                            <th>Category</th>
+                            <th>Marks (Out of 200)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <!-- Data dynamically loaded here -->
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
@@ -234,7 +311,7 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // Common function to fetch and sort data automatically (Highest marks on top)
+        // Fetch and Sort Data Function
         async function fetchAndSortData() {
             const surveyRef = collection(db, "instructor_survey");
             const querySnapshot = await getDocs(surveyRef);
@@ -244,94 +321,107 @@
                 rawData.push(doc.data());
             });
 
-            // Sorting logic: Highest marks first
             rawData.sort((a, b) => {
                 const marksA = parseFloat(a.marks_obtained) || 0;
                 const marksB = parseFloat(b.marks_obtained) || 0;
-                return marksB - marksA; // Descending order
+                return marksB - marksA; 
             });
 
             return rawData;
         }
+
+        // --- VIEW LIVE LEADERBOARD LOGIC ---
+        document.getElementById('viewBtn').addEventListener('click', async () => {
+            const btn = document.getElementById('viewBtn');
+            const tableContainer = document.getElementById('tableContainer');
+            const tableBody = document.getElementById('tableBody');
+            
+            // Toggle Hide/Show
+            if (tableContainer.style.display === 'block') {
+                tableContainer.style.display = 'none';
+                btn.innerText = "View Leaderboard Live";
+                return;
+            }
+
+            btn.innerText = "Loading Data...";
+            btn.disabled = true;
+
+            try {
+                const sortedData = await fetchAndSortData();
+                tableBody.innerHTML = ""; 
+                
+                if (sortedData.length === 0) {
+                    alert("No data available to view yet.");
+                    btn.innerText = "View Leaderboard Live";
+                    btn.disabled = false;
+                    return;
+                }
+
+                sortedData.forEach((data, index) => {
+                    const row = `<tr>
+                        <td class="rank-col">#${index + 1}</td>
+                        <td>${data.student_name || "N/A"}</td>
+                        <td>${data.bharti_type || "N/A"}</td>
+                        <td>${data.category || "N/A"}</td>
+                        <td class="marks-col">${data.marks_obtained !== undefined ? data.marks_obtained : "N/A"}</td>
+                    </tr>`;
+                    tableBody.innerHTML += row;
+                });
+
+                tableContainer.style.display = 'block';
+                btn.innerText = "Hide Leaderboard";
+
+                // Scroll down to table smoothly
+                tableContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            } catch (error) {
+                console.error("Error fetching data: ", error);
+                alert("Error loading leaderboard!");
+                btn.innerText = "View Leaderboard Live";
+            }
+            btn.disabled = false;
+        });
 
         // --- PDF DOWNLOAD LOGIC ---
         document.getElementById('downloadPdfBtn').addEventListener('click', async () => {
             const btn = document.getElementById('downloadPdfBtn');
             btn.innerText = "Generating PDF...";
             btn.disabled = true;
-
             try {
                 const sortedData = await fetchAndSortData();
-                
                 if (sortedData.length === 0) {
-                    alert("No data available to download yet.");
+                    alert("No data available to download.");
                     btn.innerText = "Download PDF Report";
                     btn.disabled = false;
                     return;
                 }
-
                 let tableData = [];
                 sortedData.forEach((data, index) => {
                     tableData.push([
-                        index + 1, // Rank
-                        data.student_name || "N/A", 
-                        data.bharti_type || "N/A", 
-                        data.category || "N/A",
-                        data.marks_obtained !== undefined ? data.marks_obtained : "N/A"
+                        index + 1, data.student_name || "N/A", data.bharti_type || "N/A", 
+                        data.category || "N/A", data.marks_obtained !== undefined ? data.marks_obtained : "N/A"
                     ]);
                 });
-
                 const { jsPDF } = window.jspdf;
                 const doc = new jsPDF();
-
                 doc.setFontSize(20);
                 doc.setTextColor(40, 40, 40);
                 doc.text("Computer Instructor Exam - Leaderboard", 14, 22);
-                
                 doc.setFontSize(10);
                 doc.setTextColor(100, 100, 100);
                 doc.text("Generated officially via JK Byte Classes", 14, 28);
-
                 doc.autoTable({
                     startY: 34,
                     head: [['Rank', 'Student Name', 'Exam Type', 'Category', 'Marks (Out of 200)']],
                     body: tableData,
                     theme: 'grid',
-                    styles: { 
-                        fontSize: 10, 
-                        cellPadding: 5,
-                        valign: 'middle', 
-                        overflow: 'linebreak' 
-                    },
-                    headStyles: { 
-                        fillColor: [79, 172, 254], 
-                        textColor: 255,
-                        halign: 'center',
-                        fontStyle: 'bold'
-                    },
-                    columnStyles: {
-                        0: { halign: 'center', cellWidth: 15 },
-                        1: { cellWidth: 'auto' },
-                        2: { cellWidth: 45 },
-                        3: { cellWidth: 35 },
-                        4: { halign: 'center', cellWidth: 35 }
-                    },
-                    alternateRowStyles: { fillColor: [248, 250, 252] },
-                    didDrawPage: function (data) {
-                        let str = "Page " + doc.internal.getNumberOfPages();
-                        doc.setFontSize(9);
-                        doc.setTextColor(150);
-                        doc.text(str, data.settings.margin.left, doc.internal.pageSize.height - 10);
-                    }
+                    styles: { fontSize: 10, cellPadding: 5, valign: 'middle', overflow: 'linebreak' },
+                    headStyles: { fillColor: [79, 172, 254], textColor: 255, halign: 'center', fontStyle: 'bold' },
+                    columnStyles: { 0: { halign: 'center', cellWidth: 15 }, 4: { halign: 'center', cellWidth: 35 } },
+                    alternateRowStyles: { fillColor: [248, 250, 252] }
                 });
-
                 doc.save('Instructor_Exam_Leaderboard.pdf');
-
-            } catch (error) {
-                console.error("Error generating PDF: ", error);
-                alert("Error downloading PDF!");
-            }
-
+            } catch (error) { alert("Error downloading PDF!"); }
             btn.innerText = "Download PDF Report";
             btn.disabled = false;
         });
@@ -341,49 +431,25 @@
             const btn = document.getElementById('downloadExcelBtn');
             btn.innerText = "Generating Excel...";
             btn.disabled = true;
-
             try {
                 const sortedData = await fetchAndSortData();
-                
                 if (sortedData.length === 0) {
-                    alert("No data available to download yet.");
+                    alert("No data available to download.");
                     btn.innerText = "Download Excel Report";
                     btn.disabled = false;
                     return;
                 }
-
-                // Format data for Excel
                 const excelData = sortedData.map((data, index) => ({
-                    "Rank": index + 1,
-                    "Student Name": data.student_name || "N/A",
-                    "Exam Type": data.bharti_type || "N/A",
-                    "Category": data.category || "N/A",
+                    "Rank": index + 1, "Student Name": data.student_name || "N/A",
+                    "Exam Type": data.bharti_type || "N/A", "Category": data.category || "N/A",
                     "Marks (Out of 200)": data.marks_obtained !== undefined ? data.marks_obtained : "N/A"
                 }));
-
-                // Create Worksheet and Workbook
                 const worksheet = XLSX.utils.json_to_sheet(excelData);
                 const workbook = XLSX.utils.book_new();
                 XLSX.utils.book_append_sheet(workbook, worksheet, "Leaderboard");
-
-                // Auto-adjust column widths for Excel
-                const columnWidths = [
-                    { wch: 8 },  // Rank
-                    { wch: 25 }, // Name
-                    { wch: 30 }, // Exam Type
-                    { wch: 15 }, // Category
-                    { wch: 20 }  // Marks
-                ];
-                worksheet['!cols'] = columnWidths;
-
-                // Download File
+                worksheet['!cols'] = [{ wch: 8 }, { wch: 25 }, { wch: 30 }, { wch: 15 }, { wch: 20 }];
                 XLSX.writeFile(workbook, 'Instructor_Exam_Leaderboard.xlsx');
-
-            } catch (error) {
-                console.error("Error generating Excel: ", error);
-                alert("Error downloading Excel!");
-            }
-
+            } catch (error) { alert("Error downloading Excel!"); }
             btn.innerText = "Download Excel Report";
             btn.disabled = false;
         });

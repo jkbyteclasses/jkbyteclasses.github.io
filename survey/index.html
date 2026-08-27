@@ -4,57 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Submit Data - JK Byte</title>
-    <link rel="icon" type="image/png" href="../logo_2.png">
+    <link rel="icon" type="image/png" href="../logo.png">
     <style>
         :root {
-            --bg-color: #f4f6f9;
-            --surface-color: #ffffff;
-            --text-main: #1d1d1f;
-            --text-muted: #6e6e73;
-            --border-color: rgba(0,0,0,0.1);
-            --brand-gradient: linear-gradient(135deg, #d81b60 0%, #00bcd4 100%);
-            --input-bg: #f9fafb;
-            --shadow: 0 10px 30px rgba(0,0,0,0.06);
+            --bg-color: #ecf0f3; --surface-color: #ecf0f3; --text-main: #2d3748; --text-muted: #718096;
+            --brand-gradient: linear-gradient(135deg, #df20b9 0%, #00d2ff 100%);
+            --shadow-out: 9px 9px 16px rgb(163,177,198,0.6), -9px -9px 16px rgba(255,255,255, 0.8);
+            --shadow-in: inset 6px 6px 10px 0 rgba(163,177,198, 0.6), inset -6px -6px 10px 0 rgba(255,255,255, 0.8);
+            --logo-bg: transparent;
         }
         [data-theme="dark"] {
-            --bg-color: #0d1117;
-            --surface-color: #161b22;
-            --text-main: #f0f6fc;
-            --text-muted: #8b949e;
-            --border-color: rgba(255,255,255,0.1);
-            --input-bg: #0d1117;
-            --shadow: 0 10px 30px rgba(0,0,0,0.4);
+            --bg-color: #1a1f24; --surface-color: #1a1f24; --text-main: #e2e8f0; --text-muted: #a0aec0;
+            --shadow-out: 8px 8px 16px rgba(0,0,0,0.4), -8px -8px 16px rgba(255,255,255,0.05);
+            --shadow-in: inset 5px 5px 10px rgba(0,0,0,0.6), inset -5px -5px 10px rgba(255,255,255,0.05);
+            --logo-bg: #ffffff;
         }
 
-        body { font-family: system-ui, sans-serif; margin: 0; background: var(--bg-color); color: var(--text-main); display: flex; flex-direction: column; align-items: center; min-height: 100vh; transition: background 0.3s, color 0.3s; }
+        body { font-family: system-ui, sans-serif; margin: 0; background: var(--bg-color); color: var(--text-main); display: flex; flex-direction: column; align-items: center; min-height: 100vh; transition: 0.4s ease; }
         
-        .header-simple { width: 100%; padding: 15px 20px; background: var(--surface-color); border-bottom: 1px solid var(--border-color); box-sizing: border-box; display: flex; justify-content: space-between; align-items: center; }
-        .header-simple a { text-decoration: none; color: var(--text-main); font-weight: 600; display: flex; align-items: center; gap: 10px; }
-        .header-logo { width: 35px; height: 35px; border-radius: 50%; background: #fff; padding: 2px; }
+        .header-simple { width: 100%; padding: 15px 20px; background: var(--surface-color); box-shadow: var(--shadow-out); box-sizing: border-box; display: flex; justify-content: space-between; align-items: center; border-radius: 0 0 20px 20px; margin-bottom: 20px;}
+        .header-simple a { text-decoration: none; color: var(--text-main); font-weight: 700; display: flex; align-items: center; gap: 12px; }
+        .header-logo { width: 40px; height: 40px; border-radius: 50%; background: var(--logo-bg); box-shadow: var(--shadow-out); padding: 2px; }
         
-        .theme-toggle { background: transparent; border: none; font-size: 20px; cursor: pointer; }
+        .theme-toggle { background: var(--surface-color); border: none; font-size: 20px; cursor: pointer; width: 40px; height: 40px; border-radius: 50%; box-shadow: var(--shadow-out); transition: 0.3s; }
+        .theme-toggle:hover { box-shadow: var(--shadow-in); }
 
-        .form-container { background: var(--surface-color); width: 100%; max-width: 450px; margin: 40px 20px; padding: 40px; border-radius: 20px; box-shadow: var(--shadow); border: 1px solid var(--border-color); box-sizing: border-box; }
-        .form-container h2 { text-align: center; margin-top: 0; background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .form-container { background: var(--surface-color); width: 100%; max-width: 480px; margin: 30px 20px; padding: 40px; border-radius: 24px; box-shadow: var(--shadow-out); box-sizing: border-box; }
+        .form-container h2 { text-align: center; margin-top: 0; background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 28px; }
         
-        label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: var(--text-muted); }
-        input, select { width: 100%; padding: 14px; margin-bottom: 20px; border: 1px solid var(--border-color); border-radius: 12px; font-size: 15px; background: var(--input-bg); color: var(--text-main); box-sizing: border-box; outline: none; }
-        input:focus, select:focus { border-color: #00bcd4; }
+        label { display: block; font-size: 15px; font-weight: 700; margin-bottom: 10px; color: var(--text-muted); }
         
-        button { width: 100%; background: var(--brand-gradient); color: white; border: none; padding: 16px; border-radius: 12px; font-size: 17px; font-weight: 700; cursor: pointer; transition: 0.3s; }
-        button:hover { transform: translateY(-2px); opacity: 0.9; }
+        /* 3D Inset Inputs */
+        input, select { width: 100%; padding: 16px; margin-bottom: 25px; border: none; border-radius: 12px; font-size: 16px; background: var(--surface-color); color: var(--text-main); box-shadow: var(--shadow-in); box-sizing: border-box; outline: none; transition: 0.3s; }
+        input:focus, select:focus { box-shadow: inset 2px 2px 5px rgba(0, 210, 255, 0.4), inset -2px -2px 5px rgba(223, 32, 185, 0.2); }
+        
+        button { width: 100%; background: var(--brand-gradient); color: white; border: none; padding: 18px; border-radius: 16px; font-size: 18px; font-weight: 800; cursor: pointer; box-shadow: 0 10px 20px rgba(0, 210, 255, 0.3); transition: 0.3s; }
+        button:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(223, 32, 185, 0.4); }
+        button:active { transform: translateY(2px); box-shadow: 0 5px 10px rgba(0, 210, 255, 0.2); }
 
-        .link-container { text-align: center; margin-top: 20px; }
-        .link-container a { color: #00bcd4; text-decoration: none; font-weight: 600; }
+        .link-container { text-align: center; margin-top: 25px; }
+        .link-container a { color: #df20b9; text-decoration: none; font-weight: 800; font-size: 16px; padding: 10px 20px; border-radius: 20px; box-shadow: var(--shadow-out); display: inline-block; transition: 0.3s;}
+        .link-container a:hover { box-shadow: var(--shadow-in); }
 
-        .success-msg { display: none; text-align: center; color: #10b981; margin-top: 15px; font-weight: 600; }
+        .success-msg { display: none; text-align: center; color: #10b981; margin-top: 20px; font-weight: 800; }
     </style>
 </head>
 <body>
 
     <div class="header-simple">
         <a href="../">
-            <img src="../logo_2.png" alt="Logo" class="header-logo"> ← Home
+            <img src="../logo.png" alt="Logo" class="header-logo"> ← Back to Home
         </a>
         <button class="theme-toggle" id="themeToggle">🌙</button>
     </div>
@@ -74,6 +73,7 @@
             <input type="text" id="category" placeholder="Enter category (e.g., General, OBC)" required />
             <label>Marks Obtained</label>
             <input type="number" id="marks" placeholder="Marks out of 200" min="0" max="200" step="0.01" required />
+            
             <button type="submit">Submit Details</button>
             <div id="successMessage" class="success-msg">Data Saved Successfully!</div>
         </form>
@@ -116,7 +116,6 @@
             btn.innerText = "Submit Details"; btn.disabled = false;
         });
 
-        // Theme Toggle Logic
         const toggleBtn = document.getElementById('themeToggle');
         const currentTheme = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', currentTheme);

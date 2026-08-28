@@ -121,14 +121,24 @@
             font-size: 18px;
             color: var(--text-muted);
             max-width: 600px;
-            margin: 0 auto 40px auto;
+            /* Khali jagah ko 40px se kam karke 20px kar diya */
+            margin: 0 auto 20px auto; 
             line-height: 1.6;
+        }
+
+        /* Buttons Container */
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap; /* Mobile screen ke liye */
+            margin-top: 15px;
         }
 
         .btn-3d {
             background: var(--brand-gradient);
             color: #ffffff;
-            padding: 18px 40px;
+            padding: 16px 36px;
             border-radius: 30px;
             text-decoration: none;
             font-size: 18px;
@@ -148,6 +158,29 @@
         .btn-3d:active {
             transform: translateY(2px);
             box-shadow: 0 5px 10px rgba(223, 32, 185, 0.3);
+        }
+
+        /* Naya Secondary Button (Leaderboard ke liye) */
+        .btn-3d-secondary {
+            background: var(--surface-color);
+            color: #df20b9; /* Pink-Blue theme match */
+            padding: 16px 36px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: var(--shadow-out);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .btn-3d-secondary:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-in);
+            color: #00d2ff;
         }
 
         .grid-container {
@@ -229,7 +262,12 @@
     <section class="hero">
         <h1>Computer Instructor Survey</h1>
         <p>Participate in our transparent data survey for the recent Computer Instructor Exams. View live rankings.</p>
-        <a href="survey/" class="btn-3d">Join The Survey Now</a>
+        
+        <!-- Yahan naya button add kiya gaya hai -->
+        <div class="hero-buttons">
+            <a href="survey/" class="btn-3d">Join The Survey Now</a>
+            <a href="survey/results/" class="btn-3d-secondary">📊 View Leaderboard</a>
+        </div>
     </section>
 
     <div class="grid-container">

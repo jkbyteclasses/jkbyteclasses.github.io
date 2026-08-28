@@ -1,222 +1,147 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Survey Results - Download</title>
+    <title>Survey Analytics & Leaderboard - JK Byte</title>
+    <link rel="icon" type="image/png" href="../../logo.png">
     
     <!-- jsPDF & AutoTable for PDF -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
-    
     <!-- SheetJS for Excel -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <!-- Chart.js for Interactive Charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
         :root {
-            --bg-color: #f0f2f5;
-            --text-main: #1d1d1f;
-            --text-muted: #86868b;
-            --accent: #4facfe;
-            --primary-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            --excel-gradient: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            --bg-color: #ecf0f3; --surface-color: #ecf0f3; --text-main: #2d3748; --text-muted: #718096;
+            --brand-gradient: linear-gradient(135deg, #df20b9 0%, #00d2ff 100%);
+            --shadow-out: 9px 9px 16px rgb(163,177,198,0.6), -9px -9px 16px rgba(255,255,255, 0.8);
+            --shadow-in: inset 6px 6px 10px 0 rgba(163,177,198, 0.6), inset -6px -6px 10px 0 rgba(255,255,255, 0.8);
+            --chart-grid: rgba(0, 0, 0, 0.05);
+            --th-bg: #e2e8f0;
+        }
+        [data-theme="dark"] {
+            --bg-color: #1a1f24; --surface-color: #1a1f24; --text-main: #e2e8f0; --text-muted: #a0aec0;
+            --shadow-out: 8px 8px 16px rgba(0,0,0,0.4), -8px -8px 16px rgba(255,255,255,0.05);
+            --shadow-in: inset 5px 5px 10px rgba(0,0,0,0.6), inset -5px -5px 10px rgba(255,255,255,0.05);
+            --chart-grid: rgba(255, 255, 255, 0.05);
+            --th-bg: #12161a;
         }
 
-        body {
-            font-family: system-ui, -apple-system, sans-serif;
-            margin: 0;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        .header-simple {
-            width: 100%;
-            padding: 20px;
-            text-align: center;
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-            box-sizing: border-box;
-            position: absolute;
-            top: 0;
-        }
+        body { font-family: system-ui, sans-serif; margin: 0; background: var(--bg-color); color: var(--text-main); display: flex; flex-direction: column; align-items: center; min-height: 100vh; transition: 0.4s ease; padding: 20px; box-sizing: border-box; }
         
-        .header-simple a {
-            text-decoration: none;
-            color: var(--text-main);
-            font-weight: 600;
-            font-size: 16px;
-            transition: color 0.3s ease;
-        }
+        .header-simple { width: 100%; max-width: 1100px; padding: 15px 20px; background: var(--surface-color); box-shadow: var(--shadow-out); box-sizing: border-box; display: flex; justify-content: space-between; align-items: center; border-radius: 20px; margin-bottom: 30px;}
+        .header-simple a { text-decoration: none; color: var(--text-main); font-weight: 800; display: flex; align-items: center; gap: 12px; }
+        .header-logo { width: 40px; height: 40px; border-radius: 50%; background: transparent; box-shadow: var(--shadow-out); padding: 2px; }
         
-        .header-simple a:hover {
-            color: var(--accent);
-        }
+        .theme-toggle { background: var(--surface-color); border: none; font-size: 20px; cursor: pointer; width: 40px; height: 40px; border-radius: 50%; box-shadow: var(--shadow-out); transition: 0.3s; }
+        .theme-toggle:hover { box-shadow: var(--shadow-in); }
 
-        .content-wrapper {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            margin-top: 80px; 
-            padding: 20px;
-            box-sizing: border-box;
-        }
+        .dashboard-container { width: 100%; max-width: 1100px; display: flex; flex-direction: column; gap: 30px; }
+        
+        /* Stats Cards Layout */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+        .stat-card { background: var(--surface-color); padding: 25px 20px; border-radius: 24px; box-shadow: var(--shadow-out); text-align: center; transition: 0.3s; border: 2px solid transparent; background-clip: padding-box; }
+        .stat-card:hover { transform: translateY(-5px); }
+        .stat-title { font-size: 14px; color: var(--text-muted); font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+        .stat-value { font-size: 36px; font-weight: 900; background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        /* Charts Grid Layout */
+        .charts-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 25px; }
+        @media(max-width: 850px) { .charts-grid { grid-template-columns: 1fr; } }
+        
+        .chart-container { background: var(--surface-color); padding: 25px; border-radius: 24px; box-shadow: var(--shadow-in); position: relative; height: 350px; width: 100%; box-sizing: border-box; }
+        
+        /* Actions & Downloads */
+        .actions-container { background: var(--surface-color); padding: 30px; border-radius: 24px; box-shadow: var(--shadow-out); text-align: center; }
+        .actions-container h2 { margin-top: 0; background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 24px; margin-bottom: 25px;}
+        
+        .btn-action { width: 100%; max-width: 300px; border: none; padding: 16px 20px; border-radius: 20px; font-size: 15px; font-weight: 800; cursor: pointer; transition: 0.3s; margin: 10px; color: white; display: inline-block; box-shadow: var(--shadow-out); }
+        .btn-view { background: var(--brand-gradient); }
+        .btn-pdf { background: linear-gradient(135deg, #f12711 0%, #f5af19 100%); }
+        .btn-excel { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); }
+        .btn-action:hover { transform: translateY(-3px); box-shadow: var(--shadow-in); color: #fff;}
+        
+        /* Leaderboard Table */
+        .table-container { display: none; width: 100%; background: var(--surface-color); border-radius: 24px; padding: 25px; box-sizing: border-box; margin-top: 10px; overflow-x: auto; box-shadow: var(--shadow-in); }
+        table { width: 100%; border-collapse: collapse; text-align: left; }
+        th, td { padding: 15px; border-bottom: 1px solid rgba(163,177,198,0.2); font-weight: 600;}
+        th { background: var(--th-bg); color: #df20b9; border-radius: 10px; font-weight: 800; }
 
-        .container {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(20px);
-            padding: 50px 40px;
-            border-radius: 24px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
-            border: 1px solid rgba(255,255,255,0.5);
-            text-align: center;
-            max-width: 500px;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        .container h2 {
-            font-size: 32px;
-            margin-top: 0;
-            margin-bottom: 15px;
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .container p {
-            color: var(--text-muted);
-            margin-bottom: 35px;
-            line-height: 1.6;
-            font-size: 16px;
-        }
-
-        .btn-download {
-            background: var(--primary-gradient);
-            color: white;
-            border: none;
-            padding: 16px 32px;
-            border-radius: 30px;
-            font-size: 17px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-            box-shadow: 0 8px 20px rgba(79, 172, 254, 0.3);
-            margin-bottom: 15px;
-        }
-
-        .btn-download:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 25px rgba(79, 172, 254, 0.4);
-        }
-
-        .btn-excel {
-            background: var(--excel-gradient);
-            box-shadow: 0 8px 20px rgba(56, 239, 125, 0.3);
-        }
-
-        .btn-excel:hover {
-            box-shadow: 0 12px 25px rgba(56, 239, 125, 0.4);
-        }
-
-        .btn-download:disabled {
-            background: #ccc;
-            box-shadow: none;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .back-link {
-            display: inline-block;
-            margin-top: 15px;
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        /* Stylish Footer */
-        footer {
-            text-align: center;
-            padding: 20px;
-            margin-bottom: 20px;
-            width: 100%;
-        }
-
-        .team-badge {
-            display: inline-block;
-            padding: 10px 25px;
-            background: #1d1d1f;
-            color: white;
-            border-radius: 50px;
-            font-size: 12px;
-            font-weight: 600;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
-            transition: transform 0.3s ease;
-            margin-bottom: 15px;
-        }
-
-        .team-badge span {
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 800;
-        }
-
-        .team-badge:hover {
-            transform: scale(1.05);
-        }
-
-        .contact-info {
-            font-size: 14px;
-            color: #666;
-            font-weight: 500;
-        }
-
-        .contact-info a {
-            color: var(--text-main);
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
-
-        .contact-info a:hover {
-            color: #4facfe;
-        }
+        .loading-text { font-size: 20px; font-weight: bold; color: var(--text-muted); text-align: center; margin-top: 50px; }
+        #mainContent { display: none; }
     </style>
 </head>
 <body>
 
     <div class="header-simple">
-        <a href="../survey">← Back to Form</a>
+        <a href="../">
+            <img src="../../logo.png" alt="Logo" class="header-logo"> ← Back to Survey
+        </a>
+        <button class="theme-toggle" id="themeToggle">🌙</button>
     </div>
 
-    <div class="content-wrapper">
-        <div class="container">
-            <h2>Survey Leaderboard</h2>
-            <p>Download the complete list of candidates sorted by highest marks in PDF or Excel format.</p>
+    <div id="loadingIndicator" class="loading-text">Analyzing Survey Data... 📊</div>
+
+    <div id="mainContent" class="dashboard-container">
+        <!-- TOP STATS -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-title">👥 Total Enrolled</div>
+                <div class="stat-value" id="totalStudents">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-title">🏆 Highest Score</div>
+                <div class="stat-value" id="highestScore">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-title">📈 Average Score</div>
+                <div class="stat-value" id="avgScore">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-title">✅ Qualified (80+)</div>
+                <div class="stat-value" id="qualifiedStudents">0</div>
+            </div>
+        </div>
+
+        <!-- CHARTS SECTION -->
+        <div class="charts-grid">
+            <!-- Line Chart for Marks 80 to 200 -->
+            <div class="chart-container">
+                <canvas id="marksChart"></canvas>
+            </div>
+            <!-- Doughnut Chart for Categories -->
+            <div class="chart-container">
+                <canvas id="categoryChart"></canvas>
+            </div>
+        </div>
+
+        <!-- LEADERBOARD & ACTIONS -->
+        <div class="actions-container">
+            <h2>📥 Survey Leaderboard & Reports</h2>
+            <button id="viewBtn" class="btn-action btn-view">👁️ View Live Rankings</button>
+            <button id="downloadPdfBtn" class="btn-action btn-pdf">📄 Download PDF</button>
+            <button id="downloadExcelBtn" class="btn-action btn-excel">📊 Download Excel</button>
             
-            <button id="downloadPdfBtn" class="btn-download">Download PDF Report</button>
-            <button id="downloadExcelBtn" class="btn-download btn-excel">Download Excel Report</button>
-            <br>
-            <a href="../index.html" class="back-link">Return to Home →</a>
+            <div id="tableContainer" class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Student Name</th>
+                            <th>Exam Type</th>
+                            <th>Category</th>
+                            <th>Marks</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody"></tbody>
+                </table>
+            </div>
         </div>
     </div>
-
-    <footer>
-        <div class="team-badge">MADE BY <span>TEAM JKBYTE</span></div>
-        <div class="contact-info">
-            Contact us: <a href="mailto:teamjkbyte@gmail.com">teamjkbyte@gmail.com</a>
-        </div>
-    </footer>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
@@ -230,163 +155,222 @@
             messagingSenderId: "878135244517",
             appId: "1:878135244517:web:f74375930e55ba645b460c"
         };
-
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // Common function to fetch and sort data automatically (Highest marks on top)
-        async function fetchAndSortData() {
-            const surveyRef = collection(db, "instructor_survey");
-            const querySnapshot = await getDocs(surveyRef);
-            
-            let rawData = [];
-            querySnapshot.forEach((doc) => {
-                rawData.push(doc.data());
-            });
+        let globalSortedData = [];
 
-            // Sorting logic: Highest marks first
-            rawData.sort((a, b) => {
-                const marksA = parseFloat(a.marks_obtained) || 0;
-                const marksB = parseFloat(b.marks_obtained) || 0;
-                return marksB - marksA; // Descending order
-            });
+        // Initialize Dashboard
+        async function initDashboard() {
+            try {
+                const querySnapshot = await getDocs(collection(db, "instructor_survey"));
+                
+                let rawData = [];
+                let totalMarks = 0;
+                let maxMarks = 0;
+                let qualified = 0;
+                
+                // For Line Chart (80 to 200 with 5 gaps) = 24 Bins
+                let markLabels = [];
+                let markBins = new Array(24).fill(0);
+                
+                for(let i = 80; i < 195; i += 5) { markLabels.push(`${i}-${i+4}`); }
+                markLabels.push('195-200');
 
-            return rawData;
+                // For Category Chart
+                let catCount = {};
+
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const m = parseFloat(data.marks_obtained) || 0;
+                    const cat = data.category ? data.category.toUpperCase().trim() : 'OTHER';
+                    
+                    rawData.push(data);
+                    totalMarks += m;
+                    if(m > maxMarks) maxMarks = m;
+                    if(m >= 80) qualified++;
+
+                    // Mark Bins Logic (Only count 80 to 200)
+                    if(m >= 80 && m <= 200) {
+                        let idx = Math.floor((m - 80) / 5);
+                        if(idx > 23) idx = 23;
+                        markBins[idx]++;
+                    }
+
+                    // Category Logic
+                    catCount[cat] = (catCount[cat] || 0) + 1;
+                });
+
+                // Sort for Downloads & Table
+                globalSortedData = rawData.sort((a, b) => (b.marks_obtained || 0) - (a.marks_obtained || 0));
+
+                // Update Stats
+                const total = globalSortedData.length;
+                document.getElementById('totalStudents').innerText = total;
+                document.getElementById('highestScore').innerText = maxMarks;
+                document.getElementById('avgScore').innerText = total > 0 ? (totalMarks / total).toFixed(1) : 0;
+                document.getElementById('qualifiedStudents').innerText = qualified;
+
+                // Render Charts
+                renderLineChart(markLabels, markBins);
+                renderDoughnutChart(catCount);
+
+                document.getElementById('loadingIndicator').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'flex';
+
+            } catch (error) {
+                document.getElementById('loadingIndicator').innerText = "❌ Failed to load data.";
+                console.error(error);
+            }
         }
 
-        // --- PDF DOWNLOAD LOGIC ---
-        document.getElementById('downloadPdfBtn').addEventListener('click', async () => {
+        function renderLineChart(labels, data) {
+            const ctx = document.getElementById('marksChart').getContext('2d');
+            const textColor = getComputedStyle(document.documentElement).getPropertyValue('--text-main').trim();
+            const gridColor = getComputedStyle(document.documentElement).getPropertyValue('--chart-grid').trim();
+
+            // Gradient Fill for Line Chart
+            let gradient = ctx.createLinearGradient(0, 0, 0, 400);
+            gradient.addColorStop(0, 'rgba(0, 210, 255, 0.5)');
+            gradient.addColorStop(1, 'rgba(223, 32, 185, 0.0)');
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Students',
+                        data: data,
+                        borderColor: '#00d2ff',
+                        backgroundColor: gradient,
+                        borderWidth: 3,
+                        pointBackgroundColor: '#df20b9',
+                        pointBorderColor: '#fff',
+                        pointHoverRadius: 7,
+                        fill: true,
+                        tension: 0.4 // Curved line
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: { 
+                        legend: { display: false },
+                        title: { display: true, text: 'Marks Analysis (80 - 200)', color: textColor, font: {size: 16, weight: 'bold'} },
+                        tooltip: { backgroundColor: 'rgba(0,0,0,0.8)', titleFont: {size: 14}, bodyFont: {size: 14, weight:'bold'} }
+                    },
+                    scales: {
+                        y: { beginAtZero: true, ticks: { color: textColor, stepSize: 1 }, grid: { color: gridColor } },
+                        x: { ticks: { color: textColor, maxRotation: 45, minRotation: 45 }, grid: { display: false } }
+                    }
+                }
+            });
+        }
+
+        function renderDoughnutChart(catCount) {
+            const ctx = document.getElementById('categoryChart').getContext('2d');
+            const textColor = getComputedStyle(document.documentElement).getPropertyValue('--text-main').trim();
+            
+            const labels = Object.keys(catCount);
+            const data = Object.values(catCount);
+            const colors = ['#df20b9', '#00d2ff', '#FFC107', '#10b981', '#f12711', '#8b5cf6'];
+
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: data,
+                        backgroundColor: colors,
+                        borderWidth: 0,
+                        hoverOffset: 6
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    cutout: '65%',
+                    plugins: {
+                        legend: { position: 'bottom', labels: { color: textColor, font: {weight: 'bold'}, padding: 20 } },
+                        title: { display: true, text: 'Category Distribution', color: textColor, font: {size: 16, weight: 'bold'} }
+                    }
+                }
+            });
+        }
+
+        // --- VIEW LIVE LEADERBOARD ---
+        document.getElementById('viewBtn').onclick = function() {
+            const tc = document.getElementById('tableContainer');
+            if(tc.style.display === 'block') { tc.style.display = 'none'; this.innerText = "👁️ View Live Rankings"; return; }
+            
+            document.getElementById('tableBody').innerHTML = globalSortedData.map((d,i) => 
+                `<tr>
+                    <td style="font-weight:bold;">#${i+1}</td>
+                    <td>${d.student_name}</td>
+                    <td>${d.bharti_type}</td>
+                    <td>${d.category}</td>
+                    <td style="color:#00d2ff; font-weight:900; font-size:16px;">${d.marks_obtained}</td>
+                </tr>`
+            ).join('');
+            tc.style.display = 'block';
+            this.innerText = "🙈 Hide Rankings";
+        };
+
+        // --- PDF DOWNLOAD ---
+        document.getElementById('downloadPdfBtn').addEventListener('click', () => {
+            if(globalSortedData.length === 0) return alert("No data available!");
             const btn = document.getElementById('downloadPdfBtn');
-            btn.innerText = "Generating PDF...";
-            btn.disabled = true;
+            btn.innerText = "Generating..."; btn.disabled = true;
 
             try {
-                const sortedData = await fetchAndSortData();
-                
-                if (sortedData.length === 0) {
-                    alert("No data available to download yet.");
-                    btn.innerText = "Download PDF Report";
-                    btn.disabled = false;
-                    return;
-                }
-
-                let tableData = [];
-                sortedData.forEach((data, index) => {
-                    tableData.push([
-                        index + 1, // Rank
-                        data.student_name || "N/A", 
-                        data.bharti_type || "N/A", 
-                        data.category || "N/A",
-                        data.marks_obtained !== undefined ? data.marks_obtained : "N/A"
-                    ]);
-                });
-
                 const { jsPDF } = window.jspdf;
                 const doc = new jsPDF();
-
-                doc.setFontSize(20);
-                doc.setTextColor(40, 40, 40);
-                doc.text("Computer Instructor Exam - Leaderboard", 14, 22);
+                doc.setFontSize(20); doc.text("Computer Instructor - Official Leaderboard", 14, 20);
                 
-                doc.setFontSize(10);
-                doc.setTextColor(100, 100, 100);
-                doc.text("Generated officially via JK Byte Classes", 14, 28);
-
                 doc.autoTable({
-                    startY: 34,
-                    head: [['Rank', 'Student Name', 'Exam Type', 'Category', 'Marks (Out of 200)']],
-                    body: tableData,
-                    theme: 'grid',
-                    styles: { 
-                        fontSize: 10, 
-                        cellPadding: 5,
-                        valign: 'middle', 
-                        overflow: 'linebreak' 
-                    },
-                    headStyles: { 
-                        fillColor: [79, 172, 254], 
-                        textColor: 255,
-                        halign: 'center',
-                        fontStyle: 'bold'
-                    },
-                    columnStyles: {
-                        0: { halign: 'center', cellWidth: 15 },
-                        1: { cellWidth: 'auto' },
-                        2: { cellWidth: 45 },
-                        3: { cellWidth: 35 },
-                        4: { halign: 'center', cellWidth: 35 }
-                    },
-                    alternateRowStyles: { fillColor: [248, 250, 252] },
-                    didDrawPage: function (data) {
-                        let str = "Page " + doc.internal.getNumberOfPages();
-                        doc.setFontSize(9);
-                        doc.setTextColor(150);
-                        doc.text(str, data.settings.margin.left, doc.internal.pageSize.height - 10);
-                    }
+                    startY: 30,
+                    head: [['Rank', 'Student Name', 'Exam Type', 'Category', 'Marks']],
+                    body: globalSortedData.map((d, i) => [i + 1, d.student_name, d.bharti_type, d.category, d.marks_obtained]),
+                    headStyles: { fillColor: [223, 32, 185], textColor: 255, halign: 'center' },
+                    columnStyles: { 0: { halign: 'center' }, 4: { halign: 'center', fontStyle: 'bold' } }
                 });
-
-                doc.save('Instructor_Exam_Leaderboard.pdf');
-
-            } catch (error) {
-                console.error("Error generating PDF: ", error);
-                alert("Error downloading PDF!");
-            }
-
-            btn.innerText = "Download PDF Report";
-            btn.disabled = false;
+                doc.save('Instructor_Leaderboard.pdf');
+            } catch(e) { alert("Error generating PDF!"); }
+            btn.innerText = "📄 Download PDF"; btn.disabled = false;
         });
 
-        // --- EXCEL DOWNLOAD LOGIC ---
-        document.getElementById('downloadExcelBtn').addEventListener('click', async () => {
+        // --- EXCEL DOWNLOAD ---
+        document.getElementById('downloadExcelBtn').addEventListener('click', () => {
+            if(globalSortedData.length === 0) return alert("No data available!");
             const btn = document.getElementById('downloadExcelBtn');
-            btn.innerText = "Generating Excel...";
-            btn.disabled = true;
+            btn.innerText = "Generating..."; btn.disabled = true;
 
             try {
-                const sortedData = await fetchAndSortData();
-                
-                if (sortedData.length === 0) {
-                    alert("No data available to download yet.");
-                    btn.innerText = "Download Excel Report";
-                    btn.disabled = false;
-                    return;
-                }
-
-                // Format data for Excel
-                const excelData = sortedData.map((data, index) => ({
-                    "Rank": index + 1,
-                    "Student Name": data.student_name || "N/A",
-                    "Exam Type": data.bharti_type || "N/A",
-                    "Category": data.category || "N/A",
-                    "Marks (Out of 200)": data.marks_obtained !== undefined ? data.marks_obtained : "N/A"
+                const excelData = globalSortedData.map((d, i) => ({
+                    "Rank": i + 1, "Student Name": d.student_name, "Exam Type": d.bharti_type, 
+                    "Category": d.category, "Marks": d.marks_obtained
                 }));
-
-                // Create Worksheet and Workbook
-                const worksheet = XLSX.utils.json_to_sheet(excelData);
-                const workbook = XLSX.utils.book_new();
-                XLSX.utils.book_append_sheet(workbook, worksheet, "Leaderboard");
-
-                // Auto-adjust column widths for Excel
-                const columnWidths = [
-                    { wch: 8 },  // Rank
-                    { wch: 25 }, // Name
-                    { wch: 30 }, // Exam Type
-                    { wch: 15 }, // Category
-                    { wch: 20 }  // Marks
-                ];
-                worksheet['!cols'] = columnWidths;
-
-                // Download File
-                XLSX.writeFile(workbook, 'Instructor_Exam_Leaderboard.xlsx');
-
-            } catch (error) {
-                console.error("Error generating Excel: ", error);
-                alert("Error downloading Excel!");
-            }
-
-            btn.innerText = "Download Excel Report";
-            btn.disabled = false;
+                const ws = XLSX.utils.json_to_sheet(excelData);
+                const wb = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(wb, ws, "Leaderboard");
+                ws['!cols'] = [{ wch: 8 }, { wch: 25 }, { wch: 25 }, { wch: 15 }, { wch: 15 }];
+                XLSX.writeFile(wb, 'Instructor_Leaderboard.xlsx');
+            } catch(e) { alert("Error generating Excel!"); }
+            btn.innerText = "📊 Download Excel"; btn.disabled = false;
         });
+
+        // Theme Setup
+        const toggleBtn = document.getElementById('themeToggle');
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        toggleBtn.innerHTML = currentTheme === 'dark' ? '☀️' : '🌙';
+        toggleBtn.addEventListener('click', () => {
+            let newTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            toggleBtn.innerHTML = newTheme === 'dark' ? '☀️' : '🌙';
+            location.reload(); 
+        });
+
+        window.onload = initDashboard;
     </script>
 </body>
 </html>

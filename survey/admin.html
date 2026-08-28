@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - JK Byte</title>
+    <link rel="icon" type="image/png" href="../logo.png">
+    <style>
+        :root {
+            --bg-color: #ecf0f3; --surface-color: #ecf0f3; --text-main: #2d3748; --text-muted: #718096;
+            --brand-gradient: linear-gradient(135deg, #df20b9 0%, #00d2ff 100%);
+            --shadow-out: 9px 9px 16px rgb(163,177,198,0.6), -9px -9px 16px rgba(255,255,255, 0.8);
+            --shadow-in: inset 6px 6px 10px 0 rgba(163,177,198, 0.6), inset -6px -6px 10px 0 rgba(255,255,255, 0.8);
+            --danger-color: #ef4444;
+        }
+        [data-theme="dark"] {
+            --bg-color: #1a1f24; --surface-color: #1a1f24; --text-main: #e2e8f0; --text-muted: #a0aec0;
+            --shadow-out: 8px 8px 16px rgba(0,0,0,0.4), -8px -8px 16px rgba(255,255,255,0.05);
+            --shadow-in: inset 5px 5px 10px rgba(0,0,0,0.6), inset -5px -5px 10px rgba(255,255,255,0.05);
+        }
+
+        body { font-family: system-ui, sans-serif; margin: 0; background: var(--bg-color); color: var(--text-main); display: flex; flex-direction: column; align-items: center; min-height: 100vh; transition: 0.4s ease; padding: 20px; box-sizing: border-box; }
+        
+        .header-simple { width: 100%; padding: 15px 20px; background: var(--surface-color); box-shadow: var(--shadow-out); box-sizing: border-box; display: flex; justify-content: space-between; align-items: center; border-radius: 20px; margin-bottom: 30px;}
+        .header-simple a { text-decoration: none; color: var(--text-main); font-weight: 700; display: flex; align-items: center; gap: 12px; }
+        .header-logo { width: 40px; height: 40px; border-radius: 50%; background: transparent; box-shadow: var(--shadow-out); padding: 2px; }
+        
+        .theme-toggle { background: var(--surface-color); border: none; font-size: 20px; cursor: pointer; width: 40px; height: 40px; border-radius: 50%; box-shadow: var(--shadow-out); transition: 0.3s; }
+        .theme-toggle:hover { box-shadow: var(--shadow-in); }
+
+        .container { background: var(--surface-color); width: 100%; max-width: 1000px; padding: 40px; border-radius: 24px; box-shadow: var(--shadow-out); box-sizing: border-box; text-align: center; }
+        
+        h2 { background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 32px; margin-top: 0; }
+
+        /* Login Section */
+        #loginSection { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 0; }
+        .login-btn { background: var(--brand-gradient); color: white; border: none; padding: 16px 30px; border-radius: 20px; font-size: 18px; font-weight: 800; cursor: pointer; box-shadow: 0 10px 20px rgba(0, 210, 255, 0.3); transition: 0.3s; display: flex; align-items: center; gap: 10px; }
+        .login-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(223, 32, 185, 0.4); }
+
+        /* Admin Dashboard Section */
+        #dashboardSection { display: none; width: 100%; flex-direction: column; align-items: center; }
+        .dashboard-header { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .logout-btn { background: var(--surface-color); color: var(--danger-color); border: none; padding: 10px 20px; border-radius: 12px; font-weight: 800; cursor: pointer; box-shadow: var(--shadow-out); transition: 0.3s; }
+        .logout-btn:hover { box-shadow: var(--shadow-in); }
+
+        .table-wrapper { width: 100%; overflow-x: auto; box-shadow: var(--shadow-in); border-radius: 16px; padding: 15px; box-sizing: border-box; }
+        table { width: 100%; border-collapse: collapse; text-align: left; }
+        th, td { padding: 15px; border-bottom: 1px solid rgba(163,177,198,0.2); font-weight: 500; }
+        th { color: #df20b9; font-weight: 800; }
+        
+        .action-btn { border: none; padding: 8px 15px; border-radius: 8px; font-size: 13px; font-weight: 800; cursor: pointer; transition: 0.3s; margin-right: 5px; }
+        .btn-edit { background: #00d2ff; color: #111; box-shadow: 0 4px 10px rgba(0, 210, 255, 0.3); }
+        .btn-delete { background: var(--danger-color); color: #fff; box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3); }
+        .action-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
+    </style>
+</head>
+<body>
+
+    <div class="header-simple">
+        <a href="index.html">
+            <img src="../logo.png" alt="Logo" class="header-logo"> ← Back to Survey
+        </a>
+        <button class="theme-toggle" id="themeToggle">🌙</button>
+    </div>
+
+    <div class="container">
+        <!-- LOGIN SECTION -->
+        <div id="loginSection">
+            <h2>Admin Control Panel</h2>
+            <p style="color: var(--text-muted); margin-bottom: 30px;">Only authorized administrators can access this area.</p>
+            <button class="login-btn" id="loginBtn">
+                <svg width="24" height="24" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                    <path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/>
+                    <path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"/>
+                    <path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/>
+                    <path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"/>
+                </svg>
+                Sign in with Google
+            </button>
+        </div>
+
+        <!-- DASHBOARD SECTION -->
+        <div id="dashboardSection">
+            <div class="dashboard-header">
+                <h2>Manage Records</h2>
+                <button class="logout-btn" id="logoutBtn">Logout</button>
+            </div>
+            
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Student Name</th>
+                            <th>Exam Type</th>
+                            <th>Category</th>
+                            <th>Marks</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminTableBody">
+                        <!-- Data aayega -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, getDocs, doc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBLK2-2BJsYhwxKfcggWKdfRQI1lf_-tkM",
+            authDomain: "computerinstructorsurvey.firebaseapp.com",
+            projectId: "computerinstructorsurvey",
+            storageBucket: "computerinstructorsurvey.firebasestorage.app",
+            messagingSenderId: "878135244517",
+            appId: "1:878135244517:web:f74375930e55ba645b460c"
+        };
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+
+        const ADMIN_EMAIL = "teamjkbyteclasses@gmail.com";
+        
+        const loginSection = document.getElementById('loginSection');
+        const dashboardSection = document.getElementById('dashboardSection');
+        const adminTableBody = document.getElementById('adminTableBody');
+
+        // Check Login Status automatically
+        onAuthStateChanged(auth, (user) => {
+            if (user && user.email === ADMIN_EMAIL) {
+                loginSection.style.display = 'none';
+                dashboardSection.style.display = 'flex';
+                loadAdminData();
+            } else if (user) {
+                alert("Access Denied! You are not authorized as Admin.");
+                signOut(auth);
+            } else {
+                loginSection.style.display = 'flex';
+                dashboardSection.style.display = 'none';
+            }
+        });
+
+        // Login Button
+        document.getElementById('loginBtn').addEventListener('click', async () => {
+            try {
+                await signInWithPopup(auth, provider);
+            } catch(error) {
+                alert("Login Failed: " + error.message);
+            }
+        });
+
+        // Logout Button
+        document.getElementById('logoutBtn').addEventListener('click', async () => {
+            await signOut(auth);
+        });
+
+        // Load Data
+        async function loadAdminData() {
+            adminTableBody.innerHTML = "<tr><td colspan='5' style='text-align:center;'>Loading Data...</td></tr>";
+            try {
+                const querySnapshot = await getDocs(collection(db, "instructor_survey"));
+                adminTableBody.innerHTML = "";
+
+                if(querySnapshot.empty) {
+                    adminTableBody.innerHTML = "<tr><td colspan='5' style='text-align:center;'>No records found.</td></tr>";
+                    return;
+                }
+
+                querySnapshot.forEach((docSnap) => {
+                    const data = docSnap.data();
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td><strong>${data.student_name || ''}</strong></td>
+                        <td>${data.bharti_type || ''}</td>
+                        <td>${data.category || ''}</td>
+                        <td style="color:#00d2ff; font-weight:800;">${data.marks_obtained !== undefined ? data.marks_obtained : ''}</td>
+                        <td>
+                            <button class="action-btn btn-edit" data-id="${docSnap.id}">✏️ Edit</button>
+                            <button class="action-btn btn-delete" data-id="${docSnap.id}">🗑️ Delete</button>
+                        </td>
+                    `;
+                    
+                    tr.querySelector('.btn-edit').addEventListener('click', () => editRecord(docSnap.id, data));
+                    tr.querySelector('.btn-delete').addEventListener('click', () => deleteRecord(docSnap.id));
+
+                    adminTableBody.appendChild(tr);
+                });
+            } catch(e) {
+                adminTableBody.innerHTML = `<tr><td colspan='5' style='color:red; text-align:center;'>Error: ${e.message}</td></tr>`;
+            }
+        }
+
+        // Edit Function
+        window.editRecord = async function(id, oldData) {
+            const newName = prompt("Update Student Name:", oldData.student_name || "");
+            if(newName === null) return;
+            const newType = prompt("Update Exam Type:", oldData.bharti_type || "");
+            if(newType === null) return;
+            let newCategory = prompt("Update Category (Alphabets only):", oldData.category || "");
+            if(newCategory === null) return;
+            newCategory = newCategory.replace(/[^a-zA-Z\s]/g, '');
+            const newMarks = prompt("Update Marks (0-200):", oldData.marks_obtained);
+            if(newMarks === null) return;
+            
+            const parsedMarks = parseFloat(newMarks);
+            if(isNaN(parsedMarks) || parsedMarks < 0 || parsedMarks > 200) {
+                alert("Invalid marks!"); return;
+            }
+
+            try {
+                await updateDoc(doc(db, "instructor_survey", id), {
+                    student_name: newName.trim(), bharti_type: newType.trim(),
+                    category: newCategory.trim(), marks_obtained: parsedMarks
+                });
+                alert("Updated successfully!");
+                loadAdminData();
+            } catch(err) { alert("Error: " + err.message); }
+        }
+
+        // Delete Function
+        window.deleteRecord = async function(id) {
+            if(confirm("Permanently delete this record?")) {
+                try {
+                    await deleteDoc(doc(db, "instructor_survey", id));
+                    alert("Deleted successfully!");
+                    loadAdminData();
+                } catch(err) { alert("Error: " + err.message); }
+            }
+        }
+
+        // Theme Setup
+        const toggleBtn = document.getElementById('themeToggle');
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        toggleBtn.innerHTML = currentTheme === 'dark' ? '☀️' : '🌙';
+        toggleBtn.addEventListener('click', () => {
+            let newTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            toggleBtn.innerHTML = newTheme === 'dark' ? '☀️' : '🌙';
+        });
+    </script>
+</body>
+</html>

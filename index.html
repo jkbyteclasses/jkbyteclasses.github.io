@@ -121,7 +121,6 @@
             font-size: 18px;
             color: var(--text-muted);
             max-width: 600px;
-            /* Khali jagah ko 40px se kam karke 20px kar diya */
             margin: 0 auto 20px auto; 
             line-height: 1.6;
         }
@@ -131,7 +130,7 @@
             display: flex;
             justify-content: center;
             gap: 20px;
-            flex-wrap: wrap; /* Mobile screen ke liye */
+            flex-wrap: wrap;
             margin-top: 15px;
         }
 
@@ -160,10 +159,9 @@
             box-shadow: 0 5px 10px rgba(223, 32, 185, 0.3);
         }
 
-        /* Naya Secondary Button (Leaderboard ke liye) */
         .btn-3d-secondary {
             background: var(--surface-color);
-            color: #df20b9; /* Pink-Blue theme match */
+            color: #df20b9; 
             padding: 16px 36px;
             border-radius: 30px;
             text-decoration: none;
@@ -181,6 +179,23 @@
             transform: translateY(-4px);
             box-shadow: var(--shadow-in);
             color: #00d2ff;
+        }
+
+        /* Telegram Button Specific Style */
+        .hero-telegram {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .telegram-btn {
+            color: #0088cc !important;
+            padding: 12px 30px;
+            font-size: 16px;
+        }
+        
+        [data-theme="dark"] .telegram-btn {
+            color: #33aadd !important;
         }
 
         .grid-container {
@@ -259,17 +274,29 @@
         <button class="theme-toggle" id="themeToggle">🌙</button>
     </header>
 
-    <section class="hero">
-        <h1>Computer Instructor Survey</h1>
-        <p>Participate in our transparent data survey for the recent Computer Instructor Exams. View live rankings.</p>
-        
-        <!-- Yahan naya button add kiya gaya hai -->
-        <div class="hero-buttons">
-            <a href="survey/" class="btn-3d">Join The Survey Now</a>
-            <a href="survey/results/" class="btn-3d-secondary">📊 View Leaderboard</a>
-        </div>
-    </section>
+    <!-- ========================================== -->
+    <div id="computerTeacherCampaign">
+        <section class="hero">
+            <h1>Computer Instructor Survey</h1>
+            <p>Participate in our transparent data survey for the recent Computer Instructor Exams. View live rankings.</p>
+            
+            <div class="hero-buttons">
+                <a href="survey/" class="btn-3d">Join The Survey Now</a>
+                <a href="survey/results/" class="btn-3d-secondary">📊 View Leaderboard</a>
+            </div>
 
+            <!-- Telegram Link -->
+            <div class="hero-telegram">
+                <a href="https://t.me/computer_instructor_pass_student" target="_blank" class="btn-3d-secondary telegram-btn">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.888-.667 3.473-1.512 5.79-2.511 6.952-2.998 3.305-1.385 3.992-1.625 4.437-1.632z"/>
+                    </svg>
+                    Join Telegram
+                </a>
+            </div>
+        </section>
+    </div>
+    <!-- ========================================== -->
     <div class="grid-container">
         <div class="card-3d">
             <h3>📖 Premium Notes</h3>

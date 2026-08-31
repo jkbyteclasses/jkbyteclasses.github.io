@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
@@ -7,16 +7,26 @@
     <link rel="icon" type="image/png" href="../logo.png">
     <style>
         :root {
-            --bg-color: #ecf0f3; --surface-color: #ecf0f3; --text-main: #2d3748; --text-muted: #718096;
+            /* Light Theme 3D Colours */
+            --bg-color: #ecf0f3; 
+            --surface-color: #ecf0f3; 
+            --text-main: #2d3748; 
+            --text-muted: #718096;
             --brand-gradient: linear-gradient(135deg, #df20b9 0%, #00d2ff 100%);
+            /* Outer shadow for 3D pop-out effect */
             --shadow-out: 9px 9px 16px rgb(163,177,198,0.6), -9px -9px 16px rgba(255,255,255, 0.8);
+            /* Inner shadow for pressed behaviour */
             --shadow-in: inset 6px 6px 10px 0 rgba(163,177,198, 0.6), inset -6px -6px 10px 0 rgba(255,255,255, 0.8);
             --logo-bg: transparent;
             --danger-color: #ef4444;
             --success-color: #10b981;
         }
         [data-theme="dark"] {
-            --bg-color: #1a1f24; --surface-color: #1a1f24; --text-main: #e2e8f0; --text-muted: #a0aec0;
+            /* Dark Theme 3D Colours */
+            --bg-color: #1a1f24; 
+            --surface-color: #1a1f24; 
+            --text-main: #e2e8f0; 
+            --text-muted: #a0aec0;
             --shadow-out: 8px 8px 16px rgba(0,0,0,0.4), -8px -8px 16px rgba(255,255,255,0.05);
             --shadow-in: inset 5px 5px 10px rgba(0,0,0,0.6), inset -5px -5px 10px rgba(255,255,255,0.05);
             --logo-bg: #ffffff;
@@ -29,23 +39,6 @@
         .header-logo { width: 40px; height: 40px; border-radius: 50%; background: var(--logo-bg); box-shadow: var(--shadow-out); padding: 2px; }
         
         .header-actions { display: flex; align-items: center; gap: 12px; }
-        
-        .admin-btn {
-            background: var(--surface-color);
-            color: #df20b9;
-            border: none;
-            font-size: 14px;
-            font-weight: 800;
-            padding: 10px 18px;
-            border-radius: 20px;
-            box-shadow: var(--shadow-out);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: 0.3s;
-        }
-        .admin-btn:hover { box-shadow: var(--shadow-in); transform: translateY(-2px); }
 
         .theme-toggle { background: var(--surface-color); border: none; font-size: 20px; cursor: pointer; width: 40px; height: 40px; border-radius: 50%; box-shadow: var(--shadow-out); transition: 0.3s; }
         .theme-toggle:hover { box-shadow: var(--shadow-in); }
@@ -128,108 +121,6 @@
         [data-theme="dark"] .telegram-link { color: #33aadd !important; }
 
         .success-msg { display: none; text-align: center; color: var(--success-color); margin-top: 20px; font-weight: 800; }
-
-        /* --- 3D ADMIN MODAL STYLES --- */
-        .admin-modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.65);
-            backdrop-filter: blur(8px);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-
-        .admin-content {
-            background: var(--surface-color);
-            width: 100%;
-            max-width: 900px;
-            max-height: 85vh;
-            border-radius: 24px;
-            box-shadow: var(--shadow-out);
-            padding: 30px;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        .admin-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid rgba(163,177,198,0.2);
-            padding-bottom: 15px;
-            margin-bottom: 20px;
-        }
-
-        .admin-header h3 {
-            margin: 0;
-            background: var(--brand-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-size: 24px;
-        }
-
-        .admin-close-btn, .admin-logout-btn {
-            background: var(--surface-color);
-            border: none;
-            padding: 8px 16px;
-            border-radius: 12px;
-            box-shadow: var(--shadow-out);
-            font-weight: 700;
-            cursor: pointer;
-            color: var(--text-main);
-            transition: 0.2s;
-        }
-        .admin-logout-btn { color: var(--danger-color); }
-        .admin-close-btn:hover, .admin-logout-btn:hover { box-shadow: var(--shadow-in); }
-
-        .admin-table-wrapper {
-            overflow-y: auto;
-            overflow-x: auto;
-            flex: 1;
-            box-shadow: var(--shadow-in);
-            border-radius: 16px;
-            padding: 10px;
-        }
-
-        .admin-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 14px;
-            text-align: left;
-        }
-
-        .admin-table th, .admin-table td {
-            padding: 12px 14px;
-            border-bottom: 1px solid rgba(163,177,198,0.2);
-        }
-
-        .admin-table th {
-            color: #00d2ff;
-            font-weight: 800;
-            position: sticky;
-            top: 0;
-            background: var(--surface-color);
-        }
-
-        .btn-edit, .btn-delete {
-            border: none;
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-size: 12px;
-            font-weight: 800;
-            cursor: pointer;
-            transition: 0.2s;
-            margin-right: 6px;
-        }
-        .btn-edit { background: #00d2ff; color: #000; }
-        .btn-delete { background: var(--danger-color); color: #fff; }
-        .btn-edit:hover, .btn-delete:hover { opacity: 0.8; transform: scale(1.05); }
     </style>
 </head>
 <body>
@@ -239,6 +130,7 @@
             <img src="../logo.png" alt="Logo" class="header-logo"> ← Back to Home
         </a>
         <div class="header-actions">
+           <!-- Link to the dedicated secure Admin page -->
            <a href="admin.html" style="text-decoration: none; padding: 10px 18px; border-radius: 20px; box-shadow: var(--shadow-out); font-weight: 800; color: #df20b9; font-size: 14px;">🔐 Admin</a>
             <button class="theme-toggle" id="themeToggle">🌙</button>
         </div>
@@ -270,7 +162,7 @@
                    oninput="if(parseFloat(this.value)>200) this.value=200; if(parseFloat(this.value)<0) this.value=0;" required />
             
             <button type="submit">Submit Details</button>
-            <div id="successMessage" class="success-msg">Data Saved Successfully!</div>
+            <div id="successMessage" class="success-msg">Data Saved & Sent for Verification! ✅</div>
         </form>
         
         <div class="link-container">
@@ -285,39 +177,10 @@
         </div>
     </div>
 
-    <!-- ADMIN MODAL DIALOG -->
-    <div class="admin-modal" id="adminModal">
-        <div class="admin-content">
-            <div class="admin-header">
-                <h3>Admin Data Management</h3>
-                <div style="display:flex; gap:10px;">
-                    <button class="admin-logout-btn" id="adminLogoutBtn">Logout</button>
-                    <button class="admin-close-btn" id="adminCloseBtn">✕ Close</button>
-                </div>
-            </div>
-            <div class="admin-table-wrapper">
-                <table class="admin-table">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Exam Type</th>
-                            <th>Category</th>
-                            <th>Marks</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="adminTableBody">
-                        <!-- Admin data rendered here -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
     <script type="module">
+        // Initialise Firebase configuration
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-        import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBLK2-2BJsYhwxKfcggWKdfRQI1lf_-tkM",
@@ -327,19 +190,18 @@
             messagingSenderId: "878135244517",
             appId: "1:878135244517:web:f74375930e55ba645b460c"
         };
+        
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-        const auth = getAuth(app);
-        const provider = new GoogleAuthProvider();
-
-        // Specific Admin Email
-        const ADMIN_EMAIL = "teamjkbyteclasses@gmail.com";
 
         // --- SUBMIT FORM DATA ---
         document.getElementById('surveyForm').addEventListener('submit', async (e) => {
+            // Prevent default form submission behaviour
             e.preventDefault();
+            
             const btn = e.target.querySelector('button');
-            btn.innerText = "Saving..."; btn.disabled = true;
+            btn.innerText = "Saving..."; 
+            btn.disabled = true;
 
             const name = document.getElementById('studentName').value.trim();
             const type = document.getElementById('instructorType').value;
@@ -347,150 +209,35 @@
             const marks = parseFloat(document.getElementById('marks').value);
 
             try {
+                // Add the new record with a "pending" status for admin verification
                 await addDoc(collection(db, "instructor_survey"), {
                     student_name: name,
                     bharti_type: type,
                     category: category,
                     marks_obtained: marks,
+                    status: "pending",  // Automatically sets to pending for verification
                     timestamp: new Date()
                 });
+                
                 document.getElementById('surveyForm').reset();
                 document.getElementById('successMessage').style.display = "block";
+                
+                // Hide the success message after 3 seconds
                 setTimeout(() => document.getElementById('successMessage').style.display = "none", 3000);
-            } catch(err) { alert("Error: " + err.message); }
-            btn.innerText = "Submit Details"; btn.disabled = false;
+            } catch(err) { 
+                alert("Error submitting details: " + err.message); 
+            }
+            
+            btn.innerText = "Submit Details"; 
+            btn.disabled = false;
         });
-
-        // --- ADMIN LOGIN / AUTHENTICATION ---
-        const adminBtn = document.getElementById('adminLoginBtn');
-        const adminModal = document.getElementById('adminModal');
-        const adminCloseBtn = document.getElementById('adminCloseBtn');
-        const adminLogoutBtn = document.getElementById('adminLogoutBtn');
-        const adminTableBody = document.getElementById('adminTableBody');
-
-        adminBtn.addEventListener('click', async () => {
-            if(auth.currentUser && auth.currentUser.email === ADMIN_EMAIL) {
-                openAdminPanel();
-            } else {
-                try {
-                    const result = await signInWithPopup(auth, provider);
-                    if(result.user.email === ADMIN_EMAIL) {
-                        openAdminPanel();
-                    } else {
-                        alert("Unauthorized access! Only " + ADMIN_EMAIL + " can access the admin panel.");
-                        await signOut(auth);
-                    }
-                } catch(error) {
-                    alert("Login Failed: " + error.message);
-                }
-            }
-        });
-
-        async function openAdminPanel() {
-            adminModal.style.display = 'flex';
-            await loadAdminData();
-        }
-
-        adminCloseBtn.addEventListener('click', () => { adminModal.style.display = 'none'; });
-
-        adminLogoutBtn.addEventListener('click', async () => {
-            await signOut(auth);
-            adminModal.style.display = 'none';
-            alert("Admin Logged Out Successfully!");
-        });
-
-        // --- LOAD AND DISPLAY DATA IN ADMIN PANEL ---
-        async function loadAdminData() {
-            adminTableBody.innerHTML = "<tr><td colspan='5' style='text-align:center;'>Loading Records...</td></tr>";
-            try {
-                const querySnapshot = await getDocs(collection(db, "instructor_survey"));
-                adminTableBody.innerHTML = "";
-
-                if(querySnapshot.empty) {
-                    adminTableBody.innerHTML = "<tr><td colspan='5' style='text-align:center;'>No records found.</td></tr>";
-                    return;
-                }
-
-                querySnapshot.forEach((docSnap) => {
-                    const data = docSnap.data();
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = `
-                        <td><strong>${data.student_name || 'N/A'}</strong></td>
-                        <td>${data.bharti_type || 'N/A'}</td>
-                        <td>${data.category || 'N/A'}</td>
-                        <td style="color:#00d2ff; font-weight:800;">${data.marks_obtained !== undefined ? data.marks_obtained : 'N/A'}</td>
-                        <td>
-                            <button class="btn-edit" data-id="${docSnap.id}">✏️ Edit</button>
-                            <button class="btn-delete" data-id="${docSnap.id}">🗑️ Delete</button>
-                        </td>
-                    `;
-                    
-                    // Edit Handler
-                    tr.querySelector('.btn-edit').addEventListener('click', () => editRecord(docSnap.id, data));
-                    // Delete Handler
-                    tr.querySelector('.btn-delete').addEventListener('click', () => deleteRecord(docSnap.id));
-
-                    adminTableBody.appendChild(tr);
-                });
-            } catch(e) {
-                adminTableBody.innerHTML = `<tr><td colspan='5' style='color:red; text-align:center;'>Error loading data: ${e.message}</td></tr>`;
-            }
-        }
-
-        // --- EDIT / UPDATE RECORD ---
-        async function editRecord(id, oldData) {
-            const newName = prompt("Update Student Name:", oldData.student_name || "");
-            if(newName === null) return;
-
-            const newType = prompt("Update Exam Type (Basic Computer Instructor / Senior Computer Instructor):", oldData.bharti_type || "");
-            if(newType === null) return;
-
-            let newCategory = prompt("Update Category (Alphabets only):", oldData.category || "");
-            if(newCategory === null) return;
-            newCategory = newCategory.replace(/[^a-zA-Z\s]/g, '');
-
-            const newMarks = prompt("Update Marks (0 to 200):", oldData.marks_obtained !== undefined ? oldData.marks_obtained : "");
-            if(newMarks === null) return;
-
-            const parsedMarks = parseFloat(newMarks);
-            if(isNaN(parsedMarks) || parsedMarks < 0 || parsedMarks > 200) {
-                alert("Invalid marks! Must be between 0 and 200.");
-                return;
-            }
-
-            try {
-                const docRef = doc(db, "instructor_survey", id);
-                await updateDoc(docRef, {
-                    student_name: newName.trim(),
-                    bharti_type: newType.trim(),
-                    category: newCategory.trim(),
-                    marks_obtained: parsedMarks
-                });
-                alert("Record updated successfully!");
-                loadAdminData();
-            } catch(err) {
-                alert("Update failed: " + err.message);
-            }
-        }
-
-        // --- DELETE RECORD ---
-        async function deleteRecord(id) {
-            if(confirm("Are you sure you want to permanently delete this student record?")) {
-                try {
-                    await deleteDoc(doc(db, "instructor_survey", id));
-                    alert("Record deleted successfully!");
-                    loadAdminData();
-                } catch(err) {
-                    alert("Delete failed: " + err.message);
-                }
-            }
-        }
 
         // --- THEME TOGGLE LOGIC ---
         const toggleBtn = document.getElementById('themeToggle');
         const currentTheme = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', currentTheme);
         toggleBtn.innerHTML = currentTheme === 'dark' ? '☀️' : '🌙';
+        
         toggleBtn.addEventListener('click', () => {
             let newTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
             document.documentElement.setAttribute('data-theme', newTheme);

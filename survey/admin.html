@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
@@ -7,14 +7,26 @@
     <link rel="icon" type="image/png" href="../logo.png">
     <style>
         :root {
-            --bg-color: #ecf0f3; --surface-color: #ecf0f3; --text-main: #2d3748; --text-muted: #718096;
+            /* Light Theme 3D Colours */
+            --bg-color: #ecf0f3; 
+            --surface-color: #ecf0f3; 
+            --text-main: #2d3748; 
+            --text-muted: #718096;
             --brand-gradient: linear-gradient(135deg, #df20b9 0%, #00d2ff 100%);
+            /* Outer shadow for 3D pop-out effect */
             --shadow-out: 9px 9px 16px rgb(163,177,198,0.6), -9px -9px 16px rgba(255,255,255, 0.8);
+            /* Inner shadow for pressed behaviour */
             --shadow-in: inset 6px 6px 10px 0 rgba(163,177,198, 0.6), inset -6px -6px 10px 0 rgba(255,255,255, 0.8);
             --danger-color: #ef4444;
+            --success-color: #10b981;
+            --warning-color: #f5af19;
         }
         [data-theme="dark"] {
-            --bg-color: #1a1f24; --surface-color: #1a1f24; --text-main: #e2e8f0; --text-muted: #a0aec0;
+            /* Dark Theme 3D Colours */
+            --bg-color: #1a1f24; 
+            --surface-color: #1a1f24; 
+            --text-main: #e2e8f0; 
+            --text-muted: #a0aec0;
             --shadow-out: 8px 8px 16px rgba(0,0,0,0.4), -8px -8px 16px rgba(255,255,255,0.05);
             --shadow-in: inset 5px 5px 10px rgba(0,0,0,0.6), inset -5px -5px 10px rgba(255,255,255,0.05);
         }
@@ -28,7 +40,7 @@
         .theme-toggle { background: var(--surface-color); border: none; font-size: 20px; cursor: pointer; width: 40px; height: 40px; border-radius: 50%; box-shadow: var(--shadow-out); transition: 0.3s; }
         .theme-toggle:hover { box-shadow: var(--shadow-in); }
 
-        .container { background: var(--surface-color); width: 100%; max-width: 1000px; padding: 40px; border-radius: 24px; box-shadow: var(--shadow-out); box-sizing: border-box; text-align: center; }
+        .container { background: var(--surface-color); width: 100%; max-width: 1100px; padding: 40px; border-radius: 24px; box-shadow: var(--shadow-out); box-sizing: border-box; text-align: center; }
         
         h2 { background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 32px; margin-top: 0; }
 
@@ -46,11 +58,13 @@
         .table-wrapper { width: 100%; overflow-x: auto; box-shadow: var(--shadow-in); border-radius: 16px; padding: 15px; box-sizing: border-box; }
         table { width: 100%; border-collapse: collapse; text-align: left; }
         th, td { padding: 15px; border-bottom: 1px solid rgba(163,177,198,0.2); font-weight: 500; }
-        th { color: #df20b9; font-weight: 800; }
+        th { color: #df20b9; font-weight: 800; white-space: nowrap; }
         
-        .action-btn { border: none; padding: 8px 15px; border-radius: 8px; font-size: 13px; font-weight: 800; cursor: pointer; transition: 0.3s; margin-right: 5px; }
+        /* Action buttons styling */
+        .action-btn { border: none; padding: 8px 12px; border-radius: 8px; font-size: 13px; font-weight: 800; cursor: pointer; transition: 0.3s; margin-right: 5px; margin-bottom: 5px; display: inline-block; }
         .btn-edit { background: #00d2ff; color: #111; box-shadow: 0 4px 10px rgba(0, 210, 255, 0.3); }
         .btn-delete { background: var(--danger-color); color: #fff; box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3); }
+        .btn-verify { background: var(--success-color); color: #fff; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3); }
         .action-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
     </style>
 </head>
@@ -67,7 +81,7 @@
         <!-- LOGIN SECTION -->
         <div id="loginSection">
             <h2>Admin Control Panel</h2>
-            <p style="color: var(--text-muted); margin-bottom: 30px;">Only authorized administrators can access this area.</p>
+            <p style="color: var(--text-muted); margin-bottom: 30px;">Only authorised administrators can access this area.</p>
             <button class="login-btn" id="loginBtn">
                 <svg width="24" height="24" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
                     <path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/>
@@ -82,7 +96,7 @@
         <!-- DASHBOARD SECTION -->
         <div id="dashboardSection">
             <div class="dashboard-header">
-                <h2>Manage Records</h2>
+                <h2>Manage Survey Records</h2>
                 <button class="logout-btn" id="logoutBtn">Logout</button>
             </div>
             
@@ -94,11 +108,12 @@
                             <th>Exam Type</th>
                             <th>Category</th>
                             <th>Marks</th>
+                            <th>Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody id="adminTableBody">
-                        <!-- Data aayega -->
+                        <!-- Data rows will be injected here dynamically -->
                     </tbody>
                 </table>
             </div>
@@ -106,10 +121,12 @@
     </div>
 
     <script type="module">
+        // Import necessary Firebase modules
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, getDocs, doc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
         import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
+        // Initialise Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyBLK2-2BJsYhwxKfcggWKdfRQI1lf_-tkM",
             authDomain: "computerinstructorsurvey.firebaseapp.com",
@@ -123,28 +140,25 @@
         const auth = getAuth(app);
         const provider = new GoogleAuthProvider();
 
-        const ADMIN_EMAIL = "teamjkbyteclasses@gmail.com";
-        
         const loginSection = document.getElementById('loginSection');
         const dashboardSection = document.getElementById('dashboardSection');
         const adminTableBody = document.getElementById('adminTableBody');
 
-        // Check Login Status automatically
+        // Check login status automatically based on Firebase session
         onAuthStateChanged(auth, (user) => {
-            if (user && user.email === ADMIN_EMAIL) {
+            if (user) {
+                // If a user is logged in, attempt to load the dashboard.
+                // Security rule validation occurs inside loadAdminData().
                 loginSection.style.display = 'none';
                 dashboardSection.style.display = 'flex';
                 loadAdminData();
-            } else if (user) {
-                alert("Access Denied! You are not authorized as Admin.");
-                signOut(auth);
             } else {
                 loginSection.style.display = 'flex';
                 dashboardSection.style.display = 'none';
             }
         });
 
-        // Login Button
+        // Trigger Google Sign-In popup
         document.getElementById('loginBtn').addEventListener('click', async () => {
             try {
                 await signInWithPopup(auth, provider);
@@ -153,48 +167,76 @@
             }
         });
 
-        // Logout Button
+        // Log out the current user
         document.getElementById('logoutBtn').addEventListener('click', async () => {
             await signOut(auth);
         });
 
-        // Load Data
+        // Fetch records from Firestore and populate the table
         async function loadAdminData() {
-            adminTableBody.innerHTML = "<tr><td colspan='5' style='text-align:center;'>Loading Data...</td></tr>";
+            adminTableBody.innerHTML = "<tr><td colspan='6' style='text-align:center;'>Loading Data...</td></tr>";
             try {
+                // If the user lacks admin privileges in Firebase rules, this request will fail automatically.
                 const querySnapshot = await getDocs(collection(db, "instructor_survey"));
                 adminTableBody.innerHTML = "";
 
                 if(querySnapshot.empty) {
-                    adminTableBody.innerHTML = "<tr><td colspan='5' style='text-align:center;'>No records found.</td></tr>";
+                    adminTableBody.innerHTML = "<tr><td colspan='6' style='text-align:center;'>No records found.</td></tr>";
                     return;
                 }
 
                 querySnapshot.forEach((docSnap) => {
                     const data = docSnap.data();
                     const tr = document.createElement('tr');
+                    
+                    // Determine the visual style of the status badge
+                    let statusBadge = data.status === "approved" 
+                                    ? `<span style="color:var(--success-color); font-weight:bold;">✅ Approved</span>`
+                                    : `<span style="color:var(--warning-color); font-weight:bold;">⏳ Pending</span>`;
+
+                    // Generate a Verify button only if the record is pending
+                    let verifyBtnHtml = data.status !== "approved" 
+                                      ? `<button class="action-btn btn-verify" data-id="${docSnap.id}">✅ Verify</button>` 
+                                      : ``;
+
                     tr.innerHTML = `
                         <td><strong>${data.student_name || ''}</strong></td>
                         <td>${data.bharti_type || ''}</td>
                         <td>${data.category || ''}</td>
                         <td style="color:#00d2ff; font-weight:800;">${data.marks_obtained !== undefined ? data.marks_obtained : ''}</td>
+                        <td>${statusBadge}</td>
                         <td>
+                            ${verifyBtnHtml}
                             <button class="action-btn btn-edit" data-id="${docSnap.id}">✏️ Edit</button>
                             <button class="action-btn btn-delete" data-id="${docSnap.id}">🗑️ Delete</button>
                         </td>
                     `;
                     
+                    // Attach event listeners for each row's action buttons
+                    if(data.status !== "approved") {
+                        tr.querySelector('.btn-verify').addEventListener('click', () => approveRecord(docSnap.id));
+                    }
                     tr.querySelector('.btn-edit').addEventListener('click', () => editRecord(docSnap.id, data));
                     tr.querySelector('.btn-delete').addEventListener('click', () => deleteRecord(docSnap.id));
 
                     adminTableBody.appendChild(tr);
                 });
             } catch(e) {
-                adminTableBody.innerHTML = `<tr><td colspan='5' style='color:red; text-align:center;'>Error: ${e.message}</td></tr>`;
+                // Deny access if the user is not defined in the Firebase security rules
+                alert("Access Denied! You are not an authorised Admin. Logging you out...");
+                await signOut(auth);
             }
         }
 
-        // Edit Function
+        // Approve a pending record and publish it to the leaderboard
+        window.approveRecord = async function(id) {
+            try {
+                await updateDoc(doc(db, "instructor_survey", id), { status: "approved" });
+                loadAdminData();
+            } catch(err) { alert("Error approving record: " + err.message); }
+        }
+
+        // Edit an existing record
         window.editRecord = async function(id, oldData) {
             const newName = prompt("Update Student Name:", oldData.student_name || "");
             if(newName === null) return;
@@ -208,31 +250,32 @@
             
             const parsedMarks = parseFloat(newMarks);
             if(isNaN(parsedMarks) || parsedMarks < 0 || parsedMarks > 200) {
-                alert("Invalid marks!"); return;
+                alert("Invalid marks provided!"); return;
             }
 
             try {
                 await updateDoc(doc(db, "instructor_survey", id), {
-                    student_name: newName.trim(), bharti_type: newType.trim(),
-                    category: newCategory.trim(), marks_obtained: parsedMarks
+                    student_name: newName.trim(), 
+                    bharti_type: newType.trim(),
+                    category: newCategory.trim(), 
+                    marks_obtained: parsedMarks
                 });
-                alert("Updated successfully!");
+                alert("Record updated successfully!");
                 loadAdminData();
-            } catch(err) { alert("Error: " + err.message); }
+            } catch(err) { alert("Error updating record: " + err.message); }
         }
 
-        // Delete Function
+        // Delete a record permanently
         window.deleteRecord = async function(id) {
-            if(confirm("Permanently delete this record?")) {
+            if(confirm("Are you sure you want to permanently delete this record?")) {
                 try {
                     await deleteDoc(doc(db, "instructor_survey", id));
-                    alert("Deleted successfully!");
                     loadAdminData();
-                } catch(err) { alert("Error: " + err.message); }
+                } catch(err) { alert("Error deleting record: " + err.message); }
             }
         }
 
-        // Theme Setup
+        // Manage theme toggling behaviour
         const toggleBtn = document.getElementById('themeToggle');
         const currentTheme = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', currentTheme);

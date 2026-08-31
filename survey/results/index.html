@@ -6,25 +6,35 @@
     <title>Survey Analytics & Leaderboard - JK Byte</title>
     <link rel="icon" type="image/png" href="../../logo.png">
     
-    <!-- jsPDF & AutoTable for PDF -->
+    <!-- jsPDF & AutoTable for PDF export -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
-    <!-- SheetJS for Excel -->
+    <!-- SheetJS for Excel export -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-    <!-- Chart.js for Interactive Charts -->
+    <!-- Chart.js for interactive data visualisation -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
         :root {
-            --bg-color: #ecf0f3; --surface-color: #ecf0f3; --text-main: #2d3748; --text-muted: #718096;
+            /* Light Theme 3D Colours */
+            --bg-color: #ecf0f3; 
+            --surface-color: #ecf0f3; 
+            --text-main: #2d3748; 
+            --text-muted: #718096;
             --brand-gradient: linear-gradient(135deg, #df20b9 0%, #00d2ff 100%);
+            /* Outer shadow for 3D pop-out effect */
             --shadow-out: 9px 9px 16px rgb(163,177,198,0.6), -9px -9px 16px rgba(255,255,255, 0.8);
+            /* Inner shadow for pressed behaviour */
             --shadow-in: inset 6px 6px 10px 0 rgba(163,177,198, 0.6), inset -6px -6px 10px 0 rgba(255,255,255, 0.8);
             --chart-grid: rgba(0, 0, 0, 0.05);
             --th-bg: #e2e8f0;
         }
         [data-theme="dark"] {
-            --bg-color: #1a1f24; --surface-color: #1a1f24; --text-main: #e2e8f0; --text-muted: #a0aec0;
+            /* Dark Theme 3D Colours */
+            --bg-color: #1a1f24; 
+            --surface-color: #1a1f24; 
+            --text-main: #e2e8f0; 
+            --text-muted: #a0aec0;
             --shadow-out: 8px 8px 16px rgba(0,0,0,0.4), -8px -8px 16px rgba(255,255,255,0.05);
             --shadow-in: inset 5px 5px 10px rgba(0,0,0,0.6), inset -5px -5px 10px rgba(255,255,255,0.05);
             --chart-grid: rgba(255, 255, 255, 0.05);
@@ -80,13 +90,13 @@
         .loading-text { font-size: 20px; font-weight: bold; color: var(--text-muted); text-align: center; margin-top: 50px; }
         #mainContent { display: none; }
 
-        /* 🔥 MOBILE OPTIMIZATION: FULL SCREEN WIDTH NO PADDING 🔥 */
+        /* 🔥 MOBILE OPTIMISATION: FULL SCREEN WIDTH NO PADDING 🔥 */
         @media(max-width: 768px) {
             body { padding: 10px; }
             .actions-container { padding: 20px 5px; border-radius: 16px; }
             .btn-action { width: 90%; max-width: none; margin: 8px auto; display: block; }
             
-            /* Remove inside padding for table container to utilize full width on phone */
+            /* Remove inside padding for table container to utilise full width on mobile devices */
             .table-container { padding: 5px; border-radius: 12px; }
             th, td { padding: 10px 8px; font-size: 13px; }
         }
@@ -101,7 +111,7 @@
         <button class="theme-toggle" id="themeToggle">🌙</button>
     </div>
 
-    <div id="loadingIndicator" class="loading-text">Analyzing Survey Data... 📊</div>
+    <div id="loadingIndicator" class="loading-text">Analysing Survey Data... 📊</div>
 
     <div id="mainContent" class="dashboard-container">
         
@@ -177,7 +187,6 @@
                                     <th>Marks</th>
                                 </tr>
                             </thead>
-                            <button></button>
                             <tbody id="basicTableBody"></tbody>
                         </table>
                     </div>
@@ -207,7 +216,8 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        // Import query and where to filter approved entries
+        import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBLK2-2BJsYhwxKfcggWKdfRQI1lf_-tkM",
@@ -223,20 +233,25 @@
         let basicDataArr = [];
         let seniorDataArr = [];
 
+        // Initialise Dashboard
         async function initDashboard() {
             try {
-                const querySnapshot = await getDocs(collection(db, "instructor_survey"));
+                // Fetch ONLY verified/approved data
+                const q = query(collection(db, "instructor_survey"), where("status", "==", "approved"));
+                const querySnapshot = await getDocs(q);
                 
                 let b_Total = 0, b_Max = 0, b_Qual = 0, b_MarksSum = 0;
                 let s_Total = 0, s_Max = 0, s_Qual = 0, s_MarksSum = 0;
                 
                 let markLabels = [];
+                // For Line Chart (80 to 200 with intervals of 5) = 24 Bins
                 for(let i = 80; i < 195; i += 5) { markLabels.push(`${i}-${i+4}`); }
                 markLabels.push('195-200');
 
                 let b_MarkBins = new Array(24).fill(0);
                 let s_MarkBins = new Array(24).fill(0);
                 
+                // For Category Chart
                 let b_CatCount = {};
                 let s_CatCount = {};
 
@@ -272,7 +287,7 @@
                     }
                 });
 
-                // Sort Both Arrays by Marks (Top to Bottom)
+                // Sort both arrays by marks (Descending)
                 basicDataArr.sort((a, b) => (b.marks_obtained || 0) - (a.marks_obtained || 0));
                 seniorDataArr.sort((a, b) => (b.marks_obtained || 0) - (a.marks_obtained || 0));
 

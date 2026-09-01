@@ -176,8 +176,7 @@
             </a>
         </div>
     </div>
-
-    <script type="module">
+     <script type="module">
         // Initialise Firebase configuration
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
@@ -194,6 +193,18 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
+        // --- DEVICE FINGERPRINTING LOGIC ---
+        // Generate or retrieve a unique ID for the user's browser/device
+        function getDeviceID() {
+            let deviceId = localStorage.getItem('survey_device_id');
+            if (!deviceId) {
+                // Generate a random string using current time and random maths
+                deviceId = 'device_' + Date.now().toString(36) + Math.random().toString(36).substring(2, 8);
+                localStorage.setItem('survey_device_id', deviceId);
+            }
+            return deviceId;
+        }
+
         // --- SUBMIT FORM DATA ---
         document.getElementById('surveyForm').addEventListener('submit', async (e) => {
             // Prevent default form submission behaviour
@@ -207,15 +218,19 @@
             const type = document.getElementById('instructorType').value;
             const category = document.getElementById('category').value.trim();
             const marks = parseFloat(document.getElementById('marks').value);
+            
+            // Retrieve the unique device identifier
+            const userDeviceId = getDeviceID();
 
             try {
-                // Add the new record with a "pending" status for admin verification
+                // Add the new record with a "pending" status and the unique device ID
                 await addDoc(collection(db, "instructor_survey"), {
                     student_name: name,
                     bharti_type: type,
                     category: category,
                     marks_obtained: marks,
-                    status: "pending",  // Automatically sets to pending for verification
+                    status: "pending", 
+                    device_id: userDeviceId, // <-- This tracks the specific mobile/computer
                     timestamp: new Date()
                 });
                 
@@ -244,6 +259,6 @@
             localStorage.setItem('theme', newTheme);
             toggleBtn.innerHTML = newTheme === 'dark' ? '☀️' : '🌙';
         });
-    </script>
+     </script>
 </body>
 </html>

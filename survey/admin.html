@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
@@ -66,6 +66,7 @@
         .btn-delete { background: var(--danger-color); color: #fff; box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3); }
         .btn-verify { background: var(--success-color); color: #fff; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3); }
         .action-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
+        .action-btn:disabled { opacity: 0.5; cursor: not-allowed; }
     </style>
 </head>
 <body>
@@ -147,8 +148,6 @@
         // Check login status automatically based on Firebase session
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                // If a user is logged in, attempt to load the dashboard.
-                // Security rule validation occurs inside loadAdminData().
                 loginSection.style.display = 'none';
                 dashboardSection.style.display = 'flex';
                 loadAdminData();
@@ -172,7 +171,7 @@
             await signOut(auth);
         });
 
-        // Fetch records from Firestore and populate the table
+        // Fetch records from Firestore and populate the table initially
         async function loadAdminData() {
             adminTableBody.innerHTML = "<tr><td colspan='6' style='text-align:center;'>Loading Data...</td></tr>";
             try {
@@ -199,25 +198,32 @@
                                       ? `<button class="action-btn btn-verify" data-id="${docSnap.id}">✅ Verify</button>` 
                                       : ``;
 
+                    // Using specific classes on <td> elements for instant UI updates (No reload required)
                     tr.innerHTML = `
-                        <td><strong>${data.student_name || ''}</strong></td>
-                        <td>${data.bharti_type || ''}</td>
-                        <td>${data.category || ''}</td>
-                        <td style="color:#00d2ff; font-weight:800;">${data.marks_obtained !== undefined ? data.marks_obtained : ''}</td>
-                        <td>${statusBadge}</td>
-                        <td>
+                        <td class="td-name"><strong>${data.student_name || ''}</strong></td>
+                        <td class="td-type">${data.bharti_type || ''}</td>
+                        <td class="td-category">${data.category || ''}</td>
+                        <td class="td-marks" style="color:#00d2ff; font-weight:800;">${data.marks_obtained !== undefined ? data.marks_obtained : ''}</td>
+                        <td class="td-status">${statusBadge}</td>
+                        <td class="td-actions">
                             ${verifyBtnHtml}
                             <button class="action-btn btn-edit" data-id="${docSnap.id}">✏️ Edit</button>
                             <button class="action-btn btn-delete" data-id="${docSnap.id}">🗑️ Delete</button>
                         </td>
                     `;
                     
-                    // Attach event listeners for each row's action buttons
+                    // Attach event listeners for instant DOM manipulation actions
                     if(data.status !== "approved") {
-                        tr.querySelector('.btn-verify').addEventListener('click', () => approveRecord(docSnap.id));
+                        tr.querySelector('.btn-verify').addEventListener('click', function() {
+                            approveRecord(docSnap.id, this, tr);
+                        });
                     }
-                    tr.querySelector('.btn-edit').addEventListener('click', () => editRecord(docSnap.id, data));
-                    tr.querySelector('.btn-delete').addEventListener('click', () => deleteRecord(docSnap.id));
+                    tr.querySelector('.btn-edit').addEventListener('click', function() {
+                        editRecord(docSnap.id, data, tr);
+                    });
+                    tr.querySelector('.btn-delete').addEventListener('click', function() {
+                        deleteRecord(docSnap.id, tr);
+                    });
 
                     adminTableBody.appendChild(tr);
                 });
@@ -228,16 +234,30 @@
             }
         }
 
-        // Approve a pending record and publish it to the leaderboard
-        window.approveRecord = async function(id) {
+        // --- OPTIMISED FUNCTIONS (NO PAGE RELOAD / NO EXTRA FIREBASE READS) ---
+
+        // Approve a pending record
+        async function approveRecord(id, btnElement, trElement) {
             try {
+                btnElement.disabled = true;
+                btnElement.innerText = "⏳ Verifying...";
+                
+                // 1. Update backend
                 await updateDoc(doc(db, "instructor_survey", id), { status: "approved" });
-                loadAdminData();
-            } catch(err) { alert("Error approving record: " + err.message); }
+                
+                // 2. Update frontend UI instantly
+                trElement.querySelector('.td-status').innerHTML = `<span style="color:var(--success-color); font-weight:bold;">✅ Approved</span>`;
+                btnElement.remove(); // Remove the verify button from the screen
+                
+            } catch(err) { 
+                alert("Error approving record: " + err.message); 
+                btnElement.disabled = false;
+                btnElement.innerText = "✅ Verify";
+            }
         }
 
         // Edit an existing record
-        window.editRecord = async function(id, oldData) {
+        async function editRecord(id, oldData, trElement) {
             const newName = prompt("Update Student Name:", oldData.student_name || "");
             if(newName === null) return;
             const newType = prompt("Update Exam Type:", oldData.bharti_type || "");
@@ -245,7 +265,7 @@
             let newCategory = prompt("Update Category (Alphabets only):", oldData.category || "");
             if(newCategory === null) return;
             newCategory = newCategory.replace(/[^a-zA-Z\s]/g, '');
-            const newMarks = prompt("Update Marks (0-200):", oldData.marks_obtained);
+            const newMarks = prompt("Update Marks (0 to 200):", oldData.marks_obtained !== undefined ? oldData.marks_obtained : "");
             if(newMarks === null) return;
             
             const parsedMarks = parseFloat(newMarks);
@@ -254,24 +274,44 @@
             }
 
             try {
+                // 1. Update backend
                 await updateDoc(doc(db, "instructor_survey", id), {
                     student_name: newName.trim(), 
                     bharti_type: newType.trim(),
                     category: newCategory.trim(), 
                     marks_obtained: parsedMarks
                 });
+                
+                // 2. Update frontend UI instantly (Without reloading data)
+                trElement.querySelector('.td-name').innerHTML = `<strong>${newName.trim()}</strong>`;
+                trElement.querySelector('.td-type').innerText = newType.trim();
+                trElement.querySelector('.td-category').innerText = newCategory.trim();
+                trElement.querySelector('.td-marks').innerText = parsedMarks;
+                
+                // Sync oldData object to reflect new values for future edits
+                oldData.student_name = newName.trim();
+                oldData.bharti_type = newType.trim();
+                oldData.category = newCategory.trim();
+                oldData.marks_obtained = parsedMarks;
+                
                 alert("Record updated successfully!");
-                loadAdminData();
-            } catch(err) { alert("Error updating record: " + err.message); }
+            } catch(err) { 
+                alert("Error updating record: " + err.message); 
+            }
         }
 
         // Delete a record permanently
-        window.deleteRecord = async function(id) {
+        async function deleteRecord(id, trElement) {
             if(confirm("Are you sure you want to permanently delete this record?")) {
                 try {
+                    // 1. Delete from backend
                     await deleteDoc(doc(db, "instructor_survey", id));
-                    loadAdminData();
-                } catch(err) { alert("Error deleting record: " + err.message); }
+                    
+                    // 2. Remove the row from the screen instantly
+                    trElement.remove(); 
+                } catch(err) { 
+                    alert("Error deleting record: " + err.message); 
+                }
             }
         }
 

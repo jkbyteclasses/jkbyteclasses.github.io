@@ -40,7 +40,7 @@
         .theme-toggle { background: var(--surface-color); border: none; font-size: 20px; cursor: pointer; width: 40px; height: 40px; border-radius: 50%; box-shadow: var(--shadow-out); transition: 0.3s; }
         .theme-toggle:hover { box-shadow: var(--shadow-in); }
 
-        .container { background: var(--surface-color); width: 100%; max-width: 1100px; padding: 40px; border-radius: 24px; box-shadow: var(--shadow-out); box-sizing: border-box; text-align: center; }
+        .container { background: var(--surface-color); width: 100%; max-width: 1200px; padding: 30px; border-radius: 24px; box-shadow: var(--shadow-out); box-sizing: border-box; text-align: center; }
         
         h2 { background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 32px; margin-top: 0; }
 
@@ -51,17 +51,27 @@
 
         /* Admin Dashboard Section */
         #dashboardSection { display: none; width: 100%; flex-direction: column; align-items: center; }
-        .dashboard-header { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .dashboard-header { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 15px; }
+        
+        /* Sorting Controls */
+        .controls-group { display: flex; align-items: center; gap: 10px; }
+        .controls-group label { font-weight: 700; color: var(--text-muted); }
+        .sort-select { padding: 8px 12px; border-radius: 12px; background: var(--surface-color); color: var(--text-main); border: 2px solid rgba(163,177,198,0.3); outline: none; font-weight: 600; cursor: pointer; box-shadow: var(--shadow-in); }
+        
         .logout-btn { background: var(--surface-color); color: var(--danger-color); border: none; padding: 10px 20px; border-radius: 12px; font-weight: 800; cursor: pointer; box-shadow: var(--shadow-out); transition: 0.3s; }
         .logout-btn:hover { box-shadow: var(--shadow-in); }
 
         .table-wrapper { width: 100%; overflow-x: auto; box-shadow: var(--shadow-in); border-radius: 16px; padding: 15px; box-sizing: border-box; }
         table { width: 100%; border-collapse: collapse; text-align: left; }
-        th, td { padding: 15px; border-bottom: 1px solid rgba(163,177,198,0.2); font-weight: 500; }
+        th, td { padding: 15px; border-bottom: 1px solid rgba(163,177,198,0.2); font-weight: 500; font-size: 14px; }
         th { color: #df20b9; font-weight: 800; white-space: nowrap; }
         
+        /* Device ID Badge */
+        .device-badge { background: rgba(113, 128, 150, 0.2); padding: 4px 8px; border-radius: 6px; font-family: monospace; font-size: 12px; font-weight: bold; }
+        .device-duplicate { background: var(--warning-color); color: #111; } /* Warning colour for spam */
+
         /* Action buttons styling */
-        .action-btn { border: none; padding: 8px 12px; border-radius: 8px; font-size: 13px; font-weight: 800; cursor: pointer; transition: 0.3s; margin-right: 5px; margin-bottom: 5px; display: inline-block; }
+        .action-btn { border: none; padding: 8px 12px; border-radius: 8px; font-size: 12px; font-weight: 800; cursor: pointer; transition: 0.3s; margin-right: 5px; margin-bottom: 5px; display: inline-block; }
         .btn-edit { background: #00d2ff; color: #111; box-shadow: 0 4px 10px rgba(0, 210, 255, 0.3); }
         .btn-delete { background: var(--danger-color); color: #fff; box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3); }
         .btn-verify { background: var(--success-color); color: #fff; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3); }
@@ -97,18 +107,30 @@
         <!-- DASHBOARD SECTION -->
         <div id="dashboardSection">
             <div class="dashboard-header">
-                <h2>Manage Survey Records</h2>
-                <button class="logout-btn" id="logoutBtn">Logout</button>
+                <h2>Survey Records</h2>
+                
+                <!-- Sorting Dropdown -->
+                <div class="controls-group">
+                    <label for="sortSelect">Organise By:</label>
+                    <select id="sortSelect" class="sort-select">
+                        <option value="date">Date Added (Newest)</option>
+                        <option value="marks">Marks (Highest)</option>
+                        <option value="name">Name (A-Z)</option>
+                        <option value="device">Device ID (Group Identical)</option>
+                    </select>
+                    <button class="logout-btn" id="logoutBtn">Logout</button>
+                </div>
             </div>
             
             <div class="table-wrapper">
                 <table>
                     <thead>
                         <tr>
-                            <th>Student Name</th>
+                            <th>Name</th>
                             <th>Exam Type</th>
                             <th>Category</th>
                             <th>Marks</th>
+                            <th>Device ID</th>
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
@@ -122,7 +144,6 @@
     </div>
 
     <script type="module">
-        // Import necessary Firebase modules
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getFirestore, collection, getDocs, doc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
         import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
@@ -144,120 +165,153 @@
         const loginSection = document.getElementById('loginSection');
         const dashboardSection = document.getElementById('dashboardSection');
         const adminTableBody = document.getElementById('adminTableBody');
+        const sortSelect = document.getElementById('sortSelect');
 
-        // Check login status automatically based on Firebase session
+        // Global array to store data locally (Prevents multiple Firebase reads)
+        let adminRecords = [];
+
+        // Check login status
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 loginSection.style.display = 'none';
                 dashboardSection.style.display = 'flex';
-                loadAdminData();
+                fetchDataFromFirebase();
             } else {
                 loginSection.style.display = 'flex';
                 dashboardSection.style.display = 'none';
             }
         });
 
-        // Trigger Google Sign-In popup
         document.getElementById('loginBtn').addEventListener('click', async () => {
-            try {
-                await signInWithPopup(auth, provider);
-            } catch(error) {
-                alert("Login Failed: " + error.message);
-            }
+            try { await signInWithPopup(auth, provider); } catch(error) { alert("Login Failed: " + error.message); }
         });
 
-        // Log out the current user
         document.getElementById('logoutBtn').addEventListener('click', async () => {
             await signOut(auth);
         });
 
-        // Fetch records from Firestore and populate the table initially
-        async function loadAdminData() {
-            adminTableBody.innerHTML = "<tr><td colspan='6' style='text-align:center;'>Loading Data...</td></tr>";
+        // 1. FETCH DATA ONCE FROM FIREBASE
+        async function fetchDataFromFirebase() {
+            adminTableBody.innerHTML = "<tr><td colspan='7' style='text-align:center;'>Fetching Data...</td></tr>";
             try {
-                // If the user lacks admin privileges in Firebase rules, this request will fail automatically.
                 const querySnapshot = await getDocs(collection(db, "instructor_survey"));
-                adminTableBody.innerHTML = "";
-
-                if(querySnapshot.empty) {
-                    adminTableBody.innerHTML = "<tr><td colspan='6' style='text-align:center;'>No records found.</td></tr>";
-                    return;
-                }
-
+                adminRecords = [];
+                
                 querySnapshot.forEach((docSnap) => {
-                    const data = docSnap.data();
-                    const tr = document.createElement('tr');
-                    
-                    // Determine the visual style of the status badge
-                    let statusBadge = data.status === "approved" 
-                                    ? `<span style="color:var(--success-color); font-weight:bold;">✅ Approved</span>`
-                                    : `<span style="color:var(--warning-color); font-weight:bold;">⏳ Pending</span>`;
-
-                    // Generate a Verify button only if the record is pending
-                    let verifyBtnHtml = data.status !== "approved" 
-                                      ? `<button class="action-btn btn-verify" data-id="${docSnap.id}">✅ Verify</button>` 
-                                      : ``;
-
-                    // Using specific classes on <td> elements for instant UI updates (No reload required)
-                    tr.innerHTML = `
-                        <td class="td-name"><strong>${data.student_name || ''}</strong></td>
-                        <td class="td-type">${data.bharti_type || ''}</td>
-                        <td class="td-category">${data.category || ''}</td>
-                        <td class="td-marks" style="color:#00d2ff; font-weight:800;">${data.marks_obtained !== undefined ? data.marks_obtained : ''}</td>
-                        <td class="td-status">${statusBadge}</td>
-                        <td class="td-actions">
-                            ${verifyBtnHtml}
-                            <button class="action-btn btn-edit" data-id="${docSnap.id}">✏️ Edit</button>
-                            <button class="action-btn btn-delete" data-id="${docSnap.id}">🗑️ Delete</button>
-                        </td>
-                    `;
-                    
-                    // Attach event listeners for instant DOM manipulation actions
-                    if(data.status !== "approved") {
-                        tr.querySelector('.btn-verify').addEventListener('click', function() {
-                            approveRecord(docSnap.id, this, tr);
-                        });
-                    }
-                    tr.querySelector('.btn-edit').addEventListener('click', function() {
-                        editRecord(docSnap.id, data, tr);
-                    });
-                    tr.querySelector('.btn-delete').addEventListener('click', function() {
-                        deleteRecord(docSnap.id, tr);
-                    });
-
-                    adminTableBody.appendChild(tr);
+                    adminRecords.push({ id: docSnap.id, ...docSnap.data() });
                 });
+
+                // Default Sort and Render
+                sortAndRenderTable();
+
             } catch(e) {
-                // Deny access if the user is not defined in the Firebase security rules
                 alert("Access Denied! You are not an authorised Admin. Logging you out...");
                 await signOut(auth);
             }
         }
 
-        // --- OPTIMISED FUNCTIONS (NO PAGE RELOAD / NO EXTRA FIREBASE READS) ---
+        // Event listener for sorting dropdown
+        sortSelect.addEventListener('change', () => {
+            sortAndRenderTable();
+        });
 
-        // Approve a pending record
-        async function approveRecord(id, btnElement, trElement) {
-            try {
-                btnElement.disabled = true;
-                btnElement.innerText = "⏳ Verifying...";
-                
-                // 1. Update backend
-                await updateDoc(doc(db, "instructor_survey", id), { status: "approved" });
-                
-                // 2. Update frontend UI instantly
-                trElement.querySelector('.td-status').innerHTML = `<span style="color:var(--success-color); font-weight:bold;">✅ Approved</span>`;
-                btnElement.remove(); // Remove the verify button from the screen
-                
-            } catch(err) { 
-                alert("Error approving record: " + err.message); 
-                btnElement.disabled = false;
-                btnElement.innerText = "✅ Verify";
+        // 2. SORT AND RENDER DATA LOCALLY (Zero Extra Reads)
+        function sortAndRenderTable() {
+            const sortBy = sortSelect.value;
+
+            // Sorting Logic
+            if (sortBy === 'marks') {
+                adminRecords.sort((a, b) => (b.marks_obtained || 0) - (a.marks_obtained || 0));
+            } else if (sortBy === 'name') {
+                adminRecords.sort((a, b) => (a.student_name || '').localeCompare(b.student_name || ''));
+            } else if (sortBy === 'device') {
+                adminRecords.sort((a, b) => (a.device_id || '').localeCompare(b.device_id || ''));
+            } else {
+                // Default date sort (Timestamp descending)
+                adminRecords.sort((a, b) => {
+                    const timeA = a.timestamp ? a.timestamp.seconds : 0;
+                    const timeB = b.timestamp ? b.timestamp.seconds : 0;
+                    return timeB - timeA;
+                });
             }
+
+            renderTableHTML();
         }
 
-        // Edit an existing record
-        async function editRecord(id, oldData, trElement) {
+        function renderTableHTML() {
+            if(adminRecords.length === 0) {
+                adminTableBody.innerHTML = "<tr><td colspan='7' style='text-align:center;'>No records found.</td></tr>";
+                return;
+            }
+
+            adminTableBody.innerHTML = "";
+
+            // Calculate Device ID frequencies to detect spam (Duplicates)
+            const deviceCounts = {};
+            adminRecords.forEach(r => {
+                const did = r.device_id || 'Unknown';
+                deviceCounts[did] = (deviceCounts[did] || 0) + 1;
+            });
+
+            // Build Rows
+            adminRecords.forEach((data) => {
+                const tr = document.createElement('tr');
+                
+                let statusBadge = data.status === "approved" 
+                                ? `<span style="color:var(--success-color); font-weight:bold;">✅ Approved</span>`
+                                : `<span style="color:var(--warning-color); font-weight:bold;">⏳ Pending</span>`;
+
+                let verifyBtnHtml = data.status !== "approved" 
+                                  ? `<button class="action-btn btn-verify">✅ Verify</button>` 
+                                  : ``;
+                
+                // Device ID styling (Highlight if duplicate)
+                const did = data.device_id || 'Unknown';
+                const shortDid = did.length > 8 ? did.substring(0, 8) + '...' : did;
+                const isDuplicate = deviceCounts[did] > 1 && did !== 'Unknown';
+                const badgeClass = isDuplicate ? 'device-badge device-duplicate' : 'device-badge';
+                const deviceTooltip = isDuplicate ? 'Multiple entries from this device!' : 'Unique Device';
+
+                tr.innerHTML = `
+                    <td><strong>${data.student_name || ''}</strong></td>
+                    <td>${data.bharti_type || ''}</td>
+                    <td>${data.category || ''}</td>
+                    <td style="color:#00d2ff; font-weight:800;">${data.marks_obtained !== undefined ? data.marks_obtained : ''}</td>
+                    <td><span class="${badgeClass}" title="${deviceTooltip}">${shortDid}</span></td>
+                    <td>${statusBadge}</td>
+                    <td>
+                        ${verifyBtnHtml}
+                        <button class="action-btn btn-edit">✏️ Edit</button>
+                        <button class="action-btn btn-delete">🗑️ Delete</button>
+                    </td>
+                `;
+                
+                // Attach Event Listeners inside loop for local array manipulation
+                if(data.status !== "approved") {
+                    tr.querySelector('.btn-verify').addEventListener('click', () => actionApprove(data.id));
+                }
+                tr.querySelector('.btn-edit').addEventListener('click', () => actionEdit(data.id, data));
+                tr.querySelector('.btn-delete').addEventListener('click', () => actionDelete(data.id));
+
+                adminTableBody.appendChild(tr);
+            });
+        }
+
+        // --- LOCAL ARRAY ACTIONS (Updates Backend + Local Memory, NO full reload) ---
+
+        async function actionApprove(id) {
+            try {
+                // Update Backend
+                await updateDoc(doc(db, "instructor_survey", id), { status: "approved" });
+                // Update Local Array
+                const record = adminRecords.find(r => r.id === id);
+                if(record) record.status = "approved";
+                // Re-render UI instantly
+                sortAndRenderTable();
+            } catch(err) { alert("Error approving record: " + err.message); }
+        }
+
+        async function actionEdit(id, oldData) {
             const newName = prompt("Update Student Name:", oldData.student_name || "");
             if(newName === null) return;
             const newType = prompt("Update Exam Type:", oldData.bharti_type || "");
@@ -265,16 +319,13 @@
             let newCategory = prompt("Update Category (Alphabets only):", oldData.category || "");
             if(newCategory === null) return;
             newCategory = newCategory.replace(/[^a-zA-Z\s]/g, '');
-            const newMarks = prompt("Update Marks (0 to 200):", oldData.marks_obtained !== undefined ? oldData.marks_obtained : "");
+            const newMarks = prompt("Update Marks (0 to 200):", oldData.marks_obtained);
             if(newMarks === null) return;
             
             const parsedMarks = parseFloat(newMarks);
-            if(isNaN(parsedMarks) || parsedMarks < 0 || parsedMarks > 200) {
-                alert("Invalid marks provided!"); return;
-            }
+            if(isNaN(parsedMarks) || parsedMarks < 0 || parsedMarks > 200) { alert("Invalid marks!"); return; }
 
             try {
-                // 1. Update backend
                 await updateDoc(doc(db, "instructor_survey", id), {
                     student_name: newName.trim(), 
                     bharti_type: newType.trim(),
@@ -282,40 +333,31 @@
                     marks_obtained: parsedMarks
                 });
                 
-                // 2. Update frontend UI instantly (Without reloading data)
-                trElement.querySelector('.td-name').innerHTML = `<strong>${newName.trim()}</strong>`;
-                trElement.querySelector('.td-type').innerText = newType.trim();
-                trElement.querySelector('.td-category').innerText = newCategory.trim();
-                trElement.querySelector('.td-marks').innerText = parsedMarks;
-                
-                // Sync oldData object to reflect new values for future edits
-                oldData.student_name = newName.trim();
-                oldData.bharti_type = newType.trim();
-                oldData.category = newCategory.trim();
-                oldData.marks_obtained = parsedMarks;
-                
+                // Update Local Array
+                const record = adminRecords.find(r => r.id === id);
+                if(record) {
+                    record.student_name = newName.trim();
+                    record.bharti_type = newType.trim();
+                    record.category = newCategory.trim();
+                    record.marks_obtained = parsedMarks;
+                }
+                sortAndRenderTable();
                 alert("Record updated successfully!");
-            } catch(err) { 
-                alert("Error updating record: " + err.message); 
-            }
+            } catch(err) { alert("Error updating: " + err.message); }
         }
 
-        // Delete a record permanently
-        async function deleteRecord(id, trElement) {
+        async function actionDelete(id) {
             if(confirm("Are you sure you want to permanently delete this record?")) {
                 try {
-                    // 1. Delete from backend
                     await deleteDoc(doc(db, "instructor_survey", id));
-                    
-                    // 2. Remove the row from the screen instantly
-                    trElement.remove(); 
-                } catch(err) { 
-                    alert("Error deleting record: " + err.message); 
-                }
+                    // Remove from local array
+                    adminRecords = adminRecords.filter(r => r.id !== id);
+                    sortAndRenderTable();
+                } catch(err) { alert("Error deleting: " + err.message); }
             }
         }
 
-        // Manage theme toggling behaviour
+        // Theme Toggle
         const toggleBtn = document.getElementById('themeToggle');
         const currentTheme = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', currentTheme);
@@ -329,3 +371,4 @@
     </script>
 </body>
 </html>
+

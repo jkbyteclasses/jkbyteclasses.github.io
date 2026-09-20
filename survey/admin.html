@@ -104,7 +104,9 @@
                 <h2>Survey Records</h2>
                 
                 <div class="controls-group">
-                    <button class="bulk-fix-btn" id="bulkFixBtn">🛠️ Bulk Update & Fix All</button>
+                    <!-- 🔥 BULK UPDATE BUTTON: Sets everyone to MALE & cleans data 🔥 -->
+                    <button class="bulk-fix-btn" id="bulkFixBtn">🛠️ Bulk Update (All Male) & Fix</button>
+                    
                     <label>Sort By:</label>
                     <select id="sortSelect" class="sort-select">
                         <option value="date">Date Added (Newest)</option>
@@ -216,7 +218,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        // 🔥 Import deleteField to remove device_id completely from database
+        // Import deleteField to remove device_id
         import { getFirestore, collection, getDocs, doc, updateDoc, deleteDoc, deleteField } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
         import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
@@ -284,7 +286,6 @@
         function sortAndRenderTable() {
             const sortBy = sortSelect.value;
 
-            // Sorting logic
             if (sortBy === 'marks') {
                 adminRecords.sort((a, b) => (b.marks_obtained || 0) - (a.marks_obtained || 0));
             } else if (sortBy === 'name') {
@@ -329,7 +330,6 @@
                     </td>
                 `;
 
-                // 🔥 Separate into BCI and SCI tables based on bharti_type
                 const typeStr = (data.bharti_type || '').toUpperCase();
                 if (typeStr.includes('BASIC') || typeStr === 'BCI') {
                     bciTableBody.appendChild(tr);
@@ -338,7 +338,6 @@
                     sciTableBody.appendChild(tr);
                     sciCount++;
                 } else {
-                    // Fallback to BCI if empty
                     bciTableBody.appendChild(tr);
                     bciCount++;
                 }
@@ -348,7 +347,7 @@
             if(sciCount === 0) sciTableBody.innerHTML = "<tr><td colspan='8' style='text-align:center;'>No SCI records found.</td></tr>";
         }
 
-        // --- BULK FIX (Remove Device ID, Update Categories, Set BCI/SCI) ---
+        // --- BULK FIX (Updates everyone to Male + Fix Categories) ---
         function getStandardCategory(cat) {
             if (!cat) return "General (UR)";
             let upper = cat.trim().toUpperCase();
@@ -362,7 +361,7 @@
         }
 
         bulkFixBtn.addEventListener('click', async () => {
-            if(!confirm("यह सभी गलत कैटेगरी को सही करेगा, Device ID को डेटाबेस से डिलीट करेगा, और एग्जाम का नाम BCI/SCI में बदलेगा। क्या आप तैयार हैं?")) return;
+            if(!confirm("चेतावनी! यह डेटाबेस के सभी उम्मीदवारों का Gender बदलकर 'Male' कर देगा। साथ ही गलत कैटेगरी और BCI/SCI नाम को भी सही करेगा। क्या आप तैयार हैं?")) return;
             
             bulkFixBtn.innerText = "⏳ Updating Database...";
             bulkFixBtn.disabled = true;
@@ -373,17 +372,21 @@
                     let record = adminRecords[i];
                     let updates = {};
 
-                    // 1. Fix Category
+                    // 1. Set Everyone to Male (Unless they are explicitly female already)
+                    if (record.gender !== "Male") {
+                        updates.gender = "Male";
+                    }
+
+                    // 2. Fix Category
                     let oldCat = record.category || "";
                     let newCat = getStandardCategory(oldCat);
                     if (oldCat !== newCat) updates.category = newCat;
 
-                    // 2. Provide Missing Defaults
-                    if (!record.gender) updates.gender = "Not Specified";
+                    // 3. Provide Missing Defaults
                     if (!record.area_type) updates.area_type = "NON TSP";
                     if (!record.special_category) updates.special_category = "None";
 
-                    // 3. Shorten Bharti Type to BCI / SCI
+                    // 4. Shorten Bharti Type
                     let oldType = (record.bharti_type || "").toUpperCase();
                     if ((oldType.includes("BASIC") || oldType === "") && oldType !== "BCI") {
                         updates.bharti_type = "BCI";
@@ -391,17 +394,16 @@
                         updates.bharti_type = "SCI";
                     }
 
-                    // 4. 🔥 DELETE DEVICE ID from Database completely
+                    // 5. Delete device id
                     if (record.device_id !== undefined) {
                         updates.device_id = deleteField();
                     }
 
-                    // Apply updates if there is any change
                     if (Object.keys(updates).length > 0) {
                         await updateDoc(doc(db, "instructor_survey", record.id), updates);
                         
-                        if(updates.category) record.category = updates.category;
                         if(updates.gender) record.gender = updates.gender;
+                        if(updates.category) record.category = updates.category;
                         if(updates.area_type) record.area_type = updates.area_type;
                         if(updates.special_category) record.special_category = updates.special_category;
                         if(updates.bharti_type) record.bharti_type = updates.bharti_type;
@@ -411,13 +413,13 @@
                     }
                 }
                 
-                alert(`✅ Success! ${updatedCount} records successfully updated and cleaned.`);
+                alert(`✅ Success! ${updatedCount} records updated. Everyone is now marked as 'Male'. You can edit females manually.`);
                 sortAndRenderTable();
             } catch(e) {
                 alert("❌ Error: " + e.message);
             }
 
-            bulkFixBtn.innerText = "🛠️ Bulk Update & Fix All";
+            bulkFixBtn.innerText = "🛠️ Bulk Update (All Male) & Fix";
             bulkFixBtn.disabled = false;
         });
 
@@ -441,7 +443,7 @@
             }
         }
 
-        // --- 🔥 EDIT MODAL LOGIC (Dropdowns) 🔥 ---
+        // --- EDIT MODAL LOGIC ---
         window.openEditModal = function(id) {
             const record = adminRecords.find(r => r.id === id);
             if(!record) return;
@@ -449,14 +451,12 @@
             document.getElementById('editId').value = id;
             document.getElementById('editName').value = record.student_name || "";
             
-            // Set Dropdowns based on database value
             let typeVal = (record.bharti_type || "").toUpperCase().includes("SENIOR") ? "SCI" : "BCI";
             document.getElementById('editType').value = typeVal;
             
-            document.getElementById('editGender').value = record.gender || "Not Specified";
+            document.getElementById('editGender').value = record.gender || "Male"; // Defaults to Male in edit
             document.getElementById('editArea').value = record.area_type || "NON TSP";
             
-            // Fix category drop down selection just in case it's mis-spelled
             let catVal = getStandardCategory(record.category);
             document.getElementById('editCategory').value = catVal;
             
@@ -481,7 +481,6 @@
             }
 
             try {
-                // Update Firebase DB
                 await updateDoc(doc(db, "instructor_survey", id), {
                     student_name: newName, 
                     bharti_type: newType,
@@ -492,7 +491,6 @@
                     marks_obtained: newMarks
                 });
                 
-                // Update Local Array
                 const record = adminRecords.find(r => r.id === id);
                 if(record) {
                     record.student_name = newName;

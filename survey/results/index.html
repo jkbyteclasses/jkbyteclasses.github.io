@@ -63,7 +63,8 @@
         
         /* Charts Grid Layout */
         .charts-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 25px; }
-        @media(max-width: 850px) { .charts-grid { grid-template-columns: 1fr; } }
+        .full-chart { grid-column: 1 / -1; height: 400px !important; } /* New Full Width Chart */
+        @media(max-width: 850px) { .charts-grid { grid-template-columns: 1fr; } .full-chart { grid-column: 1; height: 350px !important; } }
         
         .chart-container { background: var(--surface-color); padding: 25px; border-radius: 24px; box-shadow: var(--shadow-in); position: relative; height: 350px; width: 100%; box-sizing: border-box; }
         
@@ -96,7 +97,6 @@
             .actions-container { padding: 20px 5px; border-radius: 16px; }
             .btn-action { width: 90%; max-width: none; margin: 8px auto; display: block; }
             
-            /* Remove inside padding for table container to utilise full width on mobile devices */
             .table-container { padding: 5px; border-radius: 12px; }
             th, td { padding: 10px 8px; font-size: 13px; }
         }
@@ -116,7 +116,7 @@
     <div id="mainContent" class="dashboard-container">
         
         <!-- =================== BASIC COMPUTER INSTRUCTOR SECTION =================== -->
-        <h2 class="section-title">📘 Basic Computer Instructor</h2>
+        <h2 class="section-title">📘 BCI (Basic Computer Instructor)</h2>
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-title">👥 Enrolled</div>
@@ -136,12 +136,14 @@
             </div>
         </div>
         <div class="charts-grid">
+            <!-- Full Width Gender Distribution Chart -->
+            <div class="chart-container full-chart"><canvas id="basicGenderDistChart"></canvas></div>
             <div class="chart-container"><canvas id="basicMarksChart"></canvas></div>
             <div class="chart-container"><canvas id="basicCatChart"></canvas></div>
         </div>
 
         <!-- =================== SENIOR COMPUTER INSTRUCTOR SECTION =================== -->
-        <h2 class="section-title" style="border-left-color: #00d2ff;">📙 Senior Computer Instructor</h2>
+        <h2 class="section-title" style="border-left-color: #00d2ff;">📙 SCI (Senior Computer Instructor)</h2>
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-title">👥 Enrolled</div>
@@ -161,6 +163,8 @@
             </div>
         </div>
         <div class="charts-grid">
+            <!-- Full Width Gender Distribution Chart -->
+            <div class="chart-container full-chart"><canvas id="seniorGenderDistChart"></canvas></div>
             <div class="chart-container"><canvas id="seniorMarksChart"></canvas></div>
             <div class="chart-container"><canvas id="seniorCatChart"></canvas></div>
         </div>
@@ -183,7 +187,7 @@
                                 <tr>
                                     <th>Rank</th>
                                     <th>Student Name</th>
-                                    <th>Category</th>
+                                    <th>Category Details</th>
                                     <th>Marks</th>
                                 </tr>
                             </thead>
@@ -199,10 +203,10 @@
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Rank</th>
-                                    <th>Student Name</th>
-                                    <th>Category</th>
-                                    <th>Marks</th>
+                                    <th style="color: #00d2ff;">Rank</th>
+                                    <th style="color: #00d2ff;">Student Name</th>
+                                    <th style="color: #00d2ff;">Category Details</th>
+                                    <th style="color: #00d2ff;">Marks</th>
                                 </tr>
                             </thead>
                             <tbody id="seniorTableBody"></tbody>
@@ -216,7 +220,6 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        // Import query and where to filter approved entries
         import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         const firebaseConfig = {
@@ -233,6 +236,37 @@
         let basicDataArr = [];
         let seniorDataArr = [];
 
+        // Helper Function to Format Data for Display
+        function formatDataForDisplay(data) {
+            // 1. Format Name with Gender (M/F)
+            let formattedName = data.student_name || "Unknown";
+            if (data.gender) {
+                if (data.gender.toLowerCase() === "male") formattedName += " (M)";
+                else if (data.gender.toLowerCase() === "female") formattedName += " (F)";
+            }
+
+            // 2. Format Category String
+            let catParts = [];
+            if (data.category) catParts.push(data.category);
+            
+            // Add Area Type
+            if (data.area_type && data.area_type !== "Not Specified") {
+                catParts.push(`(${data.area_type})`);
+            }
+            // Add Special Category only if it's NOT 'None'
+            if (data.special_category && data.special_category.toLowerCase() !== "none") {
+                catParts.push(`(${data.special_category})`);
+            }
+
+            let formattedCategory = catParts.join(" ");
+
+            return {
+                ...data,
+                display_name: formattedName,
+                display_category: formattedCategory
+            };
+        }
+
         // Initialise Dashboard
         async function initDashboard() {
             try {
@@ -244,24 +278,32 @@
                 let s_Total = 0, s_Max = 0, s_Qual = 0, s_MarksSum = 0;
                 
                 let markLabels = [];
-                // For Line Chart (80 to 200 with intervals of 5) = 24 Bins
                 for(let i = 80; i < 195; i += 5) { markLabels.push(`${i}-${i+4}`); }
                 markLabels.push('195-200');
 
                 let b_MarkBins = new Array(24).fill(0);
                 let s_MarkBins = new Array(24).fill(0);
                 
-                // For Category Chart
                 let b_CatCount = {};
                 let s_CatCount = {};
 
+                // For the NEW Detailed Category x Gender Bar Chart
+                let b_GenderStats = {};
+                let s_GenderStats = {};
+
+                // Helper to initialize Category Object
+                const initGenderStat = () => ({ male: 0, female: 0, other: 0 });
+
                 querySnapshot.forEach((doc) => {
-                    const data = doc.data();
+                    let rawData = doc.data();
+                    let data = formatDataForDisplay(rawData); // Format the data
+
                     const m = parseFloat(data.marks_obtained) || 0;
                     const cat = data.category ? data.category.toUpperCase().trim() : 'OTHER';
+                    const gender = (data.gender || "other").toLowerCase();
                     const bType = (data.bharti_type || '').toUpperCase();
                     
-                    if (bType.includes('BASIC')) {
+                    if (bType.includes('BASIC') || bType === 'BCI') {
                         basicDataArr.push(data);
                         b_MarksSum += m;
                         if(m > b_Max) b_Max = m;
@@ -272,8 +314,15 @@
                             b_MarkBins[idx]++;
                         }
                         b_CatCount[cat] = (b_CatCount[cat] || 0) + 1;
+
+                        // Detailed Stats Collection
+                        if (!b_GenderStats[cat]) b_GenderStats[cat] = initGenderStat();
+                        if (gender === 'male') b_GenderStats[cat].male++;
+                        else if (gender === 'female') b_GenderStats[cat].female++;
+                        else b_GenderStats[cat].other++;
+
                     } 
-                    else if (bType.includes('SENIOR')) {
+                    else if (bType.includes('SENIOR') || bType === 'SCI') {
                         seniorDataArr.push(data);
                         s_MarksSum += m;
                         if(m > s_Max) s_Max = m;
@@ -284,6 +333,12 @@
                             s_MarkBins[idx]++;
                         }
                         s_CatCount[cat] = (s_CatCount[cat] || 0) + 1;
+
+                        // Detailed Stats Collection
+                        if (!s_GenderStats[cat]) s_GenderStats[cat] = initGenderStat();
+                        if (gender === 'male') s_GenderStats[cat].male++;
+                        else if (gender === 'female') s_GenderStats[cat].female++;
+                        else s_GenderStats[cat].other++;
                     }
                 });
 
@@ -294,23 +349,26 @@
                 b_Total = basicDataArr.length;
                 s_Total = seniorDataArr.length;
 
-                // Update Basic UI
+                // Update UI Stats
                 document.getElementById('basicTotal').innerText = b_Total;
                 document.getElementById('basicHighest').innerText = b_Max;
                 document.getElementById('basicAvg').innerText = b_Total > 0 ? (b_MarksSum / b_Total).toFixed(1) : 0;
                 document.getElementById('basicQual').innerText = b_Qual;
 
-                // Update Senior UI
                 document.getElementById('seniorTotal').innerText = s_Total;
                 document.getElementById('seniorHighest').innerText = s_Max;
                 document.getElementById('seniorAvg').innerText = s_Total > 0 ? (s_MarksSum / s_Total).toFixed(1) : 0;
                 document.getElementById('seniorQual').innerText = s_Qual;
 
-                // Render Charts
+                // Render Original Charts
                 renderLineChart('basicMarksChart', markLabels, b_MarkBins, '#df20b9');
                 renderLineChart('seniorMarksChart', markLabels, s_MarkBins, '#00d2ff');
                 renderDoughnutChart('basicCatChart', b_CatCount, 'Basic Category Dist.');
                 renderDoughnutChart('seniorCatChart', s_CatCount, 'Senior Category Dist.');
+
+                // Render New Gender Distribution Charts
+                renderStackedBarChart('basicGenderDistChart', b_GenderStats, 'BCI Detailed Category Analysis');
+                renderStackedBarChart('seniorGenderDistChart', s_GenderStats, 'SCI Detailed Category Analysis');
 
                 document.getElementById('loadingIndicator').style.display = 'none';
                 document.getElementById('mainContent').style.display = 'flex';
@@ -328,24 +386,17 @@
             const gridColor = getComputedStyle(document.documentElement).getPropertyValue('--chart-grid').trim();
 
             let gradient = ctx.createLinearGradient(0, 0, 0, 400);
-            gradient.addColorStop(0, primaryColor + '80'); // 50% opacity
-            gradient.addColorStop(1, primaryColor + '00'); // 0% opacity
+            gradient.addColorStop(0, primaryColor + '80');
+            gradient.addColorStop(1, primaryColor + '00');
 
             new Chart(ctx, {
                 type: 'line',
                 data: {
                     labels: labels,
                     datasets: [{
-                        label: 'Students',
-                        data: data,
-                        borderColor: primaryColor,
-                        backgroundColor: gradient,
-                        borderWidth: 3,
-                        pointBackgroundColor: primaryColor,
-                        pointBorderColor: '#fff',
-                        pointHoverRadius: 7,
-                        fill: true,
-                        tension: 0.4
+                        label: 'Students', data: data, borderColor: primaryColor,
+                        backgroundColor: gradient, borderWidth: 3, pointBackgroundColor: primaryColor,
+                        pointBorderColor: '#fff', pointHoverRadius: 7, fill: true, tension: 0.4
                     }]
                 },
                 options: {
@@ -353,7 +404,6 @@
                     plugins: { 
                         legend: { display: false },
                         title: { display: true, text: 'Marks Analysis (80 - 200)', color: textColor, font: {size: 16, weight: 'bold'} },
-                        tooltip: { backgroundColor: 'rgba(0,0,0,0.8)' }
                     },
                     scales: {
                         y: { beginAtZero: true, ticks: { color: textColor, stepSize: 1 }, grid: { color: gridColor } },
@@ -386,27 +436,80 @@
             });
         }
 
-        // --- VIEW LIVE LEADERBOARD (Separate Basic and Senior) ---
+        // 🔥 NEW: Stacked Bar Chart for Gender x Category 🔥
+        function renderStackedBarChart(canvasId, statsObj, titleText) {
+            const ctx = document.getElementById(canvasId).getContext('2d');
+            const textColor = getComputedStyle(document.documentElement).getPropertyValue('--text-main').trim();
+            const gridColor = getComputedStyle(document.documentElement).getPropertyValue('--chart-grid').trim();
+
+            const categories = Object.keys(statsObj);
+            const maleData = categories.map(cat => statsObj[cat].male);
+            const femaleData = categories.map(cat => statsObj[cat].female);
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: categories,
+                    datasets: [
+                        {
+                            label: 'Male',
+                            data: maleData,
+                            backgroundColor: '#00d2ff',
+                            borderRadius: 4
+                        },
+                        {
+                            label: 'Female',
+                            data: femaleData,
+                            backgroundColor: '#df20b9',
+                            borderRadius: 4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'top', labels: { color: textColor, font: {weight: 'bold'} } },
+                        title: { display: true, text: titleText, color: textColor, font: {size: 16, weight: 'bold'} },
+                        tooltip: { mode: 'index', intersect: false }
+                    },
+                    scales: {
+                        x: { 
+                            stacked: false, // Set to true if you want them stacked on top of each other
+                            ticks: { color: textColor, font: {weight: 'bold'} },
+                            grid: { display: false }
+                        },
+                        y: { 
+                            stacked: false, 
+                            beginAtZero: true, 
+                            ticks: { color: textColor, stepSize: 1 },
+                            grid: { color: gridColor }
+                        }
+                    }
+                }
+            });
+        }
+
+        // --- VIEW LIVE LEADERBOARD ---
         document.getElementById('viewBtn').onclick = function() {
             const wrapper = document.getElementById('tableMainWrapper');
             if(wrapper.style.display === 'block') { wrapper.style.display = 'none'; this.innerText = "👁️ View Live Rankings"; return; }
             
-            // Populate Basic Table
+            // Render Basic Table (using display_name and display_category)
             document.getElementById('basicTableBody').innerHTML = basicDataArr.map((d,i) => 
                 `<tr>
                     <td style="font-weight:bold;">#${i+1}</td>
-                    <td>${d.student_name}</td>
-                    <td>${d.category}</td>
+                    <td>${d.display_name}</td>
+                    <td>${d.display_category}</td>
                     <td style="color:#df20b9; font-weight:900; font-size:16px;">${d.marks_obtained}</td>
                 </tr>`
             ).join('');
 
-            // Populate Senior Table
+            // Render Senior Table
             document.getElementById('seniorTableBody').innerHTML = seniorDataArr.map((d,i) => 
                 `<tr>
                     <td style="font-weight:bold;">#${i+1}</td>
-                    <td>${d.student_name}</td>
-                    <td>${d.category}</td>
+                    <td>${d.display_name}</td>
+                    <td>${d.display_category}</td>
                     <td style="color:#00d2ff; font-weight:900; font-size:16px;">${d.marks_obtained}</td>
                 </tr>`
             ).join('');
@@ -429,8 +532,8 @@
                 doc.text("Basic Computer Instructor Leaderboard", 14, 20);
                 doc.autoTable({
                     startY: 25,
-                    head: [['Rank', 'Student Name', 'Category', 'Marks']],
-                    body: basicDataArr.map((d, i) => [i + 1, d.student_name, d.category, d.marks_obtained]),
+                    head: [['Rank', 'Student Name', 'Category Details', 'Marks']],
+                    body: basicDataArr.map((d, i) => [i + 1, d.display_name, d.display_category, d.marks_obtained]),
                     headStyles: { fillColor: [223, 32, 185], textColor: 255, halign: 'center' },
                     columnStyles: { 0: { halign: 'center' }, 3: { halign: 'center', fontStyle: 'bold' } }
                 });
@@ -441,8 +544,8 @@
                 doc.text("Senior Computer Instructor Leaderboard", 14, finalY);
                 doc.autoTable({
                     startY: finalY + 5,
-                    head: [['Rank', 'Student Name', 'Category', 'Marks']],
-                    body: seniorDataArr.map((d, i) => [i + 1, d.student_name, d.category, d.marks_obtained]),
+                    head: [['Rank', 'Student Name', 'Category Details', 'Marks']],
+                    body: seniorDataArr.map((d, i) => [i + 1, d.display_name, d.display_category, d.marks_obtained]),
                     headStyles: { fillColor: [0, 210, 255], textColor: 255, halign: 'center' },
                     columnStyles: { 0: { halign: 'center' }, 3: { halign: 'center', fontStyle: 'bold' } }
                 });
@@ -452,7 +555,7 @@
             btn.innerText = "📄 Download PDF"; btn.disabled = false;
         });
 
-        // --- EXCEL DOWNLOAD (Multi-Sheet) ---
+        // --- EXCEL DOWNLOAD ---
         document.getElementById('downloadExcelBtn').addEventListener('click', () => {
             if(basicDataArr.length === 0 && seniorDataArr.length === 0) return alert("No data available!");
             const btn = document.getElementById('downloadExcelBtn');
@@ -461,22 +564,20 @@
             try {
                 const wb = XLSX.utils.book_new();
 
-                // Basic Sheet
                 const basicExcelData = basicDataArr.map((d, i) => ({
-                    "Rank": i + 1, "Student Name": d.student_name, "Exam Type": d.bharti_type, 
-                    "Category": d.category, "Marks": d.marks_obtained
+                    "Rank": i + 1, "Student Name": d.display_name, "Exam Type": d.bharti_type, 
+                    "Category Details": d.display_category, "Marks": d.marks_obtained
                 }));
                 const wsBasic = XLSX.utils.json_to_sheet(basicExcelData);
-                wsBasic['!cols'] = [{ wch: 8 }, { wch: 25 }, { wch: 20 }, { wch: 15 }, { wch: 15 }];
+                wsBasic['!cols'] = [{ wch: 8 }, { wch: 30 }, { wch: 15 }, { wch: 35 }, { wch: 10 }];
                 XLSX.utils.book_append_sheet(wb, wsBasic, "Basic Instructor");
 
-                // Senior Sheet
                 const seniorExcelData = seniorDataArr.map((d, i) => ({
-                    "Rank": i + 1, "Student Name": d.student_name, "Exam Type": d.bharti_type, 
-                    "Category": d.category, "Marks": d.marks_obtained
+                    "Rank": i + 1, "Student Name": d.display_name, "Exam Type": d.bharti_type, 
+                    "Category Details": d.display_category, "Marks": d.marks_obtained
                 }));
                 const wsSenior = XLSX.utils.json_to_sheet(seniorExcelData);
-                wsSenior['!cols'] = [{ wch: 8 }, { wch: 25 }, { wch: 20 }, { wch: 15 }, { wch: 15 }];
+                wsSenior['!cols'] = [{ wch: 8 }, { wch: 30 }, { wch: 15 }, { wch: 35 }, { wch: 10 }];
                 XLSX.utils.book_append_sheet(wb, wsSenior, "Senior Instructor");
 
                 XLSX.writeFile(wb, 'Instructor_Leaderboard.xlsx');

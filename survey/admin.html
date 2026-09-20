@@ -54,7 +54,6 @@
         .controls-group label { font-weight: 700; color: var(--text-muted); }
         .sort-select { padding: 8px 12px; border-radius: 12px; background: var(--surface-color); color: var(--text-main); border: 2px solid rgba(163,177,198,0.3); font-weight: 600; cursor: pointer; }
         
-        .bulk-fix-btn { background: var(--fix-color); color: white; border: none; padding: 10px 20px; border-radius: 12px; font-weight: 800; cursor: pointer; box-shadow: 0 4px 10px rgba(139, 92, 246, 0.4); }
         .logout-btn { background: var(--surface-color); color: var(--danger-color); border: none; padding: 10px 20px; border-radius: 12px; font-weight: 800; cursor: pointer; box-shadow: var(--shadow-out); }
 
         /* Tables */
@@ -104,9 +103,6 @@
                 <h2>Survey Records</h2>
                 
                 <div class="controls-group">
-                    <!-- 🔥 BULK UPDATE BUTTON: Sets everyone to MALE & cleans data 🔥 -->
-                    <button class="bulk-fix-btn" id="bulkFixBtn">🛠️ Bulk Update (All Male) & Fix</button>
-                    
                     <label>Sort By:</label>
                     <select id="sortSelect" class="sort-select">
                         <option value="date">Date Added (Newest)</option>
@@ -218,8 +214,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        // Import deleteField to remove device_id
-        import { getFirestore, collection, getDocs, doc, updateDoc, deleteDoc, deleteField } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, collection, getDocs, doc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
         import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
         const firebaseConfig = {
@@ -240,7 +235,6 @@
         const bciTableBody = document.getElementById('bciTableBody');
         const sciTableBody = document.getElementById('sciTableBody');
         const sortSelect = document.getElementById('sortSelect');
-        const bulkFixBtn = document.getElementById('bulkFixBtn');
 
         let adminRecords = [];
 
@@ -347,7 +341,6 @@
             if(sciCount === 0) sciTableBody.innerHTML = "<tr><td colspan='8' style='text-align:center;'>No SCI records found.</td></tr>";
         }
 
-        // --- BULK FIX (Updates everyone to Male + Fix Categories) ---
         function getStandardCategory(cat) {
             if (!cat) return "General (UR)";
             let upper = cat.trim().toUpperCase();
@@ -359,69 +352,6 @@
             if (upper === "MBC") return "MBC";
             return upper; 
         }
-
-        bulkFixBtn.addEventListener('click', async () => {
-            if(!confirm("चेतावनी! यह डेटाबेस के सभी उम्मीदवारों का Gender बदलकर 'Male' कर देगा। साथ ही गलत कैटेगरी और BCI/SCI नाम को भी सही करेगा। क्या आप तैयार हैं?")) return;
-            
-            bulkFixBtn.innerText = "⏳ Updating Database...";
-            bulkFixBtn.disabled = true;
-            let updatedCount = 0;
-
-            try {
-                for (let i = 0; i < adminRecords.length; i++) {
-                    let record = adminRecords[i];
-                    let updates = {};
-
-                    // 1. Set Everyone to Male (Unless they are explicitly female already)
-                    if (record.gender !== "Male") {
-                        updates.gender = "Male";
-                    }
-
-                    // 2. Fix Category
-                    let oldCat = record.category || "";
-                    let newCat = getStandardCategory(oldCat);
-                    if (oldCat !== newCat) updates.category = newCat;
-
-                    // 3. Provide Missing Defaults
-                    if (!record.area_type) updates.area_type = "NON TSP";
-                    if (!record.special_category) updates.special_category = "None";
-
-                    // 4. Shorten Bharti Type
-                    let oldType = (record.bharti_type || "").toUpperCase();
-                    if ((oldType.includes("BASIC") || oldType === "") && oldType !== "BCI") {
-                        updates.bharti_type = "BCI";
-                    } else if (oldType.includes("SENIOR") && oldType !== "SCI") {
-                        updates.bharti_type = "SCI";
-                    }
-
-                    // 5. Delete device id
-                    if (record.device_id !== undefined) {
-                        updates.device_id = deleteField();
-                    }
-
-                    if (Object.keys(updates).length > 0) {
-                        await updateDoc(doc(db, "instructor_survey", record.id), updates);
-                        
-                        if(updates.gender) record.gender = updates.gender;
-                        if(updates.category) record.category = updates.category;
-                        if(updates.area_type) record.area_type = updates.area_type;
-                        if(updates.special_category) record.special_category = updates.special_category;
-                        if(updates.bharti_type) record.bharti_type = updates.bharti_type;
-                        if(updates.device_id) delete record.device_id; 
-                        
-                        updatedCount++;
-                    }
-                }
-                
-                alert(`✅ Success! ${updatedCount} records updated. Everyone is now marked as 'Male'. You can edit females manually.`);
-                sortAndRenderTable();
-            } catch(e) {
-                alert("❌ Error: " + e.message);
-            }
-
-            bulkFixBtn.innerText = "🛠️ Bulk Update (All Male) & Fix";
-            bulkFixBtn.disabled = false;
-        });
 
         // --- ACTIONS: Approve, Delete ---
         window.actionApprove = async function(id) {
@@ -454,7 +384,7 @@
             let typeVal = (record.bharti_type || "").toUpperCase().includes("SENIOR") ? "SCI" : "BCI";
             document.getElementById('editType').value = typeVal;
             
-            document.getElementById('editGender').value = record.gender || "Male"; // Defaults to Male in edit
+            document.getElementById('editGender').value = record.gender || "Not Specified";
             document.getElementById('editArea').value = record.area_type || "NON TSP";
             
             let catVal = getStandardCategory(record.category);

@@ -20,6 +20,7 @@
             --danger-color: #ef4444;
             --success-color: #10b981;
             --warning-color: #f5af19;
+            --fix-color: #8b5cf6; /* New Color for Bulk Fix Button */
         }
         [data-theme="dark"] {
             /* Dark Theme 3D Colours */
@@ -53,10 +54,14 @@
         #dashboardSection { display: none; width: 100%; flex-direction: column; align-items: center; }
         .dashboard-header { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 15px; }
         
-        /* Sorting Controls */
-        .controls-group { display: flex; align-items: center; gap: 10px; }
+        /* Sorting Controls & Buttons */
+        .controls-group { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: center; }
         .controls-group label { font-weight: 700; color: var(--text-muted); }
         .sort-select { padding: 8px 12px; border-radius: 12px; background: var(--surface-color); color: var(--text-main); border: 2px solid rgba(163,177,198,0.3); outline: none; font-weight: 600; cursor: pointer; box-shadow: var(--shadow-in); }
+        
+        /* 🔥 Bulk Fix Button Style 🔥 */
+        .bulk-fix-btn { background: var(--fix-color); color: white; border: none; padding: 10px 20px; border-radius: 12px; font-weight: 800; cursor: pointer; box-shadow: 0 4px 10px rgba(139, 92, 246, 0.4); transition: 0.3s; }
+        .bulk-fix-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(139, 92, 246, 0.6); }
         
         .logout-btn { background: var(--surface-color); color: var(--danger-color); border: none; padding: 10px 20px; border-radius: 12px; font-weight: 800; cursor: pointer; box-shadow: var(--shadow-out); transition: 0.3s; }
         .logout-btn:hover { box-shadow: var(--shadow-in); }
@@ -68,7 +73,7 @@
         
         /* Device ID Badge */
         .device-badge { background: rgba(113, 128, 150, 0.2); padding: 4px 8px; border-radius: 6px; font-family: monospace; font-size: 12px; font-weight: bold; }
-        .device-duplicate { background: var(--warning-color); color: #111; } /* Warning colour for spam */
+        .device-duplicate { background: var(--warning-color); color: #111; } 
 
         /* Action buttons styling */
         .action-btn { border: none; padding: 8px 12px; border-radius: 8px; font-size: 12px; font-weight: 800; cursor: pointer; transition: 0.3s; margin-right: 5px; margin-bottom: 5px; display: inline-block; }
@@ -109,8 +114,10 @@
             <div class="dashboard-header">
                 <h2>Survey Records</h2>
                 
-                <!-- Sorting Dropdown -->
                 <div class="controls-group">
+                    <!-- 🔥 NEW: Bulk Fix Category Button 🔥 -->
+                    <button class="bulk-fix-btn" id="bulkFixBtn">🛠️ Bulk Fix Categories</button>
+                    
                     <label for="sortSelect">Organise By:</label>
                     <select id="sortSelect" class="sort-select">
                         <option value="date">Date Added (Newest)</option>
@@ -118,6 +125,7 @@
                         <option value="name">Name (A-Z)</option>
                         <option value="device">Device ID (Group Identical)</option>
                     </select>
+                    
                     <button class="logout-btn" id="logoutBtn">Logout</button>
                 </div>
             </div>
@@ -148,7 +156,6 @@
         import { getFirestore, collection, getDocs, doc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
         import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-        // Initialise Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyBLK2-2BJsYhwxKfcggWKdfRQI1lf_-tkM",
             authDomain: "computerinstructorsurvey.firebaseapp.com",
@@ -166,8 +173,8 @@
         const dashboardSection = document.getElementById('dashboardSection');
         const adminTableBody = document.getElementById('adminTableBody');
         const sortSelect = document.getElementById('sortSelect');
+        const bulkFixBtn = document.getElementById('bulkFixBtn'); // 🔥 NEW Button
 
-        // Global array to store data locally (Prevents multiple Firebase reads)
         let adminRecords = [];
 
         // Check login status
@@ -201,25 +208,21 @@
                     adminRecords.push({ id: docSnap.id, ...docSnap.data() });
                 });
 
-                // Default Sort and Render
                 sortAndRenderTable();
-
             } catch(e) {
                 alert("Access Denied! You are not an authorised Admin. Logging you out...");
                 await signOut(auth);
             }
         }
 
-        // Event listener for sorting dropdown
         sortSelect.addEventListener('change', () => {
             sortAndRenderTable();
         });
 
-        // 2. SORT AND RENDER DATA LOCALLY (Zero Extra Reads)
+        // 2. SORT AND RENDER DATA LOCALLY
         function sortAndRenderTable() {
             const sortBy = sortSelect.value;
 
-            // Sorting Logic
             if (sortBy === 'marks') {
                 adminRecords.sort((a, b) => (b.marks_obtained || 0) - (a.marks_obtained || 0));
             } else if (sortBy === 'name') {
@@ -227,7 +230,6 @@
             } else if (sortBy === 'device') {
                 adminRecords.sort((a, b) => (a.device_id || '').localeCompare(b.device_id || ''));
             } else {
-                // Default date sort (Timestamp descending)
                 adminRecords.sort((a, b) => {
                     const timeA = a.timestamp ? a.timestamp.seconds : 0;
                     const timeB = b.timestamp ? b.timestamp.seconds : 0;
@@ -246,14 +248,12 @@
 
             adminTableBody.innerHTML = "";
 
-            // Calculate Device ID frequencies to detect spam (Duplicates)
             const deviceCounts = {};
             adminRecords.forEach(r => {
                 const did = r.device_id || 'Unknown';
                 deviceCounts[did] = (deviceCounts[did] || 0) + 1;
             });
 
-            // Build Rows
             adminRecords.forEach((data) => {
                 const tr = document.createElement('tr');
                 
@@ -265,7 +265,6 @@
                                   ? `<button class="action-btn btn-verify">✅ Verify</button>` 
                                   : ``;
                 
-                // Device ID styling (Highlight if duplicate)
                 const did = data.device_id || 'Unknown';
                 const shortDid = did.length > 8 ? did.substring(0, 8) + '...' : did;
                 const isDuplicate = deviceCounts[did] > 1 && did !== 'Unknown';
@@ -286,7 +285,6 @@
                     </td>
                 `;
                 
-                // Attach Event Listeners inside loop for local array manipulation
                 if(data.status !== "approved") {
                     tr.querySelector('.btn-verify').addEventListener('click', () => actionApprove(data.id));
                 }
@@ -297,16 +295,68 @@
             });
         }
 
-        // --- LOCAL ARRAY ACTIONS (Updates Backend + Local Memory, NO full reload) ---
+        // --- BULK FIX CATEGORY LOGIC 🔥 ---
+        function getStandardCategory(cat) {
+            if (!cat) return "General (UR)";
+            let upper = cat.trim().toUpperCase();
+            
+            if (upper.includes("GEN EWS") || upper === "EWS") return "EWS";
+            if (upper === "BC" || upper === "OBC") return "OBC";
+            if (upper === "GENERAL" || upper === "GEN" || upper === "UR") return "General (UR)";
+            if (upper === "SC") return "SC";
+            if (upper === "ST") return "ST";
+            if (upper === "MBC") return "MBC";
+            return upper; 
+        }
+
+        bulkFixBtn.addEventListener('click', async () => {
+            if(!confirm("Do you want to update?")) return;
+            
+            bulkFixBtn.innerText = "⏳ Fixing...";
+            bulkFixBtn.disabled = true;
+            let updatedCount = 0;
+
+            try {
+                for (let i = 0; i < adminRecords.length; i++) {
+                    let record = adminRecords[i];
+                    let oldCat = record.category || "";
+                    let newCat = getStandardCategory(oldCat);
+
+                    if (oldCat !== newCat || !record.gender || !record.area_type) {
+                        let updates = {};
+                        if (oldCat !== newCat) updates.category = newCat;
+                        if (!record.gender) updates.gender = "Not Specified";
+                        if (!record.area_type) updates.area_type = "NON TSP";
+                        if (!record.special_category) updates.special_category = "None";
+
+                       
+                        await updateDoc(doc(db, "instructor_survey", record.id), updates);
+                        
+                    
+                        if(updates.category) record.category = newCat;
+                        if(updates.gender) record.gender = "Not Specified";
+                        if(updates.area_type) record.area_type = "NON TSP";
+                        
+                        updatedCount++;
+                    }
+                }
+                
+                alert(`✅ Success! ${updatedCount} records ki category auto-fix ho gayi hai.`);
+                sortAndRenderTable(); // 
+            } catch(e) {
+                alert("❌ Error: " + e.message);
+            }
+
+            bulkFixBtn.innerText = "🛠️ Bulk Fix Categories";
+            bulkFixBtn.disabled = false;
+        });
+        // ---------------------------------
 
         async function actionApprove(id) {
             try {
-                // Update Backend
                 await updateDoc(doc(db, "instructor_survey", id), { status: "approved" });
-                // Update Local Array
                 const record = adminRecords.find(r => r.id === id);
                 if(record) record.status = "approved";
-                // Re-render UI instantly
                 sortAndRenderTable();
             } catch(err) { alert("Error approving record: " + err.message); }
         }
@@ -318,7 +368,7 @@
             if(newType === null) return;
             let newCategory = prompt("Update Category (Alphabets only):", oldData.category || "");
             if(newCategory === null) return;
-            newCategory = newCategory.replace(/[^a-zA-Z\s]/g, '');
+            newCategory = newCategory.replace(/[^a-zA-Z\s\(\)\-]/g, ''); // Allowed (), - for General (UR)
             const newMarks = prompt("Update Marks (0 to 200):", oldData.marks_obtained);
             if(newMarks === null) return;
             
@@ -333,7 +383,6 @@
                     marks_obtained: parsedMarks
                 });
                 
-                // Update Local Array
                 const record = adminRecords.find(r => r.id === id);
                 if(record) {
                     record.student_name = newName.trim();
@@ -350,7 +399,6 @@
             if(confirm("Are you sure you want to permanently delete this record?")) {
                 try {
                     await deleteDoc(doc(db, "instructor_survey", id));
-                    // Remove from local array
                     adminRecords = adminRecords.filter(r => r.id !== id);
                     sortAndRenderTable();
                 } catch(err) { alert("Error deleting: " + err.message); }
@@ -371,4 +419,3 @@
     </script>
 </body>
 </html>
-

@@ -7,6 +7,21 @@
     <link rel="icon" type="image/png" href="../logo.png">
     <style>
         :root {
+         /* Important Note Box Style */
+        .info-note {
+            background: rgba(223, 32, 185, 0.1);
+            border-left: 5px solid #df20b9;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+            font-size: 14px;
+            color: var(--text-main);
+            line-height: 1.6;
+            font-weight: 500;
+        }
+        .info-note strong {
+            color: #df20b9;
+        }
             /* Light Theme 3D Colours */
             --bg-color: #ecf0f3; 
             --surface-color: #ecf0f3; 
@@ -138,6 +153,16 @@
 
     <div class="form-container">
         <h2>Enter Candidate Details</h2>
+     <h2>Enter Candidate Details</h2>
+       
+        <div class="info-note">
+            <strong>⚠️ (Important Note):</strong><br>
+            1. जिन उम्मीदवारों के नंबर <strong>120+</strong> हैं, वे कृपया नीचे दिए गए टेलीग्राम लिंक से एडमिन को मैसेज करके अपने नंबर Verify करवाएं। एडमिन वेरिफिकेशन के बाद ही आपके नंबर वेरीफाई माने जाएंगे।<br>
+            2. कृपया अपनी वही <strong>Category</strong> भरें जिससे आपने अपना फॉर्म अप्लाई किया था।
+        </div>
+       
+
+        <form id="surveyForm">
         <form id="surveyForm">
             <label>Full Name</label>
             <input type="text" id="studentName" placeholder="Enter full name" required />

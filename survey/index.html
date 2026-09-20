@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
@@ -7,21 +7,22 @@
     <link rel="icon" type="image/png" href="../logo.png">
     <style>
         :root {
-         /* Important Note Box Style */
-        .info-note {
-            background: rgba(223, 32, 185, 0.1);
-            border-left: 5px solid #df20b9;
-            padding: 15px;
-            margin-bottom: 25px;
-            border-radius: 8px;
-            font-size: 14px;
-            color: var(--text-main);
-            line-height: 1.6;
-            font-weight: 500;
-        }
-        .info-note strong {
-            color: #df20b9;
-        }
+            /* Important Note Box Style */
+            .info-note {
+                background: rgba(223, 32, 185, 0.1);
+                border-left: 5px solid #df20b9;
+                padding: 15px;
+                margin-bottom: 25px;
+                border-radius: 8px;
+                font-size: 14px;
+                color: var(--text-main);
+                line-height: 1.6;
+                font-weight: 500;
+            }
+            .info-note strong {
+                color: #df20b9;
+            }
+            
             /* Light Theme 3D Colours */
             --bg-color: #ecf0f3; 
             --surface-color: #ecf0f3; 
@@ -153,16 +154,13 @@
 
     <div class="form-container">
         <h2>Enter Candidate Details</h2>
-     <h2>Enter Candidate Details</h2>
-       
+        
         <div class="info-note">
             <strong>⚠️ (Important Note):</strong><br>
             1. जिन उम्मीदवारों के नंबर <strong>120+</strong> हैं, वे कृपया नीचे दिए गए टेलीग्राम लिंक से एडमिन को मैसेज करके अपने नंबर Verify करवाएं। एडमिन वेरिफिकेशन के बाद ही आपके नंबर वेरीफाई माने जाएंगे।<br>
             2. कृपया अपनी वही <strong>Category</strong> भरें जिससे आपने अपना फॉर्म अप्लाई किया था।
         </div>
-       
-
-        <form id="surveyForm">
+        
         <form id="surveyForm">
             <label>Full Name</label>
             <input type="text" id="studentName" placeholder="Enter full name" required />
@@ -173,13 +171,44 @@
                 <option value="Basic Computer Instructor">Basic Computer Instructor</option>
                 <option value="Senior Computer Instructor">Senior Computer Instructor</option>
             </select>
-            
-            <label>Category (Only Alphabets)</label>
-            <!-- Strictly Alphabets Only Validation -->
-            <input type="text" id="category" placeholder="Enter category (e.g., General, OBC)" 
-                   pattern="[A-Za-z\s]+" 
-                   title="Please enter alphabets only (e.g. General, OBC, SC, ST)" 
-                   oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')" required />
+
+            <!-- 🔥 NEW: Gender Dropdown -->
+            <label>Gender</label>
+            <select id="gender" required>
+                <option value="" disabled selected>Select Gender...</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+
+            <!-- 🔥 NEW: Regional Category (TSP/NON TSP) -->
+            <label>Regional Area</label>
+            <select id="regionalArea" required>
+                <option value="" disabled selected>Select Area...</option>
+                <option value="NON TSP">NON TSP</option>
+                <option value="TSP">TSP</option>
+            </select>
+
+            <!-- 🔥 NEW: Reservation/Caste Category Dropdown -->
+            <label>Reservation/Caste Category</label>
+            <select id="casteCategory" required>
+                <option value="" disabled selected>Select Caste Category...</option>
+                <option value="General (UR)">General (UR - Unreserved)</option>
+                <option value="EWS">EWS</option>
+                <option value="OBC">OBC (Other Backward Classes)</option>
+                <option value="SC">SC</option>
+                <option value="ST">ST</option>
+                <option value="MBC">MBC</option>
+            </select>
+
+            <!-- 🔥 NEW: Horizontal/Special Category Dropdown -->
+            <label>Horizontal/Special Category (If Any)</label>
+            <select id="specialCategory">
+                <option value="None" selected>None (Not Applicable)</option>
+                <option value="Women">Women</option>
+                <option value="ESM">ESM (Ex-Servicemen)</option>
+                <option value="PwD/PH">PwD/PH (Persons with Disabilities)</option>
+                <option value="Sports Person">Sports Person</option>
+            </select>
             
             <label>Marks Obtained</label>
             <!-- Strictly Positive Number 0-200 Validation -->
@@ -219,11 +248,9 @@
         const db = getFirestore(app);
 
         // --- DEVICE FINGERPRINTING LOGIC ---
-        // Generate or retrieve a unique ID for the user's browser/device
         function getDeviceID() {
             let deviceId = localStorage.getItem('survey_device_id');
             if (!deviceId) {
-                // Generate a random string using current time and random maths
                 deviceId = 'device_' + Date.now().toString(36) + Math.random().toString(36).substring(2, 8);
                 localStorage.setItem('survey_device_id', deviceId);
             }
@@ -232,7 +259,6 @@
 
         // --- SUBMIT FORM DATA ---
         document.getElementById('surveyForm').addEventListener('submit', async (e) => {
-            // Prevent default form submission behaviour
             e.preventDefault();
             
             const btn = e.target.querySelector('button');
@@ -241,28 +267,35 @@
 
             const name = document.getElementById('studentName').value.trim();
             const type = document.getElementById('instructorType').value;
-            const category = document.getElementById('category').value.trim();
+            
+            // 🔥 NEW: Fetching values from dropdowns
+            const gender = document.getElementById('gender').value;
+            const regionalArea = document.getElementById('regionalArea').value;
+            const casteCategory = document.getElementById('casteCategory').value;
+            const specialCategory = document.getElementById('specialCategory').value;
+            
             const marks = parseFloat(document.getElementById('marks').value);
             
-            // Retrieve the unique device identifier
             const userDeviceId = getDeviceID();
 
             try {
-                // Add the new record with a "pending" status and the unique device ID
+                // Add the new record to database with all fields
                 await addDoc(collection(db, "instructor_survey"), {
                     student_name: name,
                     bharti_type: type,
-                    category: category,
+                    gender: gender,
+                    area_type: regionalArea,
+                    category: casteCategory,         // Saved as old 'category' variable for backward compatibility with leaderboard
+                    special_category: specialCategory, 
                     marks_obtained: marks,
                     status: "pending", 
-                    device_id: userDeviceId, // <-- This tracks the specific mobile/computer
+                    device_id: userDeviceId,
                     timestamp: new Date()
                 });
                 
                 document.getElementById('surveyForm').reset();
                 document.getElementById('successMessage').style.display = "block";
                 
-                // Hide the success message after 3 seconds
                 setTimeout(() => document.getElementById('successMessage').style.display = "none", 3000);
             } catch(err) { 
                 alert("Error submitting details: " + err.message); 

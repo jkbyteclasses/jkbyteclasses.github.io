@@ -7,23 +7,19 @@
     <link rel="icon" type="image/png" href="../logo.png">
     <style>
         :root {
-            /* Light Theme 3D Colours */
             --bg-color: #ecf0f3; 
             --surface-color: #ecf0f3; 
             --text-main: #2d3748; 
             --text-muted: #718096;
             --brand-gradient: linear-gradient(135deg, #df20b9 0%, #00d2ff 100%);
-            /* Outer shadow for 3D pop-out effect */
             --shadow-out: 9px 9px 16px rgb(163,177,198,0.6), -9px -9px 16px rgba(255,255,255, 0.8);
-            /* Inner shadow for pressed behaviour */
             --shadow-in: inset 6px 6px 10px 0 rgba(163,177,198, 0.6), inset -6px -6px 10px 0 rgba(255,255,255, 0.8);
             --danger-color: #ef4444;
             --success-color: #10b981;
             --warning-color: #f5af19;
-            --fix-color: #8b5cf6; /* New Color for Bulk Fix Button */
+            --fix-color: #8b5cf6; 
         }
         [data-theme="dark"] {
-            /* Dark Theme 3D Colours */
             --bg-color: #1a1f24; 
             --surface-color: #1a1f24; 
             --text-main: #e2e8f0; 
@@ -34,54 +30,55 @@
 
         body { font-family: system-ui, sans-serif; margin: 0; background: var(--bg-color); color: var(--text-main); display: flex; flex-direction: column; align-items: center; min-height: 100vh; transition: 0.4s ease; padding: 20px; box-sizing: border-box; }
         
-        .header-simple { width: 100%; padding: 15px 20px; background: var(--surface-color); box-shadow: var(--shadow-out); box-sizing: border-box; display: flex; justify-content: space-between; align-items: center; border-radius: 20px; margin-bottom: 30px;}
+        .header-simple { width: 100%; max-width: 1200px; padding: 15px 20px; background: var(--surface-color); box-shadow: var(--shadow-out); box-sizing: border-box; display: flex; justify-content: space-between; align-items: center; border-radius: 20px; margin-bottom: 30px;}
         .header-simple a { text-decoration: none; color: var(--text-main); font-weight: 700; display: flex; align-items: center; gap: 12px; }
         .header-logo { width: 40px; height: 40px; border-radius: 50%; background: transparent; box-shadow: var(--shadow-out); padding: 2px; }
         
         .theme-toggle { background: var(--surface-color); border: none; font-size: 20px; cursor: pointer; width: 40px; height: 40px; border-radius: 50%; box-shadow: var(--shadow-out); transition: 0.3s; }
         .theme-toggle:hover { box-shadow: var(--shadow-in); }
 
-        .container { background: var(--surface-color); width: 100%; max-width: 1200px; padding: 30px; border-radius: 24px; box-shadow: var(--shadow-out); box-sizing: border-box; text-align: center; }
+        .container { background: var(--surface-color); width: 100%; max-width: 1200px; padding: 30px; border-radius: 24px; box-shadow: var(--shadow-out); box-sizing: border-box; }
         
-        h2 { background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 32px; margin-top: 0; }
+        h2 { background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 32px; margin-top: 0; text-align: center;}
+        .section-title { font-size: 22px; font-weight: 800; margin: 30px 0 15px 0; color: var(--text-main); border-left: 5px solid #df20b9; padding-left: 10px; }
 
         /* Login Section */
         #loginSection { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 0; }
-        .login-btn { background: var(--brand-gradient); color: white; border: none; padding: 16px 30px; border-radius: 20px; font-size: 18px; font-weight: 800; cursor: pointer; box-shadow: 0 10px 20px rgba(0, 210, 255, 0.3); transition: 0.3s; display: flex; align-items: center; gap: 10px; }
-        .login-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(223, 32, 185, 0.4); }
+        .login-btn { background: var(--brand-gradient); color: white; border: none; padding: 16px 30px; border-radius: 20px; font-size: 18px; font-weight: 800; cursor: pointer; box-shadow: 0 10px 20px rgba(0, 210, 255, 0.3); display: flex; align-items: center; gap: 10px; }
 
-        /* Admin Dashboard Section */
-        #dashboardSection { display: none; width: 100%; flex-direction: column; align-items: center; }
-        .dashboard-header { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 15px; }
+        /* Dashboard Header & Controls */
+        #dashboardSection { display: none; width: 100%; flex-direction: column; }
+        .dashboard-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 20px;}
         
-        /* Sorting Controls & Buttons */
-        .controls-group { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: center; }
+        .controls-group { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
         .controls-group label { font-weight: 700; color: var(--text-muted); }
-        .sort-select { padding: 8px 12px; border-radius: 12px; background: var(--surface-color); color: var(--text-main); border: 2px solid rgba(163,177,198,0.3); outline: none; font-weight: 600; cursor: pointer; box-shadow: var(--shadow-in); }
+        .sort-select { padding: 8px 12px; border-radius: 12px; background: var(--surface-color); color: var(--text-main); border: 2px solid rgba(163,177,198,0.3); font-weight: 600; cursor: pointer; }
         
-        /* 🔥 Bulk Fix Button Style 🔥 */
-        .bulk-fix-btn { background: var(--fix-color); color: white; border: none; padding: 10px 20px; border-radius: 12px; font-weight: 800; cursor: pointer; box-shadow: 0 4px 10px rgba(139, 92, 246, 0.4); transition: 0.3s; }
-        .bulk-fix-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(139, 92, 246, 0.6); }
-        
-        .logout-btn { background: var(--surface-color); color: var(--danger-color); border: none; padding: 10px 20px; border-radius: 12px; font-weight: 800; cursor: pointer; box-shadow: var(--shadow-out); transition: 0.3s; }
-        .logout-btn:hover { box-shadow: var(--shadow-in); }
+        .bulk-fix-btn { background: var(--fix-color); color: white; border: none; padding: 10px 20px; border-radius: 12px; font-weight: 800; cursor: pointer; box-shadow: 0 4px 10px rgba(139, 92, 246, 0.4); }
+        .logout-btn { background: var(--surface-color); color: var(--danger-color); border: none; padding: 10px 20px; border-radius: 12px; font-weight: 800; cursor: pointer; box-shadow: var(--shadow-out); }
 
-        .table-wrapper { width: 100%; overflow-x: auto; box-shadow: var(--shadow-in); border-radius: 16px; padding: 15px; box-sizing: border-box; }
-        table { width: 100%; border-collapse: collapse; text-align: left; }
-        th, td { padding: 15px; border-bottom: 1px solid rgba(163,177,198,0.2); font-weight: 500; font-size: 14px; }
+        /* Tables */
+        .table-wrapper { width: 100%; overflow-x: auto; box-shadow: var(--shadow-in); border-radius: 16px; padding: 15px; box-sizing: border-box; margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; text-align: left; min-width: 800px;}
+        th, td { padding: 12px 10px; border-bottom: 1px solid rgba(163,177,198,0.2); font-weight: 500; font-size: 14px; }
         th { color: #df20b9; font-weight: 800; white-space: nowrap; }
-        
-        /* Device ID Badge */
-        .device-badge { background: rgba(113, 128, 150, 0.2); padding: 4px 8px; border-radius: 6px; font-family: monospace; font-size: 12px; font-weight: bold; }
-        .device-duplicate { background: var(--warning-color); color: #111; } 
 
         /* Action buttons styling */
-        .action-btn { border: none; padding: 8px 12px; border-radius: 8px; font-size: 12px; font-weight: 800; cursor: pointer; transition: 0.3s; margin-right: 5px; margin-bottom: 5px; display: inline-block; }
-        .btn-edit { background: #00d2ff; color: #111; box-shadow: 0 4px 10px rgba(0, 210, 255, 0.3); }
-        .btn-delete { background: var(--danger-color); color: #fff; box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3); }
-        .btn-verify { background: var(--success-color); color: #fff; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3); }
-        .action-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
-        .action-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .action-btn { border: none; padding: 6px 10px; border-radius: 8px; font-size: 12px; font-weight: 800; cursor: pointer; margin-right: 5px; margin-bottom: 5px; }
+        .btn-edit { background: #00d2ff; color: #111; }
+        .btn-delete { background: var(--danger-color); color: #fff; }
+        .btn-verify { background: var(--success-color); color: #fff; }
+
+        /* 🔥 Custom Edit Modal 🔥 */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 2000; justify-content: center; align-items: center; padding: 15px; box-sizing: border-box;}
+        .modal-content { background: var(--surface-color); padding: 30px; border-radius: 16px; width: 100%; max-width: 500px; box-shadow: var(--shadow-out); max-height: 90vh; overflow-y: auto;}
+        .modal-content h3 { margin-top: 0; color: #df20b9; text-align: center; font-size: 24px; }
+        .modal-content label { display: block; font-size: 13px; font-weight: 700; color: var(--text-muted); margin-bottom: 5px; margin-top: 15px;}
+        .modal-content input, .modal-content select { width: 100%; padding: 12px; border-radius: 8px; border: none; background: var(--bg-color); color: var(--text-main); box-shadow: var(--shadow-in); box-sizing: border-box; font-size: 14px; font-weight: 600; outline: none;}
+        .modal-buttons { display: flex; justify-content: space-between; margin-top: 25px; }
+        .modal-buttons button { padding: 12px 20px; border: none; border-radius: 8px; font-weight: 800; cursor: pointer; color: white; width: 48%;}
+        .btn-save { background: var(--success-color); box-shadow: 0 4px 10px rgba(16, 185, 129, 0.4);}
+        .btn-cancel { background: var(--text-muted); }
     </style>
 </head>
 <body>
@@ -98,15 +95,7 @@
         <div id="loginSection">
             <h2>Admin Control Panel</h2>
             <p style="color: var(--text-muted); margin-bottom: 30px;">Only authorised administrators can access this area.</p>
-            <button class="login-btn" id="loginBtn">
-                <svg width="24" height="24" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                    <path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"/>
-                    <path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"/>
-                    <path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"/>
-                    <path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"/>
-                </svg>
-                Sign in with Google
-            </button>
+            <button class="login-btn" id="loginBtn">Sign in with Google</button>
         </div>
 
         <!-- DASHBOARD SECTION -->
@@ -115,45 +104,120 @@
                 <h2>Survey Records</h2>
                 
                 <div class="controls-group">
-                    <!-- 🔥 NEW: Bulk Fix Category Button 🔥 -->
-                    <button class="bulk-fix-btn" id="bulkFixBtn">🛠️ Bulk Fix Categories</button>
-                    
-                    <label for="sortSelect">Organise By:</label>
+                    <button class="bulk-fix-btn" id="bulkFixBtn">🛠️ Bulk Update & Fix All</button>
+                    <label>Sort By:</label>
                     <select id="sortSelect" class="sort-select">
                         <option value="date">Date Added (Newest)</option>
                         <option value="marks">Marks (Highest)</option>
                         <option value="name">Name (A-Z)</option>
-                        <option value="device">Device ID (Group Identical)</option>
                     </select>
-                    
                     <button class="logout-btn" id="logoutBtn">Logout</button>
                 </div>
             </div>
             
+            <!-- BCI TABLE -->
+            <h3 class="section-title">📘 BCI (Basic Computer Instructor)</h3>
             <div class="table-wrapper">
                 <table>
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Exam Type</th>
+                            <th>Gender</th>
                             <th>Category</th>
+                            <th>Area</th>
+                            <th>Spl. Category</th>
                             <th>Marks</th>
-                            <th>Device ID</th>
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody id="adminTableBody">
-                        <!-- Data rows will be injected here dynamically -->
-                    </tbody>
+                    <tbody id="bciTableBody"></tbody>
                 </table>
+            </div>
+
+            <!-- SCI TABLE -->
+            <h3 class="section-title" style="border-left-color: #00d2ff;">📙 SCI (Senior Computer Instructor)</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="color: #00d2ff;">Name</th>
+                            <th style="color: #00d2ff;">Gender</th>
+                            <th style="color: #00d2ff;">Category</th>
+                            <th style="color: #00d2ff;">Area</th>
+                            <th style="color: #00d2ff;">Spl. Category</th>
+                            <th style="color: #00d2ff;">Marks</th>
+                            <th style="color: #00d2ff;">Status</th>
+                            <th style="color: #00d2ff;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sciTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- 🔥 EDIT MODAL POPUP 🔥 -->
+    <div id="editModal" class="modal-overlay">
+        <div class="modal-content">
+            <h3>✏️ Edit Candidate Data</h3>
+            <input type="hidden" id="editId">
+            
+            <label>Student Name</label>
+            <input type="text" id="editName">
+            
+            <label>Exam Type</label>
+            <select id="editType">
+                <option value="BCI">BCI (Basic Computer Instructor)</option>
+                <option value="SCI">SCI (Senior Computer Instructor)</option>
+            </select>
+
+            <label>Gender</label>
+            <select id="editGender">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Not Specified">Not Specified</option>
+            </select>
+            
+            <label>Regional Area</label>
+            <select id="editArea">
+                <option value="NON TSP">NON TSP</option>
+                <option value="TSP">TSP</option>
+            </select>
+
+            <label>Caste Category</label>
+            <select id="editCategory">
+                <option value="General (UR)">General (UR)</option>
+                <option value="EWS">EWS</option>
+                <option value="OBC">OBC</option>
+                <option value="SC">SC</option>
+                <option value="ST">ST</option>
+                <option value="MBC">MBC</option>
+            </select>
+
+            <label>Special Category</label>
+            <select id="editSpecial">
+                <option value="None">None</option>
+                <option value="Women">Women</option>
+                <option value="ESM">ESM</option>
+                <option value="PwD/PH">PwD/PH</option>
+                <option value="Sports Person">Sports Person</option>
+            </select>
+
+            <label>Marks Obtained</label>
+            <input type="number" id="editMarks" min="0" max="200" step="0.01">
+
+            <div class="modal-buttons">
+                <button class="btn-cancel" onclick="document.getElementById('editModal').style.display='none'">Cancel</button>
+                <button class="btn-save" onclick="saveEditData()">Save Changes</button>
             </div>
         </div>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, getDocs, doc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        // 🔥 Import deleteField to remove device_id completely from database
+        import { getFirestore, collection, getDocs, doc, updateDoc, deleteDoc, deleteField } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
         import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
         const firebaseConfig = {
@@ -171,13 +235,13 @@
 
         const loginSection = document.getElementById('loginSection');
         const dashboardSection = document.getElementById('dashboardSection');
-        const adminTableBody = document.getElementById('adminTableBody');
+        const bciTableBody = document.getElementById('bciTableBody');
+        const sciTableBody = document.getElementById('sciTableBody');
         const sortSelect = document.getElementById('sortSelect');
-        const bulkFixBtn = document.getElementById('bulkFixBtn'); // 🔥 NEW Button
+        const bulkFixBtn = document.getElementById('bulkFixBtn');
 
         let adminRecords = [];
 
-        // Check login status
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 loginSection.style.display = 'none';
@@ -197,9 +261,9 @@
             await signOut(auth);
         });
 
-        // 1. FETCH DATA ONCE FROM FIREBASE
         async function fetchDataFromFirebase() {
-            adminTableBody.innerHTML = "<tr><td colspan='7' style='text-align:center;'>Fetching Data...</td></tr>";
+            bciTableBody.innerHTML = "<tr><td colspan='8' style='text-align:center;'>Fetching BCI Data...</td></tr>";
+            sciTableBody.innerHTML = "<tr><td colspan='8' style='text-align:center;'>Fetching SCI Data...</td></tr>";
             try {
                 const querySnapshot = await getDocs(collection(db, "instructor_survey"));
                 adminRecords = [];
@@ -210,25 +274,21 @@
 
                 sortAndRenderTable();
             } catch(e) {
-                alert("Access Denied! You are not an authorised Admin. Logging you out...");
+                alert("Access Denied! You are not an authorised Admin.");
                 await signOut(auth);
             }
         }
 
-        sortSelect.addEventListener('change', () => {
-            sortAndRenderTable();
-        });
+        sortSelect.addEventListener('change', sortAndRenderTable);
 
-        // 2. SORT AND RENDER DATA LOCALLY
         function sortAndRenderTable() {
             const sortBy = sortSelect.value;
 
+            // Sorting logic
             if (sortBy === 'marks') {
                 adminRecords.sort((a, b) => (b.marks_obtained || 0) - (a.marks_obtained || 0));
             } else if (sortBy === 'name') {
                 adminRecords.sort((a, b) => (a.student_name || '').localeCompare(b.student_name || ''));
-            } else if (sortBy === 'device') {
-                adminRecords.sort((a, b) => (a.device_id || '').localeCompare(b.device_id || ''));
             } else {
                 adminRecords.sort((a, b) => {
                     const timeA = a.timestamp ? a.timestamp.seconds : 0;
@@ -237,22 +297,11 @@
                 });
             }
 
-            renderTableHTML();
-        }
+            bciTableBody.innerHTML = "";
+            sciTableBody.innerHTML = "";
 
-        function renderTableHTML() {
-            if(adminRecords.length === 0) {
-                adminTableBody.innerHTML = "<tr><td colspan='7' style='text-align:center;'>No records found.</td></tr>";
-                return;
-            }
-
-            adminTableBody.innerHTML = "";
-
-            const deviceCounts = {};
-            adminRecords.forEach(r => {
-                const did = r.device_id || 'Unknown';
-                deviceCounts[did] = (deviceCounts[did] || 0) + 1;
-            });
+            let bciCount = 0;
+            let sciCount = 0;
 
             adminRecords.forEach((data) => {
                 const tr = document.createElement('tr');
@@ -262,44 +311,47 @@
                                 : `<span style="color:var(--warning-color); font-weight:bold;">⏳ Pending</span>`;
 
                 let verifyBtnHtml = data.status !== "approved" 
-                                  ? `<button class="action-btn btn-verify">✅ Verify</button>` 
+                                  ? `<button class="action-btn btn-verify" onclick="actionApprove('${data.id}')">✅</button>` 
                                   : ``;
-                
-                const did = data.device_id || 'Unknown';
-                const shortDid = did.length > 8 ? did.substring(0, 8) + '...' : did;
-                const isDuplicate = deviceCounts[did] > 1 && did !== 'Unknown';
-                const badgeClass = isDuplicate ? 'device-badge device-duplicate' : 'device-badge';
-                const deviceTooltip = isDuplicate ? 'Multiple entries from this device!' : 'Unique Device';
 
                 tr.innerHTML = `
                     <td><strong>${data.student_name || ''}</strong></td>
-                    <td>${data.bharti_type || ''}</td>
+                    <td>${data.gender || 'Not Specified'}</td>
                     <td>${data.category || ''}</td>
-                    <td style="color:#00d2ff; font-weight:800;">${data.marks_obtained !== undefined ? data.marks_obtained : ''}</td>
-                    <td><span class="${badgeClass}" title="${deviceTooltip}">${shortDid}</span></td>
+                    <td>${data.area_type || 'NON TSP'}</td>
+                    <td>${data.special_category || 'None'}</td>
+                    <td style="color:#00d2ff; font-weight:900;">${data.marks_obtained !== undefined ? data.marks_obtained : ''}</td>
                     <td>${statusBadge}</td>
                     <td>
                         ${verifyBtnHtml}
-                        <button class="action-btn btn-edit">✏️ Edit</button>
-                        <button class="action-btn btn-delete">🗑️ Delete</button>
+                        <button class="action-btn btn-edit" onclick="openEditModal('${data.id}')">✏️ Edit</button>
+                        <button class="action-btn btn-delete" onclick="actionDelete('${data.id}')">🗑️ Del</button>
                     </td>
                 `;
-                
-                if(data.status !== "approved") {
-                    tr.querySelector('.btn-verify').addEventListener('click', () => actionApprove(data.id));
-                }
-                tr.querySelector('.btn-edit').addEventListener('click', () => actionEdit(data.id, data));
-                tr.querySelector('.btn-delete').addEventListener('click', () => actionDelete(data.id));
 
-                adminTableBody.appendChild(tr);
+                // 🔥 Separate into BCI and SCI tables based on bharti_type
+                const typeStr = (data.bharti_type || '').toUpperCase();
+                if (typeStr.includes('BASIC') || typeStr === 'BCI') {
+                    bciTableBody.appendChild(tr);
+                    bciCount++;
+                } else if (typeStr.includes('SENIOR') || typeStr === 'SCI') {
+                    sciTableBody.appendChild(tr);
+                    sciCount++;
+                } else {
+                    // Fallback to BCI if empty
+                    bciTableBody.appendChild(tr);
+                    bciCount++;
+                }
             });
+
+            if(bciCount === 0) bciTableBody.innerHTML = "<tr><td colspan='8' style='text-align:center;'>No BCI records found.</td></tr>";
+            if(sciCount === 0) sciTableBody.innerHTML = "<tr><td colspan='8' style='text-align:center;'>No SCI records found.</td></tr>";
         }
 
-        // --- BULK FIX CATEGORY LOGIC 🔥 ---
+        // --- BULK FIX (Remove Device ID, Update Categories, Set BCI/SCI) ---
         function getStandardCategory(cat) {
             if (!cat) return "General (UR)";
             let upper = cat.trim().toUpperCase();
-            
             if (upper.includes("GEN EWS") || upper === "EWS") return "EWS";
             if (upper === "BC" || upper === "OBC") return "OBC";
             if (upper === "GENERAL" || upper === "GEN" || upper === "UR") return "General (UR)";
@@ -310,49 +362,67 @@
         }
 
         bulkFixBtn.addEventListener('click', async () => {
-            if(!confirm("Do you want to update?")) return;
+            if(!confirm("यह सभी गलत कैटेगरी को सही करेगा, Device ID को डेटाबेस से डिलीट करेगा, और एग्जाम का नाम BCI/SCI में बदलेगा। क्या आप तैयार हैं?")) return;
             
-            bulkFixBtn.innerText = "⏳ Fixing...";
+            bulkFixBtn.innerText = "⏳ Updating Database...";
             bulkFixBtn.disabled = true;
             let updatedCount = 0;
 
             try {
                 for (let i = 0; i < adminRecords.length; i++) {
                     let record = adminRecords[i];
+                    let updates = {};
+
+                    // 1. Fix Category
                     let oldCat = record.category || "";
                     let newCat = getStandardCategory(oldCat);
+                    if (oldCat !== newCat) updates.category = newCat;
 
-                    if (oldCat !== newCat || !record.gender || !record.area_type) {
-                        let updates = {};
-                        if (oldCat !== newCat) updates.category = newCat;
-                        if (!record.gender) updates.gender = "Not Specified";
-                        if (!record.area_type) updates.area_type = "NON TSP";
-                        if (!record.special_category) updates.special_category = "None";
+                    // 2. Provide Missing Defaults
+                    if (!record.gender) updates.gender = "Not Specified";
+                    if (!record.area_type) updates.area_type = "NON TSP";
+                    if (!record.special_category) updates.special_category = "None";
 
-                       
+                    // 3. Shorten Bharti Type to BCI / SCI
+                    let oldType = (record.bharti_type || "").toUpperCase();
+                    if ((oldType.includes("BASIC") || oldType === "") && oldType !== "BCI") {
+                        updates.bharti_type = "BCI";
+                    } else if (oldType.includes("SENIOR") && oldType !== "SCI") {
+                        updates.bharti_type = "SCI";
+                    }
+
+                    // 4. 🔥 DELETE DEVICE ID from Database completely
+                    if (record.device_id !== undefined) {
+                        updates.device_id = deleteField();
+                    }
+
+                    // Apply updates if there is any change
+                    if (Object.keys(updates).length > 0) {
                         await updateDoc(doc(db, "instructor_survey", record.id), updates);
                         
-                    
-                        if(updates.category) record.category = newCat;
-                        if(updates.gender) record.gender = "Not Specified";
-                        if(updates.area_type) record.area_type = "NON TSP";
+                        if(updates.category) record.category = updates.category;
+                        if(updates.gender) record.gender = updates.gender;
+                        if(updates.area_type) record.area_type = updates.area_type;
+                        if(updates.special_category) record.special_category = updates.special_category;
+                        if(updates.bharti_type) record.bharti_type = updates.bharti_type;
+                        if(updates.device_id) delete record.device_id; 
                         
                         updatedCount++;
                     }
                 }
                 
-                alert(`✅ Success! ${updatedCount} records ki category auto-fix ho gayi hai.`);
-                sortAndRenderTable(); // 
+                alert(`✅ Success! ${updatedCount} records successfully updated and cleaned.`);
+                sortAndRenderTable();
             } catch(e) {
                 alert("❌ Error: " + e.message);
             }
 
-            bulkFixBtn.innerText = "🛠️ Bulk Fix Categories";
+            bulkFixBtn.innerText = "🛠️ Bulk Update & Fix All";
             bulkFixBtn.disabled = false;
         });
-        // ---------------------------------
 
-        async function actionApprove(id) {
+        // --- ACTIONS: Approve, Delete ---
+        window.actionApprove = async function(id) {
             try {
                 await updateDoc(doc(db, "instructor_survey", id), { status: "approved" });
                 const record = adminRecords.find(r => r.id === id);
@@ -361,41 +431,7 @@
             } catch(err) { alert("Error approving record: " + err.message); }
         }
 
-        async function actionEdit(id, oldData) {
-            const newName = prompt("Update Student Name:", oldData.student_name || "");
-            if(newName === null) return;
-            const newType = prompt("Update Exam Type:", oldData.bharti_type || "");
-            if(newType === null) return;
-            let newCategory = prompt("Update Category (Alphabets only):", oldData.category || "");
-            if(newCategory === null) return;
-            newCategory = newCategory.replace(/[^a-zA-Z\s\(\)\-]/g, ''); // Allowed (), - for General (UR)
-            const newMarks = prompt("Update Marks (0 to 200):", oldData.marks_obtained);
-            if(newMarks === null) return;
-            
-            const parsedMarks = parseFloat(newMarks);
-            if(isNaN(parsedMarks) || parsedMarks < 0 || parsedMarks > 200) { alert("Invalid marks!"); return; }
-
-            try {
-                await updateDoc(doc(db, "instructor_survey", id), {
-                    student_name: newName.trim(), 
-                    bharti_type: newType.trim(),
-                    category: newCategory.trim(), 
-                    marks_obtained: parsedMarks
-                });
-                
-                const record = adminRecords.find(r => r.id === id);
-                if(record) {
-                    record.student_name = newName.trim();
-                    record.bharti_type = newType.trim();
-                    record.category = newCategory.trim();
-                    record.marks_obtained = parsedMarks;
-                }
-                sortAndRenderTable();
-                alert("Record updated successfully!");
-            } catch(err) { alert("Error updating: " + err.message); }
-        }
-
-        async function actionDelete(id) {
+        window.actionDelete = async function(id) {
             if(confirm("Are you sure you want to permanently delete this record?")) {
                 try {
                     await deleteDoc(doc(db, "instructor_survey", id));
@@ -403,6 +439,75 @@
                     sortAndRenderTable();
                 } catch(err) { alert("Error deleting: " + err.message); }
             }
+        }
+
+        // --- 🔥 EDIT MODAL LOGIC (Dropdowns) 🔥 ---
+        window.openEditModal = function(id) {
+            const record = adminRecords.find(r => r.id === id);
+            if(!record) return;
+
+            document.getElementById('editId').value = id;
+            document.getElementById('editName').value = record.student_name || "";
+            
+            // Set Dropdowns based on database value
+            let typeVal = (record.bharti_type || "").toUpperCase().includes("SENIOR") ? "SCI" : "BCI";
+            document.getElementById('editType').value = typeVal;
+            
+            document.getElementById('editGender').value = record.gender || "Not Specified";
+            document.getElementById('editArea').value = record.area_type || "NON TSP";
+            
+            // Fix category drop down selection just in case it's mis-spelled
+            let catVal = getStandardCategory(record.category);
+            document.getElementById('editCategory').value = catVal;
+            
+            document.getElementById('editSpecial').value = record.special_category || "None";
+            document.getElementById('editMarks').value = record.marks_obtained;
+
+            document.getElementById('editModal').style.display = 'flex';
+        }
+
+        window.saveEditData = async function() {
+            const id = document.getElementById('editId').value;
+            const newName = document.getElementById('editName').value.trim();
+            const newType = document.getElementById('editType').value;
+            const newGender = document.getElementById('editGender').value;
+            const newArea = document.getElementById('editArea').value;
+            const newCategory = document.getElementById('editCategory').value;
+            const newSpecial = document.getElementById('editSpecial').value;
+            const newMarks = parseFloat(document.getElementById('editMarks').value);
+
+            if(isNaN(newMarks) || newMarks < 0 || newMarks > 200) { 
+                alert("Invalid marks! Please enter between 0 and 200."); return; 
+            }
+
+            try {
+                // Update Firebase DB
+                await updateDoc(doc(db, "instructor_survey", id), {
+                    student_name: newName, 
+                    bharti_type: newType,
+                    gender: newGender,
+                    area_type: newArea,
+                    category: newCategory, 
+                    special_category: newSpecial,
+                    marks_obtained: newMarks
+                });
+                
+                // Update Local Array
+                const record = adminRecords.find(r => r.id === id);
+                if(record) {
+                    record.student_name = newName;
+                    record.bharti_type = newType;
+                    record.gender = newGender;
+                    record.area_type = newArea;
+                    record.category = newCategory;
+                    record.special_category = newSpecial;
+                    record.marks_obtained = newMarks;
+                }
+                
+                document.getElementById('editModal').style.display = 'none';
+                sortAndRenderTable();
+                
+            } catch(err) { alert("Error updating: " + err.message); }
         }
 
         // Theme Toggle

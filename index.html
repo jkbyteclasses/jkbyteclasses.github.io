@@ -4,25 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- SEO & Meta Tags for Google Search Console -->
+    <!-- SEO & Meta Tags -->
     <title>JK Byte Classes | Computer Instructor Mega Survey & Live Rank 2026</title>
-    
-    <meta name="description" content="Join the biggest Rajasthan Computer Instructor (Basic & Senior) Mega Survey 2026 by JK Byte Classes. Check your live rank, expected cut-off, category-wise marks analysis.">
-    
-    <meta name="keywords" content="JK Byte Classes, Computer Instructor Survey 2026, Rajasthan Computer Teacher Cut Off, Basic Computer Instructor Safe Score, Senior Computer Instructor Result, RSMSSB Computer Anudeshak Cutoff, Live Leaderboard, Computer Teacher Ranking, expected cut off computer instructor">
-    
+    <meta name="description" content="Check category-wise seats, live rank, and expected cut-off for Basic & Senior Rajasthan Computer Instructor Exam 2026.">
     <meta name="author" content="Team JKByte">
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
-    <meta name="language" content="English, Hindi">
-    
-    <!-- Google Search Console Verification Tag -->
-    <meta name="google-site-verification" content="acRDymDA5v9jn3qx7g63vayLaAuDSjQyUlRWxgiayDw" />
-    
-    <!-- Open Graph (For Telegram, WhatsApp, YouTube link sharing) -->
-    <meta property="og:title" content="JK Byte Classes | Computer Instructor Mega Survey 2026">
-    <meta property="og:description" content="Check your Live Rank, Category-wise Marks, and Expected Cut-off for Rajasthan Computer Instructor Exam. Participate now!">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="JK Byte Classes">
     
     <link rel="icon" type="image/png" href="logo.png">
 
@@ -35,9 +20,9 @@
             --text-main: #2d3748;
             --text-muted: #718096;
             --brand-gradient: linear-gradient(135deg, #df20b9 0%, #00d2ff 100%);
-            /* Outer shadow for 3D pop-out effect */
+            /* Outer shadow for pop-out effect */
             --shadow-out: 9px 9px 16px rgb(163,177,198,0.6), -9px -9px 16px rgba(255,255,255, 0.8);
-            /* Inner shadow for pressed behaviour */
+            /* Inner shadow for pressed effect */
             --shadow-in: inset 6px 6px 10px 0 rgba(163,177,198, 0.6), inset -6px -6px 10px 0 rgba(255,255,255, 0.8);
             --logo-bg: transparent;
             --table-border: rgba(113, 128, 150, 0.2);
@@ -77,7 +62,6 @@
             box-shadow: var(--shadow-out);
             border-bottom-left-radius: 20px;
             border-bottom-right-radius: 20px;
-            margin-bottom: 20px;
         }
 
         .brand-container {
@@ -96,8 +80,6 @@
             padding: 2px;
             transition: transform 0.3s ease;
         }
-        
-        .brand-logo:hover { transform: scale(1.1); }
 
         .logo-text {
             font-size: 26px;
@@ -105,7 +87,6 @@
             background: var(--brand-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: -0.5px;
         }
 
         .theme-toggle {
@@ -131,7 +112,7 @@
 
         .hero {
             text-align: center;
-            padding: 60px 20px 20px 20px;
+            padding: 40px 20px 20px 20px;
         }
 
        .hero h1 {
@@ -142,7 +123,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-
+        
         .hero p {
             font-size: 18px;
             color: var(--text-muted);
@@ -222,10 +203,57 @@
             color: #33aadd !important;
         }
 
+        /* ====== Tabs Styling ====== */
+        .tabs-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px auto 40px auto;
+            flex-wrap: wrap;
+            padding: 0 20px;
+        }
+
+        .tab-btn {
+            background: var(--surface-color);
+            color: var(--text-main);
+            padding: 16px 36px;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: 800;
+            border: none;
+            cursor: pointer;
+            box-shadow: var(--shadow-out);
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .tab-btn.active {
+            box-shadow: var(--shadow-in);
+            color: #df20b9;
+            pointer-events: none;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         /* ====== Data Tables Styling ====== */
         .table-wrapper {
             max-width: 1200px;
-            margin: 40px auto;
+            margin: 0 auto;
             padding: 0 20px;
         }
 
@@ -233,7 +261,7 @@
             text-align: center;
             font-size: 28px;
             font-weight: 800;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
             color: var(--text-main);
         }
 
@@ -252,7 +280,6 @@
             padding: 25px;
             margin-bottom: 40px;
             overflow-x: auto;
-            transition: all 0.3s ease;
         }
 
         .table-container h3 {
@@ -280,42 +307,16 @@
             line-height: 1.4;
         }
 
-        th {
-            font-weight: 700;
-            background: var(--table-header-bg);
-            white-space: nowrap;
-        }
+        th { font-weight: 700; background: var(--table-header-bg); white-space: nowrap; }
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background: var(--table-header-bg); }
 
-        .math-text {
-            font-size: 13px;
-            color: var(--text-muted);
-            display: block;
-            margin-bottom: 4px;
-        }
+        .math-text { font-size: 13px; color: var(--text-muted); display: block; margin-bottom: 4px; }
+        .sum-result { font-weight: 700; font-size: 16px; }
 
-        .sum-result {
-            font-weight: 700;
-            font-size: 16px;
-        }
-
-        tr:last-child td {
-            border-bottom: none;
-        }
-
-        tr:hover td {
-            background: var(--table-header-bg);
-        }
-
-        .total-row {
-            font-weight: 800;
-            background: rgba(223, 32, 185, 0.05) !important;
-            color: #df20b9;
-        }
-
-        .grand-total-table th {
-            background: rgba(0, 210, 255, 0.1);
-        }
-
+        .total-row { font-weight: 800; background: rgba(223, 32, 185, 0.05) !important; color: #df20b9; }
+        .grand-total-table th { background: rgba(0, 210, 255, 0.1); }
+        
         footer {
             text-align: center;
             padding: 50px 20px;
@@ -355,6 +356,7 @@
         }
         
         .email-link:hover { opacity: 0.8; }
+
     </style>
 </head>
 <body>
@@ -389,199 +391,223 @@
         </section>
     </div>
 
+    <!-- Tab Buttons (No default active) -->
+    <div class="tabs-container">
+        <button class="tab-btn" onclick="switchTab(event, 'bci-section')">Basic Computer Anudeshak Seats Data</button>
+        <button class="tab-btn" onclick="switchTab(event, 'sci-section')">Senior Computer Anudeshak Seats Data</button>
+    </div>
+
     <!-- ========================================== -->
-    <!-- Seats Data Display Block Starts Here       -->
+    <!-- 1. BCI SEATS DATA (Tab Content)            -->
     <!-- ========================================== -->
-    <div class="table-wrapper">
-        <h2 class="section-title">📊 Basic Computer Anudeshak Seats Data</h2>
-        <div class="section-subtitle">(NON-TSP AREA)</div>
+    <!-- Removed 'active' class to hide on load -->
+    <div id="bci-section" class="tab-content">
+        <div class="table-wrapper">
+            <h2 class="section-title">📊 Basic Computer Anudeshak Seats</h2>
+            <div class="section-subtitle">(NON-TSP AREA)</div>
 
-        <!-- Normal Education Table -->
-        <div class="table-container">
-            <h3>1. सामान्य शिक्षा विभाग (Normal Education Department)</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>वर्ग (Category)</th>
-                        <th>कुल पद</th>
-                        <th>सामान्य (Open)</th>
-                        <th>सामान्य महिला</th>
-                        <th>विधवा (Widow)</th>
-                        <th>परित्यक्ता (Divorcee)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>General / UR</td>
-                        <td>443</td><td>309</td><td>94</td><td>32</td><td>8</td>
-                    </tr>
-                    <tr>
-                        <td>OBC</td>
-                        <td>237</td><td>169</td><td>46</td><td>13</td><td>9</td>
-                    </tr>
-                    <tr>
-                        <td>EWS</td>
-                        <td>111</td><td>80</td><td>22</td><td>6</td><td>3</td>
-                    </tr>
-                    <tr>
-                        <td>MBC</td>
-                        <td>55</td><td>38</td><td>8</td><td>9</td><td>0</td>
-                    </tr>
-                    <tr>
-                        <td>SC <br><span class="math-text">(नए + बैकलॉग)</span></td>
-                        <td><span class="math-text">185 + 694 =</span><span class="sum-result">879</span></td>
-                        <td><span class="math-text">130 + 493 =</span><span class="sum-result">623</span></td>
-                        <td><span class="math-text">39 + 138 =</span><span class="sum-result">177</span></td>
-                        <td><span class="math-text">14 + 56 =</span><span class="sum-result">70</span></td>
-                        <td><span class="math-text">2 + 7 =</span><span class="sum-result">9</span></td>
-                    </tr>
-                    <tr>
-                        <td>ST <br><span class="math-text">(नए + बैकलॉग)</span></td>
-                        <td><span class="math-text">129 + 870 =</span><span class="sum-result">999</span></td>
-                        <td><span class="math-text">95 + 610 =</span><span class="sum-result">705</span></td>
-                        <td><span class="math-text">22 + 176 =</span><span class="sum-result">198</span></td>
-                        <td><span class="math-text">11 + 69 =</span><span class="sum-result">80</span></td>
-                        <td><span class="math-text">1 + 15 =</span><span class="sum-result">16</span></td>
-                    </tr>
-                    <tr>
-                        <td>सहारिया</td>
-                        <td>12</td><td>8</td><td>2</td><td>2</td><td>0</td>
-                    </tr>
-                    <tr class="total-row">
-                        <td>कुल पद</td>
-                        <td>2736</td><td>1932</td><td>547</td><td>212</td><td>45</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+            <!-- BCI Normal -->
+            <div class="table-container">
+                <h3>1. सामान्य शिक्षा विभाग (Normal Education Department)</h3>
+                <table>
+                    <thead>
+                        <tr><th>वर्ग (Category)</th><th>कुल पद</th><th>सामान्य (Open)</th><th>सामान्य महिला</th><th>विधवा (Widow)</th><th>परित्यक्ता (Divorcee)</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>General / UR</td><td>443</td><td>309</td><td>94</td><td>32</td><td>8</td></tr>
+                        <tr><td>OBC</td><td>237</td><td>169</td><td>46</td><td>13</td><td>9</td></tr>
+                        <tr><td>EWS</td><td>111</td><td>80</td><td>22</td><td>6</td><td>3</td></tr>
+                        <tr><td>MBC</td><td>55</td><td>38</td><td>8</td><td>9</td><td>0</td></tr>
+                        <tr>
+                            <td>SC <br><span class="math-text">(नए + बैकलॉग)</span></td>
+                            <td><span class="math-text">185 + 694 =</span><span class="sum-result">879</span></td>
+                            <td><span class="math-text">130 + 493 =</span><span class="sum-result">623</span></td>
+                            <td><span class="math-text">39 + 138 =</span><span class="sum-result">177</span></td>
+                            <td><span class="math-text">14 + 56 =</span><span class="sum-result">70</span></td>
+                            <td><span class="math-text">2 + 7 =</span><span class="sum-result">9</span></td>
+                        </tr>
+                        <tr>
+                            <td>ST <br><span class="math-text">(नए + बैकलॉग)</span></td>
+                            <td><span class="math-text">129 + 870 =</span><span class="sum-result">999</span></td>
+                            <td><span class="math-text">95 + 610 =</span><span class="sum-result">705</span></td>
+                            <td><span class="math-text">22 + 176 =</span><span class="sum-result">198</span></td>
+                            <td><span class="math-text">11 + 69 =</span><span class="sum-result">80</span></td>
+                            <td><span class="math-text">1 + 15 =</span><span class="sum-result">16</span></td>
+                        </tr>
+                        <tr><td>सहारिया</td><td>12</td><td>8</td><td>2</td><td>2</td><td>0</td></tr>
+                        <tr class="total-row"><td>कुल पद</td><td>2736</td><td>1932</td><td>547</td><td>212</td><td>45</td></tr>
+                    </tbody>
+                </table>
+            </div>
 
-        <!-- Sanskrit Education Table -->
-        <div class="table-container">
-            <h3>2. संस्कृत शिक्षा विभाग (Sanskrit Education Department)</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>वर्ग (Category)</th>
-                        <th>कुल पद</th>
-                        <th>सामान्य (Open)</th>
-                        <th>सामान्य महिला</th>
-                        <th>विधवा (Widow)</th>
-                        <th>परित्यक्ता (Divorcee)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>General / UR</td><td>72</td><td>51</td><td>15</td><td>5</td><td>1</td></tr>
-                    <tr><td>OBC</td><td>42</td><td>30</td><td>9</td><td>3</td><td>0</td></tr>
-                    <tr><td>SC</td><td>32</td><td>23</td><td>7</td><td>2</td><td>0</td></tr>
-                    <tr><td>ST</td><td>24</td><td>17</td><td>5</td><td>2</td><td>0</td></tr>
-                    <tr><td>EWS</td><td>20</td><td>14</td><td>5</td><td>1</td><td>0</td></tr>
-                    <tr><td>MBC</td><td>10</td><td>7</td><td>2</td><td>1</td><td>0</td></tr>
-                    <tr class="total-row"><td>कुल पद</td><td>200</td><td>142</td><td>43</td><td>14</td><td>1</td></tr>
-                </tbody>
-            </table>
-        </div>
+            <!-- BCI Sanskrit -->
+            <div class="table-container">
+                <h3>2. संस्कृत शिक्षा विभाग (Sanskrit Education Department)</h3>
+                <table>
+                    <thead>
+                        <tr><th>वर्ग</th><th>कुल पद</th><th>सामान्य (Open)</th><th>सामान्य महिला</th><th>विधवा</th><th>परित्यक्ता</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>General / UR</td><td>72</td><td>51</td><td>15</td><td>5</td><td>1</td></tr>
+                        <tr><td>OBC</td><td>42</td><td>30</td><td>9</td><td>3</td><td>0</td></tr>
+                        <tr><td>SC</td><td>32</td><td>23</td><td>7</td><td>2</td><td>0</td></tr>
+                        <tr><td>ST</td><td>24</td><td>17</td><td>5</td><td>2</td><td>0</td></tr>
+                        <tr><td>EWS</td><td>20</td><td>14</td><td>5</td><td>1</td><td>0</td></tr>
+                        <tr><td>MBC</td><td>10</td><td>7</td><td>2</td><td>1</td><td>0</td></tr>
+                        <tr class="total-row"><td>कुल पद</td><td>200</td><td>142</td><td>43</td><td>14</td><td>1</td></tr>
+                    </tbody>
+                </table>
+            </div>
 
-        <!-- Grand Total Table -->
-        <div class="table-container grand-total-table">
-            <h3>3. कुल सीटें (Grand Total - सामान्य + संस्कृत विभाग)</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>वर्ग (Category)</th>
-                        <th>कुल सीट</th>
-                        <th>सामान्य (Open)</th>
-                        <th>सामान्य महिला</th>
-                        <th>विधवा (Widow)</th>
-                        <th>परित्यक्ता (Divorcee)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>General / UR</td><td>515</td><td>360</td><td>109</td><td>37</td><td>9</td></tr>
-                    <tr><td>OBC</td><td>279</td><td>199</td><td>55</td><td>16</td><td>9</td></tr>
-                    <tr><td>EWS</td><td>131</td><td>94</td><td>27</td><td>7</td><td>3</td></tr>
-                    <tr><td>MBC</td><td>65</td><td>45</td><td>10</td><td>10</td><td>0</td></tr>
-                    <tr><td>SC</td><td>911</td><td>646</td><td>184</td><td>72</td><td>9</td></tr>
-                    <tr><td>ST</td><td>1023</td><td>722</td><td>203</td><td>82</td><td>16</td></tr>
-                    <tr><td>सहारिया</td><td>12</td><td>8</td><td>2</td><td>2</td><td>0</td></tr>
-                    <tr class="total-row">
-                        <td>महायोग (Grand Total)</td>
-                        <td>2936</td><td>2074</td><td>590</td><td>226</td><td>46</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <!-- Ex-Servicemen Detailed Table -->
-        <div class="table-container">
-            <h3>4. भूतपूर्व सैनिक (Ex-Servicemen) व निःशक्तजन पदों का विवरण</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>वर्ग (Category)</th>
-                        <th>नए पद (Current)</th>
-                        <th>अग्रेषित/बकाया (Backlog)</th>
-                        <th>कुल पद (Total)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>General / UR</td>
-                        <td>39</td>
-                        <td>274</td>
-                        <td><span class="math-text">39 + 274 =</span><span class="sum-result">313</span></td>
-                    </tr>
-                    <tr>
-                        <td>OBC</td>
-                        <td>11</td>
-                        <td>164</td>
-                        <td><span class="math-text">11 + 164 =</span><span class="sum-result">175</span></td>
-                    </tr>
-                    <tr>
-                        <td>SC</td>
-                        <td>8</td>
-                        <td>123</td>
-                        <td><span class="math-text">8 + 123 =</span><span class="sum-result">131</span></td>
-                    </tr>
-                    <tr>
-                        <td>ST</td>
-                        <td>2</td>
-                        <td>92</td>
-                        <td><span class="math-text">2 + 92 =</span><span class="sum-result">94</span></td>
-                    </tr>
-                    <tr>
-                        <td>EWS</td>
-                        <td>2</td>
-                        <td>76</td>
-                        <td><span class="math-text">2 + 76 =</span><span class="sum-result">78</span></td>
-                    </tr>
-                    <tr>
-                        <td>MBC</td>
-                        <td>0</td>
-                        <td>42</td>
-                        <td><span class="math-text">0 + 42 =</span><span class="sum-result">42</span></td>
-                    </tr>
-                    <tr>
-                        <td>सहारिया</td>
-                        <td>1</td>
-                        <td>0</td>
-                        <td><span class="math-text">1 + 0 =</span><span class="sum-result">1</span></td>
-                    </tr>
-                    <tr class="total-row">
-                        <td>भूतपूर्व सैनिक कुल योग</td>
-                        <td>63</td>
-                        <td>771</td>
-                        <td><span class="math-text">63 + 771 =</span><span class="sum-result">834</span></td>
-                    </tr>
-                    <!-- PwD is added as a separate row since it's not Ex-Servicemen -->
-                    <tr style="background-color: var(--table-header-bg);">
-                        <td colspan="2" style="font-weight: bold; text-align: right;">निःशक्तजन (PwD) बैकलॉग पद :</td>
-                        <td colspan="2" style="font-weight: bold; text-align: left; color: #df20b9;">75</td>
-                    </tr>
-                </tbody>
-            </table>
+            <!-- BCI Grand Total -->
+            <div class="table-container grand-total-table">
+                <h3>3. कुल सीटें (Grand Total - सामान्य + संस्कृत विभाग)</h3>
+                <table>
+                    <thead>
+                        <tr><th>वर्ग</th><th>कुल सीट</th><th>सामान्य (Open)</th><th>सामान्य महिला</th><th>विधवा</th><th>परित्यक्ता</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>General / UR</td><td>515</td><td>360</td><td>109</td><td>37</td><td>9</td></tr>
+                        <tr><td>OBC</td><td>279</td><td>199</td><td>55</td><td>16</td><td>9</td></tr>
+                        <tr><td>EWS</td><td>131</td><td>94</td><td>27</td><td>7</td><td>3</td></tr>
+                        <tr><td>MBC</td><td>65</td><td>45</td><td>10</td><td>10</td><td>0</td></tr>
+                        <tr><td>SC</td><td>911</td><td>646</td><td>184</td><td>72</td><td>9</td></tr>
+                        <tr><td>ST</td><td>1023</td><td>722</td><td>203</td><td>82</td><td>16</td></tr>
+                        <tr><td>सहारिया</td><td>12</td><td>8</td><td>2</td><td>2</td><td>0</td></tr>
+                        <tr class="total-row"><td>महायोग (Grand Total)</td><td>2936</td><td>2074</td><td>590</td><td>226</td><td>46</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- BCI Ex-SM & PwD -->
+            <div class="table-container">
+                <h3>4. भूतपूर्व सैनिक व निःशक्तजन पदों का विवरण</h3>
+                <table>
+                    <thead>
+                        <tr><th>वर्ग (Category)</th><th>नए पद (Current)</th><th>अग्रेषित/बकाया (Backlog)</th><th>कुल पद (Total)</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>General / UR</td><td>39</td><td>274</td><td>313</td></tr>
+                        <tr><td>OBC</td><td>11</td><td>164</td><td>175</td></tr>
+                        <tr><td>SC</td><td>8</td><td>123</td><td>131</td></tr>
+                        <tr><td>ST</td><td>2</td><td>92</td><td>94</td></tr>
+                        <tr><td>EWS</td><td>2</td><td>76</td><td>78</td></tr>
+                        <tr><td>MBC</td><td>0</td><td>42</td><td>42</td></tr>
+                        <tr><td>सहारिया</td><td>1</td><td>0</td><td>1</td></tr>
+                        <tr class="total-row"><td>भूतपूर्व सैनिक कुल योग</td><td>63</td><td>771</td><td>834</td></tr>
+                        <tr style="background-color: var(--table-header-bg);">
+                            <td colspan="2" style="font-weight: bold; text-align: right;">निःशक्तजन (PwD) बैकलॉग पद :</td>
+                            <td colspan="2" style="font-weight: bold; text-align: left; color: #df20b9;">75</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
+
+
     <!-- ========================================== -->
+    <!-- 2. SCI SEATS DATA (Tab Content)            -->
+    <!-- ========================================== -->
+    <div id="sci-section" class="tab-content">
+        <div class="table-wrapper">
+            <h2 class="section-title">📊 Senior Computer Anudeshak Seats</h2>
+            <div class="section-subtitle">(NON-TSP AREA)</div>
+
+            <!-- SCI Normal -->
+            <div class="table-container">
+                <h3>1. सामान्य शिक्षा विभाग (Normal Education Department)</h3>
+                <table>
+                    <thead>
+                        <tr><th>वर्ग (Category)</th><th>कुल पद</th><th>सामान्य (Open)</th><th>सामान्य महिला</th><th>विधवा (Widow)</th><th>परित्यक्ता (Divorcee)</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>General / UR</td><td>92</td><td>64</td><td>28</td><td>5</td><td>0</td></tr>
+                        <tr><td>OBC</td><td>51</td><td>36</td><td>15</td><td>5</td><td>0</td></tr>
+                        <tr><td>EWS</td><td>25</td><td>16</td><td>9</td><td>1</td><td>0</td></tr>
+                        <tr><td>MBC</td><td>12</td><td>10</td><td>2</td><td>0</td><td>0</td></tr>
+                        <tr><td>SC</td><td>43</td><td>28</td><td>15</td><td>2</td><td>0</td></tr>
+                        <tr>
+                            <td>ST <br><span class="math-text">(नए + बैकलॉग)</span></td>
+                            <td><span class="math-text">30 + 7 =</span><span class="sum-result">37</span></td>
+                            <td><span class="math-text">21 + 5 =</span><span class="sum-result">26</span></td>
+                            <td><span class="math-text">9 + 1 =</span><span class="sum-result">10</span></td>
+                            <td><span class="math-text">2 + 1 =</span><span class="sum-result">3</span></td>
+                            <td>0</td>
+                        </tr>
+                        <tr><td>सहारिया</td><td>2</td><td>2</td><td>0</td><td>0</td><td>0</td></tr>
+                        <tr class="total-row"><td>कुल पद</td><td>262</td><td>182</td><td>79</td><td>16</td><td>0</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- SCI Sanskrit -->
+            <div class="table-container">
+                <h3>2. संस्कृत शिक्षा विभाग (Sanskrit Education Department)</h3>
+                <table>
+                    <thead>
+                        <tr><th>वर्ग</th><th>कुल पद</th><th>सामान्य (Open)</th><th>सामान्य महिला</th><th>विधवा</th><th>परित्यक्ता</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>General / UR</td><td>10</td><td>7</td><td>2</td><td>1</td><td>0</td></tr>
+                        <tr><td>OBC</td><td>4</td><td>3</td><td>1</td><td>0</td><td>0</td></tr>
+                        <tr><td>SC</td><td>3</td><td>3</td><td>0</td><td>0</td><td>0</td></tr>
+                        <tr><td>ST</td><td>2</td><td>2</td><td>0</td><td>0</td><td>0</td></tr>
+                        <tr><td>EWS</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td></tr>
+                        <tr><td>MBC</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+                        <tr class="total-row"><td>कुल पद</td><td>20</td><td>16</td><td>3</td><td>1</td><td>0</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- SCI Grand Total -->
+            <div class="table-container grand-total-table">
+                <h3>3. कुल सीटें (Senior - सामान्य + संस्कृत विभाग)</h3>
+                <table>
+                    <thead>
+                        <tr><th>वर्ग</th><th>कुल सीट</th><th>सामान्य (Open)</th><th>सामान्य महिला</th><th>विधवा</th><th>परित्यक्ता</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>General / UR</td><td>102</td><td>71</td><td>30</td><td>6</td><td>0</td></tr>
+                        <tr><td>OBC</td><td>55</td><td>39</td><td>16</td><td>5</td><td>0</td></tr>
+                        <tr><td>EWS</td><td>26</td><td>17</td><td>9</td><td>1</td><td>0</td></tr>
+                        <tr><td>MBC</td><td>12</td><td>10</td><td>2</td><td>0</td><td>0</td></tr>
+                        <tr><td>SC</td><td>46</td><td>31</td><td>15</td><td>2</td><td>0</td></tr>
+                        <tr><td>ST</td><td>39</td><td>28</td><td>10</td><td>3</td><td>0</td></tr>
+                        <tr><td>सहारिया</td><td>2</td><td>2</td><td>0</td><td>0</td><td>0</td></tr>
+                        <tr class="total-row"><td>महायोग (Grand Total)</td><td>282</td><td>198</td><td>82</td><td>17</td><td>0</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- SCI Horizontal -->
+            <div class="table-container">
+                <h3>4. विशेष श्रेणी क्षैतिज आरक्षण (Horizontal Reservation)</h3>
+                <table>
+                    <thead>
+                        <tr><th>वर्ग / श्रेणी</th><th>आरक्षित पद</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>भूतपूर्व सैनिक (General / UR)</td><td>8</td></tr>
+                        <tr><td>भूतपूर्व सैनिक (OBC)</td><td>2</td></tr>
+                        <tr><td>भूतपूर्व सैनिक (SC)</td><td>2</td></tr>
+                        <tr><td>भूतपूर्व सैनिक (ST)</td><td>1</td></tr>
+                        <tr><td>भूतपूर्व सैनिक (EWS)</td><td>1</td></tr>
+                        <tr class="total-row"><td>कुल भूतपूर्व सैनिक (Ex-Servicemen)</td><td>14</td></tr>
+                        
+                        <tr><td>निःशक्तजन (HI - श्रवण बाधित)</td><td>1</td></tr>
+                        <tr><td>निःशक्तजन (LD/CP - चलन निःशक्तता)</td><td>1</td></tr>
+                        <tr><td>निःशक्तजन (MD - बहुनिःशक्तता)</td><td>2</td></tr>
+                        <tr class="total-row"><td>कुल निःशक्तजन (PwD)</td><td>4</td></tr>
+                        
+                        <tr><td style="font-weight: bold;">उत्कृष्ट खिलाड़ी (Sports Persons - 2%)</td><td style="font-weight: bold; color: #df20b9;">5</td></tr>
+                        <tr><td style="font-weight: bold;">पूर्व भर्ती के अनुसूचित पद (Old Backlog)</td><td style="font-weight: bold; color: #df20b9;">10</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
 
     <footer>
         <div class="email-container">
@@ -590,8 +616,9 @@
         </div>
     </footer>
 
-    <!-- Script to manage theme toggling behaviour -->
+    <!-- Script for Tabs & Theme -->
     <script>
+        // Theme Toggle Logic
         const toggleBtn = document.getElementById('themeToggle');
         const currentTheme = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', currentTheme);
@@ -604,6 +631,21 @@
             localStorage.setItem('theme', newTheme);
             toggleBtn.innerHTML = newTheme === 'dark' ? '☀️' : '🌙';
         });
+
+        // Tab Switching Logic
+        function switchTab(event, tabId) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            // Show selected tab and highlight button
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
     </script>
 </body>
 </html>

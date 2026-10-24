@@ -70,7 +70,6 @@
         
         .btn-action { border: none; padding: 16px 20px; border-radius: 20px; font-size: 15px; font-weight: 800; cursor: pointer; transition: 0.3s; color: white; display: inline-flex; align-items: center; justify-content: center; gap: 8px; box-shadow: var(--shadow-out); }
         
-        /* Fixed widths for consistency */
         .btn-bci { background: var(--brand-gradient); width: 100%; max-width: 360px; }
         .btn-sci { background: linear-gradient(135deg, #00d2ff 0%, #df20b9 100%); width: 100%; max-width: 360px; }
         .btn-pdf { background: linear-gradient(135deg, #f12711 0%, #f5af19 100%); width: 100%; max-width: 250px; }
@@ -347,24 +346,12 @@
                     }
                 });
 
-                // Sort Arrays and Add Real Ranks & Category Ranks
+                // Sort Arrays and Add Overall Real Ranks
                 basicDataArr.sort((a, b) => b.marks - a.marks);
-                let bCatTracker = {};
-                basicDataArr.forEach((d, i) => {
-                    d.realRank = i + 1;
-                    if(!bCatTracker[d.nCat]) bCatTracker[d.nCat] = 0;
-                    bCatTracker[d.nCat]++;
-                    d.catRank = bCatTracker[d.nCat];
-                });
+                basicDataArr.forEach((d, i) => { d.realRank = i + 1; });
 
                 seniorDataArr.sort((a, b) => b.marks - a.marks);
-                let sCatTracker = {};
-                seniorDataArr.forEach((d, i) => {
-                    d.realRank = i + 1;
-                    if(!sCatTracker[d.nCat]) sCatTracker[d.nCat] = 0;
-                    sCatTracker[d.nCat]++;
-                    d.catRank = sCatTracker[d.nCat];
-                });
+                seniorDataArr.forEach((d, i) => { d.realRank = i + 1; });
 
                 document.getElementById('basicTotal').innerText = b_Total;
                 document.getElementById('basicHighest').innerText = b_Max;
@@ -463,25 +450,38 @@
                 thRank.style.color = "#00d2ff";
             }
 
-            // Filter Logic: Search + Category + Gender
-            let filtered = dataSource.filter(d => {
-                let matchSearch = d.searchKey.includes(currentSearchText);
+            // Step 1: Filter ONLY by Category & Gender (To Calculate Real Dynamic Rank)
+            let filteredGroup = dataSource.filter(d => {
                 let matchCat = currentCategoryFilter === 'All' || d.nCat === currentCategoryFilter;
                 let matchGender = currentGenderFilter === 'All' || d.nGender === currentGenderFilter;
-                return matchSearch && matchCat && matchGender;
+                return matchCat && matchGender;
             });
 
-            if (filtered.length === 0) {
+            // Step 2: Assign Dynamic Filter Rank (Row Number)
+            filteredGroup.forEach((d, i) => {
+                d.currentDynamicRank = i + 1;
+            });
+
+            // Step 3: Apply Search Filter (So search doesn't mess up the rank number)
+            let finalDisplayList = filteredGroup.filter(d => {
+                return d.searchKey.includes(currentSearchText);
+            });
+
+            if (finalDisplayList.length === 0) {
                 tbody.innerHTML = "<tr><td colspan='4' style='text-align:center;'>No matching candidate found.</td></tr>";
                 return;
             }
+            
+            // Build Dynamic Label for Badge (e.g. "OBC M" or "F" or "Overall")
+            let catLabel = currentCategoryFilter === 'All' ? '' : currentCategoryFilter;
+            let genLabel = currentGenderFilter === 'All' ? '' : (currentGenderFilter === 'male' ? 'M' : 'F');
+            let badgeName = (catLabel + ' ' + genLabel).trim();
+            if (badgeName === '') badgeName = 'Live'; // Show Live Rank if no filters are selected
 
-            tbody.innerHTML = filtered.map((d) => {
+            // Step 4: Render Rows
+            tbody.innerHTML = finalDisplayList.map((d) => {
                 let markColor = currentActiveView === 'SCI' ? '#00d2ff' : '#df20b9';
-                
-                let catBadge = currentCategoryFilter !== 'All' 
-                                ? `<br><span class="cat-rank-badge">${d.nCat} Rank: ${d.catRank}</span>` 
-                                : "";
+                let catBadge = `<br><span class="cat-rank-badge">${badgeName} Rank: ${d.currentDynamicRank}</span>`;
 
                 return `<tr>
                     <td style="font-weight:bold; font-size:16px;">#${d.realRank} ${catBadge}</td>

@@ -70,9 +70,9 @@
         
         .btn-action { border: none; padding: 16px 20px; border-radius: 20px; font-size: 15px; font-weight: 800; cursor: pointer; transition: 0.3s; color: white; display: inline-flex; align-items: center; justify-content: center; gap: 8px; box-shadow: var(--shadow-out); }
         
-        /* Fixed widths for consistency on desktop */
-        .btn-bci { background: var(--brand-gradient); width: 100%; max-width: 320px; }
-        .btn-sci { background: linear-gradient(135deg, #00d2ff 0%, #df20b9 100%); width: 100%; max-width: 320px; }
+        /* Fixed widths for consistency */
+        .btn-bci { background: var(--brand-gradient); width: 100%; max-width: 360px; }
+        .btn-sci { background: linear-gradient(135deg, #00d2ff 0%, #df20b9 100%); width: 100%; max-width: 360px; }
         .btn-pdf { background: linear-gradient(135deg, #f12711 0%, #f5af19 100%); width: 100%; max-width: 250px; }
         .btn-excel { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); width: 100%; max-width: 250px; }
         .btn-print { background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%); max-width: 140px; padding: 12px 15px; flex-shrink: 0; }
@@ -88,7 +88,7 @@
         .search-box { 
             padding: 12px 15px; border-radius: 20px; border: 2px solid transparent; 
             background: linear-gradient(var(--surface-color), var(--surface-color)) padding-box, var(--brand-gradient) border-box;
-            color: var(--text-main); outline: none; font-size: 14px; font-weight: 600; min-width: 200px; box-shadow: var(--shadow-in); transition: 0.3s; flex: 1;
+            color: var(--text-main); outline: none; font-size: 14px; font-weight: 600; min-width: 150px; box-shadow: var(--shadow-in); transition: 0.3s; flex: 1;
         }
         select.search-box { cursor: pointer; }
         .search-box:focus { box-shadow: 0 0 10px rgba(0, 210, 255, 0.4); }
@@ -132,20 +132,21 @@
 
     <div id="mainContent" class="dashboard-container">
         
-        <!-- =================== LEADERBOARD & ACTIONS (MOVED TO TOP) =================== -->
+        <!-- =================== LEADERBOARD & ACTIONS =================== -->
         <div class="actions-container">
             <h2>🏆 Survey Leaderboards & Rankings</h2>
             
             <div class="controls-row">
-                <button id="viewBciBtn" class="btn-action btn-bci">📘 View BCI Ranking (By Category)</button>
-                <button id="viewSciBtn" class="btn-action btn-sci">📙 View SCI Ranking (By Category)</button>
+                <button id="viewBciBtn" class="btn-action btn-bci">📘 View BCI Ranking (By Category & Gender)</button>
+                <button id="viewSciBtn" class="btn-action btn-sci">📙 View SCI Ranking (By Category & Gender)</button>
             </div>
 
             <div id="tableMainWrapper" class="table-main-wrapper">
                 
                 <div class="filter-row">
+                    <!-- Category Filter -->
                     <select id="categoryFilter" class="search-box">
-                        <option value="All">🌟 All Categories (Live Ranking)</option>
+                        <option value="All">🌟 All Categories</option>
                         <option value="General (UR)">General (UR)</option>
                         <option value="EWS">EWS</option>
                         <option value="OBC">OBC</option>
@@ -153,8 +154,15 @@
                         <option value="ST">ST</option>
                         <option value="MBC">MBC</option>
                     </select>
+                    
+                    <!-- Gender Filter -->
+                    <select id="genderFilter" class="search-box">
+                        <option value="All">⚧ All Genders</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+
                     <input type="text" id="searchInput" class="search-box" placeholder="🔍 Search Candidate Name...">
-                    <!-- Print Button for filtered list -->
                     <button id="printListBtn" class="btn-action btn-print" title="Print this list">🖨️ Print List</button>
                 </div>
 
@@ -236,6 +244,7 @@
         let currentActiveView = ''; // 'BCI' or 'SCI'
         let currentSearchText = '';
         let currentCategoryFilter = 'All';
+        let currentGenderFilter = 'All';
 
         // Formatting Functions
         function normalizeCategory(c) {
@@ -345,7 +354,7 @@
                     d.realRank = i + 1;
                     if(!bCatTracker[d.nCat]) bCatTracker[d.nCat] = 0;
                     bCatTracker[d.nCat]++;
-                    d.catRank = bCatTracker[d.nCat]; // Assigns category-specific rank
+                    d.catRank = bCatTracker[d.nCat];
                 });
 
                 seniorDataArr.sort((a, b) => b.marks - a.marks);
@@ -354,7 +363,7 @@
                     d.realRank = i + 1;
                     if(!sCatTracker[d.nCat]) sCatTracker[d.nCat] = 0;
                     sCatTracker[d.nCat]++;
-                    d.catRank = sCatTracker[d.nCat]; // Assigns category-specific rank
+                    d.catRank = sCatTracker[d.nCat];
                 });
 
                 document.getElementById('basicTotal').innerText = b_Total;
@@ -444,7 +453,6 @@
 
             let dataSource = currentActiveView === 'BCI' ? basicDataArr : seniorDataArr;
             
-            // Set Titles & Colors based on selected view
             if (currentActiveView === 'BCI') {
                 titleEl.innerText = "📘 Basic Instructor Leaderboard";
                 titleEl.style.color = "#df20b9";
@@ -455,11 +463,12 @@
                 thRank.style.color = "#00d2ff";
             }
 
-            // Filter Logic
+            // Filter Logic: Search + Category + Gender
             let filtered = dataSource.filter(d => {
                 let matchSearch = d.searchKey.includes(currentSearchText);
                 let matchCat = currentCategoryFilter === 'All' || d.nCat === currentCategoryFilter;
-                return matchSearch && matchCat;
+                let matchGender = currentGenderFilter === 'All' || d.nGender === currentGenderFilter;
+                return matchSearch && matchCat && matchGender;
             });
 
             if (filtered.length === 0) {
@@ -467,11 +476,9 @@
                 return;
             }
 
-            // Render Table Rows (Result Column Removed)
             tbody.innerHTML = filtered.map((d) => {
                 let markColor = currentActiveView === 'SCI' ? '#00d2ff' : '#df20b9';
                 
-                // Show Category Rank Badge if a specific category is filtered
                 let catBadge = currentCategoryFilter !== 'All' 
                                 ? `<br><span class="cat-rank-badge">${d.nCat} Rank: ${d.catRank}</span>` 
                                 : "";
@@ -517,13 +524,21 @@
             renderActiveTable();
         });
 
+        document.getElementById('genderFilter').addEventListener('change', (e) => {
+            currentGenderFilter = e.target.value;
+            renderActiveTable();
+        });
+
         // --- PRINT FILTERED LIST FEATURE ---
         document.getElementById('printListBtn').addEventListener('click', () => {
             if(!currentActiveView) return alert("Please select a ranking list (BCI or SCI) to print.");
             
             const tableHTML = document.querySelector('table').outerHTML;
             const titleText = document.getElementById('currentTableTitle').innerText;
-            const filterText = currentCategoryFilter === 'All' ? 'Overall Live Ranking' : `Filtered By Category: ${currentCategoryFilter}`;
+            
+            let gText = currentGenderFilter === 'All' ? 'All Genders' : (currentGenderFilter === 'male' ? 'Male' : 'Female');
+            let cText = currentCategoryFilter === 'All' ? 'All Categories' : currentCategoryFilter;
+            const filterText = `Filtered Data - Category: ${cText} | Gender: ${gText}`;
             
             const printWindow = window.open('', '_blank', 'width=900,height=600');
             printWindow.document.write(`

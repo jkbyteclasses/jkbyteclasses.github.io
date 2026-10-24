@@ -77,7 +77,7 @@
         .hero h1 { font-size: 35px; font-weight: 800; margin: 0 0 10px 0; background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .hero p { font-size: 18px; color: var(--text-muted); max-width: 600px; margin: 0 auto; line-height: 1.6; }
 
-        /* ====== 1. QUICK ACTIONS GRID (Survey, Leaderboard, Telegram) ====== */
+        /* ====== 1. QUICK ACTIONS GRID ====== */
         .action-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -203,23 +203,18 @@
     <!-- SECTION 1: QUICK ACTIONS (3 Cards)         -->
     <!-- ========================================== -->
     <div class="action-grid">
-        <!-- Card 1: Survey Form -->
         <div class="action-card">
             <div class="icon">📝</div>
             <h3>Mega Survey</h3>
             <p>Enter your marks and category to participate in the biggest cut-off survey.</p>
             <a href="survey/" class="btn-3d">Join Survey Now</a>
         </div>
-
-        <!-- Card 2: Leaderboard -->
         <div class="action-card">
             <div class="icon">🏆</div>
             <h3>Live Leaderboard</h3>
             <p>Check your current rank and compare your score with thousands of students.</p>
             <a href="survey/results/" class="btn-outline">View Results</a>
         </div>
-
-        <!-- Card 3: Telegram -->
         <div class="action-card">
             <div class="icon">✈️</div>
             <h3>Telegram Group</h3>
@@ -255,7 +250,9 @@
         </button>
     </div>
 
-    <!-- 1. BCI SEATS DATA (Tab Content) -->
+    <!-- ========================================== -->
+    <!-- 1. BCI SEATS DATA (Tab Content)            -->
+    <!-- ========================================== -->
     <div id="bci-section" class="tab-content">
         <div class="table-wrapper">
             <div class="section-subtitle">(NON-TSP AREA)</div>
@@ -331,23 +328,67 @@
             </div>
             
             <div class="table-container">
-                <h3>4. भूतपूर्व सैनिक व निःशक्तजन पदों का विवरण</h3>
+                <h3>4. विशेष श्रेणी क्षैतिज आरक्षण (Horizontal Reservation)</h3>
                 <table>
                     <thead>
-                        <tr><th>वर्ग (Category)</th><th>नए पद (Current)</th><th>अग्रेषित/बकाया (Backlog)</th><th>कुल पद (Total)</th></tr>
+                        <tr>
+                            <th>वर्ग / श्रेणी</th>
+                            <th>सामान्य शिक्षा<br><span class="math-text">(Normal)</span></th>
+                            <th>संस्कृत शिक्षा<br><span class="math-text">(Sanskrit)</span></th>
+                            <th>अग्रेषित<br><span class="math-text">(Backlog)</span></th>
+                            <th>कुल योग<br><span class="math-text">(Total)</span></th>
+                        </tr>
                     </thead>
                     <tbody>
-                        <tr><td>General / UR</td><td>39</td><td>274</td><td>313</td></tr>
-                        <tr><td>OBC</td><td>11</td><td>164</td><td>175</td></tr>
-                        <tr><td>SC</td><td>8</td><td>123</td><td>131</td></tr>
-                        <tr><td>ST</td><td>2</td><td>92</td><td>94</td></tr>
-                        <tr><td>EWS</td><td>2</td><td>76</td><td>78</td></tr>
-                        <tr><td>MBC</td><td>0</td><td>42</td><td>42</td></tr>
-                        <tr><td>सहारिया</td><td>1</td><td>0</td><td>1</td></tr>
-                        <tr class="total-row"><td>भूतपूर्व सैनिक कुल योग</td><td>63</td><td>771</td><td>834</td></tr>
+                        <tr>
+                            <td>भूतपूर्व सैनिक (General / UR)</td>
+                            <td>39</td><td>9</td><td>274</td>
+                            <td><span class="math-text">39 + 9 + 274 =</span><span class="sum-result">322</span></td>
+                        </tr>
+                        <tr>
+                            <td>भूतपूर्व सैनिक (OBC)</td>
+                            <td>11</td><td>5</td><td>164</td>
+                            <td><span class="math-text">11 + 5 + 164 =</span><span class="sum-result">180</span></td>
+                        </tr>
+                        <tr>
+                            <td>भूतपूर्व सैनिक (SC)</td>
+                            <td>8</td><td>4</td><td>123</td>
+                            <td><span class="math-text">8 + 4 + 123 =</span><span class="sum-result">135</span></td>
+                        </tr>
+                        <tr>
+                            <td>भूतपूर्व सैनिक (ST)</td>
+                            <td>2</td><td>3</td><td>92</td>
+                            <td><span class="math-text">2 + 3 + 92 =</span><span class="sum-result">97</span></td>
+                        </tr>
+                        <tr>
+                            <td>भूतपूर्व सैनिक (EWS)</td>
+                            <td>2</td><td>2</td><td>76</td>
+                            <td><span class="math-text">2 + 2 + 76 =</span><span class="sum-result">80</span></td>
+                        </tr>
+                        <tr>
+                            <td>भूतपूर्व सैनिक (MBC)</td>
+                            <td>0</td><td>1</td><td>42</td>
+                            <td><span class="math-text">0 + 1 + 42 =</span><span class="sum-result">43</span></td>
+                        </tr>
+                        <tr>
+                            <td>भूतपूर्व सैनिक (सहारिया)</td>
+                            <td>1</td><td>0</td><td>0</td>
+                            <td><span class="math-text">1 + 0 + 0 =</span><span class="sum-result">1</span></td>
+                        </tr>
+                        <tr class="total-row">
+                            <td>भूतपूर्व सैनिक कुल योग</td>
+                            <td>63</td><td>24</td><td>771</td>
+                            <td>858</td>
+                        </tr>
                         <tr style="background-color: var(--table-header-bg);">
-                            <td colspan="2" style="font-weight: bold; text-align: right;">निःशक्तजन (PwD) बैकलॉग पद :</td>
-                            <td colspan="2" style="font-weight: bold; text-align: left; color: #df20b9;">75</td>
+                            <td style="font-weight: bold;">निःशक्तजन (PwD)</td>
+                            <td>—</td><td>6</td><td>75</td>
+                            <td><span class="math-text">6 + 75 =</span><span class="sum-result" style="color:#df20b9;">81</span></td>
+                        </tr>
+                        <tr style="background-color: var(--table-header-bg);">
+                            <td style="font-weight: bold;">उत्कृष्ट खिलाड़ी (Sports Persons)</td>
+                            <td>—</td><td>4</td><td>—</td>
+                            <td><span class="sum-result" style="color:#df20b9;">4</span></td>
                         </tr>
                     </tbody>
                 </table>
@@ -355,7 +396,9 @@
         </div>
     </div>
 
-    <!-- 2. SCI SEATS DATA (Tab Content) -->
+    <!-- ========================================== -->
+    <!-- 2. SCI SEATS DATA (Tab Content)            -->
+    <!-- ========================================== -->
     <div id="sci-section" class="tab-content">
         <div class="table-wrapper">
             <div class="section-subtitle">(NON-TSP AREA)</div>
@@ -420,37 +463,87 @@
                         <tr><td>सहारिया</td><td>2</td><td>2</td><td>0</td><td>0</td><td>0</td></tr>
                         <tr class="total-row"><td>महायोग (Grand Total)</td><td>288</td><td>204</td><td>68</td><td>16</td><td>0</td></tr>
                     </tbody>
-                </table>-
+                </table>
             </div>
 
             <div class="table-container">
                 <h3>4. विशेष श्रेणी क्षैतिज आरक्षण (Horizontal Reservation)</h3>
                 <table>
                     <thead>
-                        <tr><th>वर्ग / श्रेणी</th><th>आरक्षित पद</th></tr>
+                        <tr>
+                            <th>वर्ग / श्रेणी</th>
+                            <th>सामान्य शिक्षा<br><span class="math-text">(Normal)</span></th>
+                            <th>संस्कृत शिक्षा<br><span class="math-text">(Sanskrit)</span></th>
+                            <th>अग्रेषित<br><span class="math-text">(Backlog)</span></th>
+                            <th>कुल योग<br><span class="math-text">(Total)</span></th>
+                        </tr>
                     </thead>
                     <tbody>
-                        <tr><td>भूतपूर्व सैनिक (General / UR)</td><td>8</td></tr>
-                        <tr><td>भूतपूर्व सैनिक (OBC)</td><td>2</td></tr>
-                        <tr><td>भूतपूर्व सैनिक (SC)</td><td>2</td></tr>
-                        <tr><td>भूतपूर्व सैनिक (ST)</td><td>1</td></tr>
-                        <tr><td>भूतपूर्व सैनिक (EWS)</td><td>1</td></tr>
-                        <tr class="total-row"><td>कुल भूतपूर्व सैनिक (Ex-Servicemen)</td><td>14</td></tr>
+                        <tr>
+                            <td>भूतपूर्व सैनिक (General / UR)</td>
+                            <td>8</td><td>1</td><td>10</td>
+                            <td><span class="math-text">8 + 1 + 10 =</span><span class="sum-result">19</span></td>
+                        </tr>
+                        <tr>
+                            <td>भूतपूर्व सैनिक (OBC)</td>
+                            <td>2</td><td>0</td><td>8</td>
+                            <td><span class="math-text">2 + 0 + 8 =</span><span class="sum-result">10</span></td>
+                        </tr>
+                        <tr>
+                            <td>भूतपूर्व सैनिक (SC)</td>
+                            <td>2</td><td>0</td><td>7</td>
+                            <td><span class="math-text">2 + 0 + 7 =</span><span class="sum-result">9</span></td>
+                        </tr>
+                        <tr>
+                            <td>भूतपूर्व सैनिक (ST)</td>
+                            <td>1</td><td>0</td><td>4</td>
+                            <td><span class="math-text">1 + 0 + 4 =</span><span class="sum-result">5</span></td>
+                        </tr>
+                        <tr>
+                            <td>भूतपूर्व सैनिक (EWS)</td>
+                            <td>0</td><td>0</td><td>0</td>
+                            <td><span class="math-text">0 + 0 + 0 =</span><span class="sum-result">0</span></td>
+                        </tr>
+                        <tr>
+                            <td>भूतपूर्व सैनिक (MBC)</td>
+                            <td>0</td><td>0</td><td>0</td>
+                            <td><span class="math-text">0 + 0 + 0 =</span><span class="sum-result">0</span></td>
+                        </tr>
+                        <tr>
+                            <td>भूतपूर्व सैनिक (सहारिया)</td>
+                            <td>0</td><td>0</td><td>0</td>
+                            <td><span class="math-text">0 + 0 + 0 =</span><span class="sum-result">0</span></td>
+                        </tr>
+                        <tr class="total-row">
+                            <td>भूतपूर्व सैनिक कुल योग</td>
+                            <td>13</td><td>1</td><td>29</td>
+                            <td>43</td>
+                        </tr>
                         
-                        <tr><td>निःशक्तजन (HI - श्रवण बाधित)</td><td>1</td></tr>
-                        <tr><td>निःशक्तजन (LD/CP - चलन निःशक्तता)</td><td>1</td></tr>
-                        <tr><td>निःशक्तजन (MD - बहुनिःशक्तता)</td><td>2</td></tr>
-                        <tr class="total-row"><td>कुल निःशक्तजन (PwD)</td><td>4</td></tr>
-                        
-                        <tr><td style="font-weight: bold;">उत्कृष्ट खिलाड़ी (Sports Persons - 2%)</td><td style="font-weight: bold; color: #df20b9;">5</td></tr>
-                        <tr><td style="font-weight: bold;">पूर्व भर्ती के अनुसूचित पद (Old Backlog)</td><td style="font-weight: bold; color: #df20b9;">10</td></tr>
+                        <tr style="background-color: var(--table-header-bg);">
+                            <td style="font-weight: bold;">निःशक्तजन (PwD)</td>
+                            <td>4</td><td>0</td><td>0</td>
+                            <td><span class="sum-result" style="color:#df20b9;">4</span></td>
+                        </tr>
+                        <tr style="background-color: var(--table-header-bg);">
+                            <td style="font-weight: bold;">उत्कृष्ट खिलाड़ी (Sports Persons)</td>
+                            <td>5</td><td>0</td><td>0</td>
+                            <td><span class="sum-result" style="color:#df20b9;">5</span></td>
+                        </tr>
+                        <tr style="background-color: var(--table-header-bg);">
+                            <td style="font-weight: bold;">पूर्व भर्ती के अनुसूचित पद</td>
+                            <td>—</td><td>—</td><td>10</td>
+                            <td><span class="sum-result" style="color:#df20b9;">10</span></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 
-    <!-- 3. FILLED FORM DATA (Tab Content) -->
+    <!-- ========================================== -->
+    <!-- 3. FILLED FORM DATA (Tab Content)          -->
+    <!-- ========================================== -->
     <div id="filled-data-section" class="tab-content">
         <div class="table-wrapper">
             <div class="section-subtitle">(Category-wise Analysis)</div>

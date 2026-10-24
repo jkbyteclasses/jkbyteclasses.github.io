@@ -22,9 +22,7 @@
             --text-main: #2d3748; 
             --text-muted: #718096;
             --brand-gradient: linear-gradient(135deg, #df20b9 0%, #00d2ff 100%);
-            /* Outer shadow for 3D pop-out effect */
             --shadow-out: 9px 9px 16px rgb(163,177,198,0.6), -9px -9px 16px rgba(255,255,255, 0.8);
-            /* Inner shadow for pressed behaviour */
             --shadow-in: inset 6px 6px 10px 0 rgba(163,177,198, 0.6), inset -6px -6px 10px 0 rgba(255,255,255, 0.8);
             --chart-grid: rgba(0, 0, 0, 0.05);
             --th-bg: #e2e8f0;
@@ -54,60 +52,70 @@
         
         .section-title { font-size: 22px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--text-main); margin: 10px 0 -10px 0; border-left: 5px solid #df20b9; padding-left: 10px; }
 
-        /* Stats Cards Layout */
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
         .stat-card { background: var(--surface-color); padding: 25px 20px; border-radius: 24px; box-shadow: var(--shadow-out); text-align: center; transition: 0.3s; }
         .stat-card:hover { transform: translateY(-5px); }
         .stat-title { font-size: 14px; color: var(--text-muted); font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
         .stat-value { font-size: 36px; font-weight: 900; background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         
-        /* Charts Grid Layout */
         .charts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
         .full-chart { grid-column: 1 / -1; height: 400px !important; }
         .chart-container { background: var(--surface-color); padding: 25px; border-radius: 24px; box-shadow: var(--shadow-in); position: relative; height: 350px; width: 100%; box-sizing: border-box; }
         
-        /* Actions & Downloads */
+        /* Actions & Leaderboard Top Section */
         .actions-container { background: var(--surface-color); padding: 30px; border-radius: 24px; box-shadow: var(--shadow-out); text-align: center; }
         .actions-container h2 { margin-top: 0; background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 24px; margin-bottom: 25px;}
         
-        .btn-action { width: 100%; max-width: 300px; border: none; padding: 16px 20px; border-radius: 20px; font-size: 15px; font-weight: 800; cursor: pointer; transition: 0.3s; margin: 10px; color: white; display: inline-block; box-shadow: var(--shadow-out); }
-        .btn-view { background: var(--brand-gradient); }
-        .btn-pdf { background: linear-gradient(135deg, #f12711 0%, #f5af19 100%); }
-        .btn-excel { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); }
-        .btn-action:hover { transform: translateY(-3px); box-shadow: var(--shadow-in); color: #fff;}
+        .controls-row { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; }
         
-        /* Leaderboard Table & Search Responsive */
-        .table-main-wrapper { display: none; width: 100%; margin-top: 20px; }
-        .table-section { margin-bottom: 40px; text-align: left; }
+        .btn-action { border: none; padding: 16px 20px; border-radius: 20px; font-size: 15px; font-weight: 800; cursor: pointer; transition: 0.3s; color: white; display: inline-flex; align-items: center; justify-content: center; gap: 8px; box-shadow: var(--shadow-out); }
         
-        .table-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 15px; }
-        .table-header-row h3 { margin: 0; color: var(--text-main); font-size: 20px; }
+        /* Fixed widths for consistency on desktop */
+        .btn-bci { background: var(--brand-gradient); width: 100%; max-width: 320px; }
+        .btn-sci { background: linear-gradient(135deg, #00d2ff 0%, #df20b9 100%); width: 100%; max-width: 320px; }
+        .btn-pdf { background: linear-gradient(135deg, #f12711 0%, #f5af19 100%); width: 100%; max-width: 250px; }
+        .btn-excel { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); width: 100%; max-width: 250px; }
+        .btn-print { background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%); max-width: 140px; padding: 12px 15px; flex-shrink: 0; }
         
-        /* Search Box Style */
+        .btn-action:hover { transform: translateY(-3px); box-shadow: var(--shadow-in); color: #fff; }
+        .btn-active { box-shadow: var(--shadow-in); transform: translateY(2px); border: 2px solid #fff; }
+
+        .reports-section { margin-top: 30px; padding-top: 25px; border-top: 2px dashed rgba(163,177,198,0.4); }
+        .reports-section h3 { margin-top: 0; color: var(--text-main); font-size: 20px; margin-bottom: 20px;}
+
+        /* Search & Filter Responsive */
+        .filter-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 20px; }
         .search-box { 
-            padding: 10px 15px; border-radius: 20px; border: 2px solid transparent; 
+            padding: 12px 15px; border-radius: 20px; border: 2px solid transparent; 
             background: linear-gradient(var(--surface-color), var(--surface-color)) padding-box, var(--brand-gradient) border-box;
-            color: var(--text-main); outline: none; font-size: 14px; font-weight: 600; min-width: 250px; box-shadow: var(--shadow-in); transition: 0.3s; 
+            color: var(--text-main); outline: none; font-size: 14px; font-weight: 600; min-width: 200px; box-shadow: var(--shadow-in); transition: 0.3s; flex: 1;
         }
+        select.search-box { cursor: pointer; }
         .search-box:focus { box-shadow: 0 0 10px rgba(0, 210, 255, 0.4); }
 
+        .table-main-wrapper { display: none; width: 100%; margin-top: 20px; text-align: left; }
         .table-container { width: 100%; background: var(--surface-color); border-radius: 16px; padding: 20px; box-sizing: border-box; box-shadow: var(--shadow-in); overflow-x: auto; -webkit-overflow-scrolling: touch; }
         
         table { width: 100%; border-collapse: collapse; text-align: left; min-width: 600px; }
         th, td { padding: 15px; border-bottom: 1px solid rgba(163,177,198,0.2); font-weight: 600;}
         th { background: var(--th-bg); color: #df20b9; font-weight: 800; white-space: nowrap; }
 
+        .cat-rank-badge { display: inline-block; font-size: 12px; color: #fff; background: #8b5cf6; padding: 2px 8px; border-radius: 10px; margin-top: 4px; box-shadow: 2px 2px 5px rgba(0,0,0,0.2); }
+
         .loading-text { font-size: 20px; font-weight: bold; color: var(--text-muted); text-align: center; margin-top: 50px; }
         #mainContent { display: none; }
 
         @media(max-width: 768px) {
             body { padding: 10px; }
-            .actions-container { padding: 20px 5px; border-radius: 16px; }
-            .btn-action { width: 90%; max-width: none; margin: 8px auto; display: block; }
+            .actions-container { padding: 20px 10px; border-radius: 16px; }
+            .btn-action { width: 100%; max-width: none; margin: 0 auto; display: flex; }
+            .controls-row { flex-direction: column; gap: 10px; }
+            .filter-row { flex-direction: column; }
+            .search-box { width: 100%; min-width: 100%; box-sizing: border-box; }
+            .btn-print { max-width: 100%; }
             .full-chart { grid-column: 1; height: 350px !important; }
-            .table-container { padding: 5px; border-radius: 12px; }
+            .table-container { padding: 10px 5px; border-radius: 12px; }
             th, td { padding: 10px 8px; font-size: 13px; }
-            .search-box { width: 100%; min-width: 100%; }
         }
     </style>
 </head>
@@ -124,7 +132,59 @@
 
     <div id="mainContent" class="dashboard-container">
         
-        <!-- =================== BASIC COMPUTER INSTRUCTOR =================== -->
+        <!-- =================== LEADERBOARD & ACTIONS (MOVED TO TOP) =================== -->
+        <div class="actions-container">
+            <h2>🏆 Survey Leaderboards & Rankings</h2>
+            
+            <div class="controls-row">
+                <button id="viewBciBtn" class="btn-action btn-bci">📘 View BCI Ranking (By Category)</button>
+                <button id="viewSciBtn" class="btn-action btn-sci">📙 View SCI Ranking (By Category)</button>
+            </div>
+
+            <div id="tableMainWrapper" class="table-main-wrapper">
+                
+                <div class="filter-row">
+                    <select id="categoryFilter" class="search-box">
+                        <option value="All">🌟 All Categories (Live Ranking)</option>
+                        <option value="General (UR)">General (UR)</option>
+                        <option value="EWS">EWS</option>
+                        <option value="OBC">OBC</option>
+                        <option value="SC">SC</option>
+                        <option value="ST">ST</option>
+                        <option value="MBC">MBC</option>
+                    </select>
+                    <input type="text" id="searchInput" class="search-box" placeholder="🔍 Search Candidate Name...">
+                    <!-- Print Button for filtered list -->
+                    <button id="printListBtn" class="btn-action btn-print" title="Print this list">🖨️ Print List</button>
+                </div>
+
+                <div class="table-container" id="printableTableArea">
+                    <h3 id="currentTableTitle" style="color: #df20b9; margin-top:0; font-size:20px;">📘 Basic Instructor Leaderboard</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th id="thRank">Rank</th>
+                                <th>Student Name</th>
+                                <th>Category Details</th>
+                                <th>Marks</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leaderboardBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- SEPARATE REPORTS SECTION -->
+            <div class="reports-section">
+                <h3>📥 Download Full Survey Reports</h3>
+                <div class="controls-row">
+                    <button id="downloadPdfBtn" class="btn-action btn-pdf">📄 Download PDF</button>
+                    <button id="downloadExcelBtn" class="btn-action btn-excel">📊 Download Excel</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- =================== BASIC COMPUTER INSTRUCTOR STATS =================== -->
         <h2 class="section-title">📘 BCI (Basic Computer Instructor)</h2>
         <div class="stats-grid">
             <div class="stat-card"><div class="stat-title">👥 Enrolled</div><div class="stat-value" id="basicTotal">0</div></div>
@@ -133,14 +193,12 @@
             <div class="stat-card"><div class="stat-title" title="Based on Category Cut-offs">✅ Qualified</div><div class="stat-value" id="basicQual">0</div></div>
         </div>
         <div class="charts-grid">
-           <div class="chart-container"><canvas id="bciPassChart"></canvas></div> 
             <div class="chart-container"><canvas id="bciCatChart"></canvas></div>
-            <div class="chart-container"><canvas id="bciAreaChart"></canvas></div>
             <div class="chart-container"><canvas id="bciSplChart"></canvas></div>
             <div class="chart-container full-chart"><canvas id="bciGenderDistChart"></canvas></div>
         </div>
 
-        <!-- =================== SENIOR COMPUTER INSTRUCTOR =================== -->
+        <!-- =================== SENIOR COMPUTER INSTRUCTOR STATS =================== -->
         <h2 class="section-title" style="border-left-color: #00d2ff;">📙 SCI (Senior Computer Instructor)</h2>
         <div class="stats-grid">
             <div class="stat-card"><div class="stat-title">👥 Enrolled</div><div class="stat-value" id="seniorTotal">0</div></div>
@@ -149,68 +207,11 @@
             <div class="stat-card"><div class="stat-title" title="Based on Category Cut-offs">✅ Qualified</div><div class="stat-value" id="seniorQual">0</div></div>
         </div>
         <div class="charts-grid">
-            <div class="chart-container"><canvas id="sciPassChart"></canvas></div>
             <div class="chart-container"><canvas id="sciCatChart"></canvas></div>
-            <div class="chart-container"><canvas id="sciAreaChart"></canvas></div>
             <div class="chart-container"><canvas id="sciSplChart"></canvas></div>
             <div class="chart-container full-chart"><canvas id="sciGenderDistChart"></canvas></div>
         </div>
 
-        <!-- LEADERBOARD & ACTIONS -->
-        <div class="actions-container">
-            <h2>📥 Survey Leaderboards & Reports</h2>
-            <button id="viewBtn" class="btn-action btn-view">👁️ View Live Rankings</button>
-            <button id="downloadPdfBtn" class="btn-action btn-pdf">📄 Download PDF</button>
-            <button id="downloadExcelBtn" class="btn-action btn-excel">📊 Download Excel</button>
-            
-            <div id="tableMainWrapper" class="table-main-wrapper">
-                
-                <!-- BASIC TABLE -->
-                <div class="table-section">
-                    <div class="table-header-row">
-                        <h3>📘 Basic Instructor Leaderboard</h3>
-                        <input type="text" id="bciSearch" class="search-box" placeholder="🔍 Search BCI Candidate Name...">
-                    </div>
-                    <div class="table-container">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Rank</th>
-                                    <th>Student Name</th>
-                                    <th>Category Details</th>
-                                    <th>Marks</th>
-                                    <th>Result</th>
-                                </tr>
-                            </thead>
-                            <tbody id="basicTableBody"></tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <!-- SENIOR TABLE -->
-                <div class="table-section">
-                    <div class="table-header-row">
-                        <h3 style="color: #00d2ff;">📙 Senior Instructor Leaderboard</h3>
-                        <input type="text" id="sciSearch" class="search-box" placeholder="🔍 Search SCI Candidate Name..." style="background: linear-gradient(var(--surface-color), var(--surface-color)) padding-box, linear-gradient(135deg, #00d2ff 0%, #df20b9 100%) border-box;">
-                    </div>
-                    <div class="table-container">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th style="color: #00d2ff;">Rank</th>
-                                    <th style="color: #00d2ff;">Student Name</th>
-                                    <th style="color: #00d2ff;">Category Details</th>
-                                    <th style="color: #00d2ff;">Marks</th>
-                                    <th style="color: #00d2ff;">Result</th>
-                                </tr>
-                            </thead>
-                            <tbody id="seniorTableBody"></tbody>
-                        </table>
-                    </div>
-                </div>
-
-            </div>
-        </div>
     </div>
 
     <script type="module">
@@ -230,6 +231,11 @@
 
         let basicDataArr = [];
         let seniorDataArr = [];
+        
+        // UI State for Leaderboard
+        let currentActiveView = ''; // 'BCI' or 'SCI'
+        let currentSearchText = '';
+        let currentCategoryFilter = 'All';
 
         // Formatting Functions
         function normalizeCategory(c) {
@@ -297,14 +303,10 @@
                 let s_Total = 0, s_Max = 0, s_Qual = 0, s_MarksSum = 0;
                 
                 const getEmptyCatObj = () => ({"General (UR)":0, "EWS":0, "OBC":0, "SC":0, "ST":0, "MBC":0});
-                const getEmptyAreaObj = () => ({"NON TSP":0, "TSP":0});
                 const getEmptySplObj = () => ({"None":0,  "ESM":0, "PwD/PH":0, "Sports Person":0});
-                const getEmptyPassObj = () => ({"Qualified":0, "Not Qualified":0});
 
                 let b_CatCount = getEmptyCatObj(), s_CatCount = getEmptyCatObj();
-                let b_AreaCount = getEmptyAreaObj(), s_AreaCount = getEmptyAreaObj();
                 let b_SplCount = getEmptySplObj(), s_SplCount = getEmptySplObj();
-                let b_PassCount = getEmptyPassObj(), s_PassCount = getEmptyPassObj();
                 let b_GenderStats = {}, s_GenderStats = {};
                 
                 const initGenderStat = () => ({ male: 0, female: 0 });
@@ -317,9 +319,9 @@
                         basicDataArr.push(data);
                         b_Total++; b_MarksSum += data.marks;
                         if(data.marks > b_Max) b_Max = data.marks;
-                        if(data.isPass) { b_Qual++; b_PassCount["Qualified"]++; } else { b_PassCount["Not Qualified"]++; }
+                        if(data.isPass) { b_Qual++; }
                         
-                        b_CatCount[data.nCat]++; b_AreaCount[data.nArea]++; b_SplCount[data.nSpl]++;
+                        b_CatCount[data.nCat]++; b_SplCount[data.nSpl]++;
                         if (!b_GenderStats[data.nCat]) b_GenderStats[data.nCat] = initGenderStat();
                         if (data.nGender === 'female') b_GenderStats[data.nCat].female++; else b_GenderStats[data.nCat].male++;
 
@@ -328,20 +330,32 @@
                         seniorDataArr.push(data);
                         s_Total++; s_MarksSum += data.marks;
                         if(data.marks > s_Max) s_Max = data.marks;
-                        if(data.isPass) { s_Qual++; s_PassCount["Qualified"]++; } else { s_PassCount["Not Qualified"]++; }
+                        if(data.isPass) { s_Qual++; }
 
-                        s_CatCount[data.nCat]++; s_AreaCount[data.nArea]++; s_SplCount[data.nSpl]++;
+                        s_CatCount[data.nCat]++; s_SplCount[data.nSpl]++;
                         if (!s_GenderStats[data.nCat]) s_GenderStats[data.nCat] = initGenderStat();
                         if (data.nGender === 'female') s_GenderStats[data.nCat].female++; else s_GenderStats[data.nCat].male++;
                     }
                 });
 
-                // Sort Arrays and Add Real Ranks
+                // Sort Arrays and Add Real Ranks & Category Ranks
                 basicDataArr.sort((a, b) => b.marks - a.marks);
-                basicDataArr.forEach((d, i) => d.realRank = i + 1);
+                let bCatTracker = {};
+                basicDataArr.forEach((d, i) => {
+                    d.realRank = i + 1;
+                    if(!bCatTracker[d.nCat]) bCatTracker[d.nCat] = 0;
+                    bCatTracker[d.nCat]++;
+                    d.catRank = bCatTracker[d.nCat]; // Assigns category-specific rank
+                });
 
                 seniorDataArr.sort((a, b) => b.marks - a.marks);
-                seniorDataArr.forEach((d, i) => d.realRank = i + 1);
+                let sCatTracker = {};
+                seniorDataArr.forEach((d, i) => {
+                    d.realRank = i + 1;
+                    if(!sCatTracker[d.nCat]) sCatTracker[d.nCat] = 0;
+                    sCatTracker[d.nCat]++;
+                    d.catRank = sCatTracker[d.nCat]; // Assigns category-specific rank
+                });
 
                 document.getElementById('basicTotal').innerText = b_Total;
                 document.getElementById('basicHighest').innerText = b_Max;
@@ -354,15 +368,11 @@
                 document.getElementById('seniorQual').innerText = s_Qual;
 
                 renderDoughnutChart('bciCatChart', b_CatCount, 'Caste Category Dist.');
-                renderDoughnutChart('bciAreaChart', b_AreaCount, 'Regional Area', ['#00d2ff', '#FFC107']);
                 renderDoughnutChart('bciSplChart', b_SplCount, 'Special Category');
-                renderDoughnutChart('bciPassChart', b_PassCount, 'Result Ratio', ['#10b981', '#ef4444']);
                 renderStackedBarChart('bciGenderDistChart', b_GenderStats, 'BCI Gender-Wise Stats');
 
                 renderDoughnutChart('sciCatChart', s_CatCount, 'Caste Category Dist.');
-                renderDoughnutChart('sciAreaChart', s_AreaCount, 'Regional Area', ['#00d2ff', '#FFC107']);
                 renderDoughnutChart('sciSplChart', s_SplCount, 'Special Category');
-                renderDoughnutChart('sciPassChart', s_PassCount, 'Result Ratio', ['#10b981', '#ef4444']);
                 renderStackedBarChart('sciGenderDistChart', s_GenderStats, 'SCI Gender-Wise Stats');
 
                 document.getElementById('loadingIndicator').style.display = 'none';
@@ -426,56 +436,130 @@
             });
         }
 
-        // --- Table Rendering & Filtering Logic ---
-        const getRowHtml = (d, isSci=false) => {
-            let badge = d.isPass ? `<span style="color:#10b981;font-weight:bold;">Pass</span>` : `<span style="color:#ef4444;font-weight:bold;">Fail</span>`;
-            let markColor = isSci ? '#00d2ff' : '#df20b9';
-            return `<tr>
-                <td style="font-weight:bold;">#${d.realRank}</td>
-                <td>${d.display_name}</td>
-                <td>${d.display_category}</td>
-                <td style="color:${markColor}; font-weight:900; font-size:16px;">${d.marks}</td>
-                <td>${badge}</td>
-            </tr>`;
-        };
+        // --- Dynamic Table Rendering Logic ---
+        function renderActiveTable() {
+            const tbody = document.getElementById('leaderboardBody');
+            const titleEl = document.getElementById('currentTableTitle');
+            const thRank = document.getElementById('thRank');
 
-        function renderBciTable(filterText = "") {
-            const tbody = document.getElementById('basicTableBody');
-            const filtered = basicDataArr.filter(d => d.searchKey.includes(filterText.toLowerCase()));
-            if (filtered.length === 0) {
-                tbody.innerHTML = "<tr><td colspan='5' style='text-align:center;'>No matching candidate found.</td></tr>";
-                return;
-            }
-            tbody.innerHTML = filtered.map(d => getRowHtml(d, false)).join('');
-        }
-
-        function renderSciTable(filterText = "") {
-            const tbody = document.getElementById('seniorTableBody');
-            const filtered = seniorDataArr.filter(d => d.searchKey.includes(filterText.toLowerCase()));
-            if (filtered.length === 0) {
-                tbody.innerHTML = "<tr><td colspan='5' style='text-align:center;'>No matching candidate found.</td></tr>";
-                return;
-            }
-            tbody.innerHTML = filtered.map(d => getRowHtml(d, true)).join('');
-        }
-
-        // Live Search Listeners
-        document.getElementById('bciSearch').addEventListener('input', (e) => { renderBciTable(e.target.value); });
-        document.getElementById('sciSearch').addEventListener('input', (e) => { renderSciTable(e.target.value); });
-
-        // View Button
-        document.getElementById('viewBtn').onclick = function() {
-            const wrapper = document.getElementById('tableMainWrapper');
-            if(wrapper.style.display === 'block') { wrapper.style.display = 'none'; this.innerText = "👁️ View Live Rankings"; return; }
+            let dataSource = currentActiveView === 'BCI' ? basicDataArr : seniorDataArr;
             
-            document.getElementById('bciSearch').value = "";
-            document.getElementById('sciSearch').value = "";
-            renderBciTable();
-            renderSciTable();
+            // Set Titles & Colors based on selected view
+            if (currentActiveView === 'BCI') {
+                titleEl.innerText = "📘 Basic Instructor Leaderboard";
+                titleEl.style.color = "#df20b9";
+                thRank.style.color = "#df20b9";
+            } else {
+                titleEl.innerText = "📙 Senior Instructor Leaderboard";
+                titleEl.style.color = "#00d2ff";
+                thRank.style.color = "#00d2ff";
+            }
 
+            // Filter Logic
+            let filtered = dataSource.filter(d => {
+                let matchSearch = d.searchKey.includes(currentSearchText);
+                let matchCat = currentCategoryFilter === 'All' || d.nCat === currentCategoryFilter;
+                return matchSearch && matchCat;
+            });
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = "<tr><td colspan='4' style='text-align:center;'>No matching candidate found.</td></tr>";
+                return;
+            }
+
+            // Render Table Rows (Result Column Removed)
+            tbody.innerHTML = filtered.map((d) => {
+                let markColor = currentActiveView === 'SCI' ? '#00d2ff' : '#df20b9';
+                
+                // Show Category Rank Badge if a specific category is filtered
+                let catBadge = currentCategoryFilter !== 'All' 
+                                ? `<br><span class="cat-rank-badge">${d.nCat} Rank: ${d.catRank}</span>` 
+                                : "";
+
+                return `<tr>
+                    <td style="font-weight:bold; font-size:16px;">#${d.realRank} ${catBadge}</td>
+                    <td>${d.display_name}</td>
+                    <td>${d.display_category}</td>
+                    <td style="color:${markColor}; font-weight:900; font-size:16px;">${d.marks}</td>
+                </tr>`;
+            }).join('');
+        }
+
+        // Leaderboard View Toggle Buttons
+        const viewBciBtn = document.getElementById('viewBciBtn');
+        const viewSciBtn = document.getElementById('viewSciBtn');
+        const wrapper = document.getElementById('tableMainWrapper');
+
+        viewBciBtn.addEventListener('click', () => {
+            currentActiveView = 'BCI';
             wrapper.style.display = 'block';
-            this.innerText = "🙈 Hide Rankings";
-        };
+            viewBciBtn.classList.add('btn-active');
+            viewSciBtn.classList.remove('btn-active');
+            renderActiveTable();
+        });
+
+        viewSciBtn.addEventListener('click', () => {
+            currentActiveView = 'SCI';
+            wrapper.style.display = 'block';
+            viewSciBtn.classList.add('btn-active');
+            viewBciBtn.classList.remove('btn-active');
+            renderActiveTable();
+        });
+
+        // Search & Filter Listeners
+        document.getElementById('searchInput').addEventListener('input', (e) => { 
+            currentSearchText = e.target.value.toLowerCase();
+            renderActiveTable();
+        });
+
+        document.getElementById('categoryFilter').addEventListener('change', (e) => {
+            currentCategoryFilter = e.target.value;
+            renderActiveTable();
+        });
+
+        // --- PRINT FILTERED LIST FEATURE ---
+        document.getElementById('printListBtn').addEventListener('click', () => {
+            if(!currentActiveView) return alert("Please select a ranking list (BCI or SCI) to print.");
+            
+            const tableHTML = document.querySelector('table').outerHTML;
+            const titleText = document.getElementById('currentTableTitle').innerText;
+            const filterText = currentCategoryFilter === 'All' ? 'Overall Live Ranking' : `Filtered By Category: ${currentCategoryFilter}`;
+            
+            const printWindow = window.open('', '_blank', 'width=900,height=600');
+            printWindow.document.write(`
+                <html>
+                <head>
+                    <title>Print Leaderboard - JK Byte</title>
+                    <style>
+                        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 20px; color: #222; }
+                        h2 { text-align: center; color: #111; margin-bottom: 5px; }
+                        h4 { text-align: center; color: #555; margin-top: 0; margin-bottom: 25px; }
+                        table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 14px; }
+                        th, td { border: 1px solid #ccc; padding: 10px 12px; text-align: left; }
+                        th { background-color: #f0f0f0; color: #000; font-weight: bold; }
+                        .cat-rank-badge { font-size: 11px; color: #444; background: #e2e8f0; padding: 3px 6px; border-radius: 4px; display: inline-block; margin-top: 5px; border: 1px solid #cbd5e1; }
+                        @media print { 
+                            body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+                            table { page-break-inside: auto; }
+                            tr { page-break-inside: avoid; page-break-after: auto; }
+                        }
+                    </style>
+                </head>
+                <body>
+                    <h2>${titleText}</h2>
+                    <h4>${filterText}</h4>
+                    ${tableHTML}
+                </body>
+                </html>
+            `);
+            
+            printWindow.document.close();
+            printWindow.focus();
+            setTimeout(() => {
+                printWindow.print();
+                printWindow.close();
+            }, 300);
+        });
 
         // --- PDF DOWNLOAD ---
         document.getElementById('downloadPdfBtn').addEventListener('click', () => {
@@ -491,10 +575,10 @@
                 doc.text("Basic Computer Instructor Leaderboard", 14, 20);
                 doc.autoTable({
                     startY: 25,
-                    head: [['Rank', 'Student Name', 'Category Details', 'Marks', 'Result']],
-                    body: basicDataArr.map(d => [d.realRank, d.display_name, d.display_category, d.marks, d.isPass ? 'Pass' : 'Fail']),
+                    head: [['Rank', 'Student Name', 'Category Details', 'Marks']],
+                    body: basicDataArr.map(d => [d.realRank, d.display_name, d.display_category, d.marks]),
                     headStyles: { fillColor: [223, 32, 185], textColor: 255, halign: 'center' },
-                    columnStyles: { 0: { halign: 'center' }, 3: { halign: 'center', fontStyle: 'bold' }, 4: { halign: 'center', fontStyle: 'bold' } }
+                    columnStyles: { 0: { halign: 'center' }, 3: { halign: 'center', fontStyle: 'bold' } }
                 });
 
                 let finalY = doc.lastAutoTable.finalY || 25;
@@ -503,10 +587,10 @@
                 doc.text("Senior Computer Instructor Leaderboard", 14, finalY);
                 doc.autoTable({
                     startY: finalY + 5,
-                    head: [['Rank', 'Student Name', 'Category Details', 'Marks', 'Result']],
-                    body: seniorDataArr.map(d => [d.realRank, d.display_name, d.display_category, d.marks, d.isPass ? 'Pass' : 'Fail']),
+                    head: [['Rank', 'Student Name', 'Category Details', 'Marks']],
+                    body: seniorDataArr.map(d => [d.realRank, d.display_name, d.display_category, d.marks]),
                     headStyles: { fillColor: [0, 210, 255], textColor: 255, halign: 'center' },
-                    columnStyles: { 0: { halign: 'center' }, 3: { halign: 'center', fontStyle: 'bold' }, 4: { halign: 'center', fontStyle: 'bold' } }
+                    columnStyles: { 0: { halign: 'center' }, 3: { halign: 'center', fontStyle: 'bold' } }
                 });
 
                 doc.save('Instructor_Leaderboard.pdf');
@@ -525,18 +609,18 @@
 
                 const basicExcelData = basicDataArr.map(d => ({
                     "Rank": d.realRank, "Student Name": d.display_name, "Exam Type": "BCI", 
-                    "Category Details": d.display_category, "Marks": d.marks, "Result": d.isPass ? "Pass" : "Fail"
+                    "Category Details": d.display_category, "Marks": d.marks
                 }));
                 const wsBasic = XLSX.utils.json_to_sheet(basicExcelData);
-                wsBasic['!cols'] = [{ wch: 8 }, { wch: 30 }, { wch: 10 }, { wch: 35 }, { wch: 10 }, { wch: 10 }];
+                wsBasic['!cols'] = [{ wch: 8 }, { wch: 30 }, { wch: 10 }, { wch: 35 }, { wch: 10 }];
                 XLSX.utils.book_append_sheet(wb, wsBasic, "BCI Result");
 
                 const seniorExcelData = seniorDataArr.map(d => ({
                     "Rank": d.realRank, "Student Name": d.display_name, "Exam Type": "SCI", 
-                    "Category Details": d.display_category, "Marks": d.marks, "Result": d.isPass ? "Pass" : "Fail"
+                    "Category Details": d.display_category, "Marks": d.marks
                 }));
                 const wsSenior = XLSX.utils.json_to_sheet(seniorExcelData);
-                wsSenior['!cols'] = [{ wch: 8 }, { wch: 30 }, { wch: 10 }, { wch: 35 }, { wch: 10 }, { wch: 10 }];
+                wsSenior['!cols'] = [{ wch: 8 }, { wch: 30 }, { wch: 10 }, { wch: 35 }, { wch: 10 }];
                 XLSX.utils.book_append_sheet(wb, wsSenior, "SCI Result");
 
                 XLSX.writeFile(wb, 'Instructor_Result_List.xlsx');

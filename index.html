@@ -7,9 +7,9 @@
     <!-- SEO & Meta Tags for Google Search Console -->
     <title>JK Byte Classes | Computer Instructor Mega Survey & Live Rank 2026</title>
     
-    <meta name="description" content="Join the biggest Rajasthan Computer Instructor (Basic & Senior) Mega Survey 2026 by JK Byte Classes. Check your live rank, expected cut-off, category-wise marks analysis, and download premium IT exam notes and mock tests.">
+    <meta name="description" content="Join the biggest Rajasthan Computer Instructor (Basic & Senior) Mega Survey 2026 by JK Byte Classes. Check your live rank, expected cut-off, category-wise marks analysis.">
     
-    <meta name="keywords" content="JK Byte Classes, Computer Instructor Survey 2026, Rajasthan Computer Teacher Cut Off, Basic Computer Instructor Safe Score, Senior Computer Instructor Result, RSMSSB Computer Anudeshak Cutoff, Live Leaderboard, IT Exam Free Notes, Computer Teacher Ranking, expected cut off computer instructor">
+    <meta name="keywords" content="JK Byte Classes, Computer Instructor Survey 2026, Rajasthan Computer Teacher Cut Off, Basic Computer Instructor Safe Score, Senior Computer Instructor Result, RSMSSB Computer Anudeshak Cutoff, Live Leaderboard, Computer Teacher Ranking, expected cut off computer instructor">
     
     <meta name="author" content="Team JKByte">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
@@ -40,6 +40,8 @@
             /* Inner shadow for pressed behaviour */
             --shadow-in: inset 6px 6px 10px 0 rgba(163,177,198, 0.6), inset -6px -6px 10px 0 rgba(255,255,255, 0.8);
             --logo-bg: transparent;
+            --table-border: rgba(113, 128, 150, 0.2);
+            --table-header-bg: rgba(113, 128, 150, 0.1);
         }
 
         [data-theme="dark"] {
@@ -51,6 +53,8 @@
             --shadow-out: 8px 8px 16px rgba(0,0,0,0.4), -8px -8px 16px rgba(255,255,255,0.05);
             --shadow-in: inset 5px 5px 10px rgba(0,0,0,0.6), inset -5px -5px 10px rgba(255,255,255,0.05);
             --logo-bg: #ffffff;
+            --table-border: rgba(255, 255, 255, 0.1);
+            --table-header-bg: rgba(255, 255, 255, 0.05);
         }
 
         body {
@@ -127,7 +131,7 @@
 
         .hero {
             text-align: center;
-            padding: 60px 20px;
+            padding: 60px 20px 20px 20px;
         }
 
        .hero h1 {
@@ -147,7 +151,6 @@
             line-height: 1.6;
         }
 
-        /* Call-to-action buttons container */
         .hero-buttons {
             display: flex;
             justify-content: center;
@@ -203,7 +206,6 @@
             color: #00d2ff;
         }
 
-        /* Telegram button specific styling */
         .hero-telegram {
             display: flex;
             justify-content: center;
@@ -220,35 +222,104 @@
             color: #33aadd !important;
         }
 
-        .grid-container {
-            max-width: 1000px;
+        /* ====== Data Tables Styling ====== */
+        .table-wrapper {
+            max-width: 1200px;
             margin: 40px auto;
             padding: 0 20px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
         }
 
-        .card-3d {
+        .section-title {
+            text-align: center;
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: var(--text-main);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #df20b9;
+            font-weight: 700;
+            margin-bottom: 30px;
+            font-size: 18px;
+        }
+
+        .table-container {
             background: var(--surface-color);
-            padding: 40px 30px;
             border-radius: 24px;
             box-shadow: var(--shadow-out);
-            text-align: center;
+            padding: 25px;
+            margin-bottom: 40px;
+            overflow-x: auto;
             transition: all 0.3s ease;
         }
 
-        .card-3d:hover {
-            transform: translateY(-5px);
+        .table-container h3 {
+            margin-top: 0;
+            color: var(--text-main);
+            text-align: center;
+            font-size: 20px;
+            margin-bottom: 20px;
+            background: var(--brand-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .card-3d h3 { margin-bottom: 15px; font-size: 22px; }
-        .card-3d p { color: var(--text-muted); line-height: 1.6; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 700px;
+        }
+
+        th, td {
+            padding: 14px 15px;
+            text-align: center;
+            border-bottom: 1px solid var(--table-border);
+            color: var(--text-main);
+            line-height: 1.4;
+        }
+
+        th {
+            font-weight: 700;
+            background: var(--table-header-bg);
+            white-space: nowrap;
+        }
+
+        .math-text {
+            font-size: 13px;
+            color: var(--text-muted);
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .sum-result {
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: var(--table-header-bg);
+        }
+
+        .total-row {
+            font-weight: 800;
+            background: rgba(223, 32, 185, 0.05) !important;
+            color: #df20b9;
+        }
+
+        .grand-total-table th {
+            background: rgba(0, 210, 255, 0.1);
+        }
 
         footer {
             text-align: center;
             padding: 50px 20px;
-            margin-top: 50px;
+            margin-top: 20px;
         }
 
         .email-container {
@@ -296,10 +367,6 @@
         <button class="theme-toggle" id="themeToggle">🌙</button>
     </header>
 
-    <!-- ========================================== -->
-    <!-- Computer Instructor Campaign Block Starts  -->
-    <!-- Remove this container in the future to hide the campaign -->
-    <!-- ========================================== -->
     <div id="computerTeacherCampaign">
         <section class="hero">
             <h1>Computer Instructor Survey</h1>
@@ -321,18 +388,200 @@
             </div>
         </section>
     </div>
-    <!-- ========================================== -->
 
-    <div class="grid-container">
-        <div class="card-3d">
-            <h3>📖 Premium Notes</h3>
-            <p>Download the best digital and handwritten materials for your IT exams.</p>
+    <!-- ========================================== -->
+    <!-- Seats Data Display Block Starts Here       -->
+    <!-- ========================================== -->
+    <div class="table-wrapper">
+        <h2 class="section-title">📊 Basic Computer Anudeshak Seats Data</h2>
+        <div class="section-subtitle">(NON-TSP AREA)</div>
+
+        <!-- Normal Education Table -->
+        <div class="table-container">
+            <h3>1. सामान्य शिक्षा विभाग (Normal Education Department)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>वर्ग (Category)</th>
+                        <th>कुल पद</th>
+                        <th>सामान्य (Open)</th>
+                        <th>सामान्य महिला</th>
+                        <th>विधवा (Widow)</th>
+                        <th>परित्यक्ता (Divorcee)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>General / UR</td>
+                        <td>443</td><td>309</td><td>94</td><td>32</td><td>8</td>
+                    </tr>
+                    <tr>
+                        <td>OBC</td>
+                        <td>237</td><td>169</td><td>46</td><td>13</td><td>9</td>
+                    </tr>
+                    <tr>
+                        <td>EWS</td>
+                        <td>111</td><td>80</td><td>22</td><td>6</td><td>3</td>
+                    </tr>
+                    <tr>
+                        <td>MBC</td>
+                        <td>55</td><td>38</td><td>8</td><td>9</td><td>0</td>
+                    </tr>
+                    <tr>
+                        <td>SC <br><span class="math-text">(नए + बैकलॉग)</span></td>
+                        <td><span class="math-text">185 + 694 =</span><span class="sum-result">879</span></td>
+                        <td><span class="math-text">130 + 493 =</span><span class="sum-result">623</span></td>
+                        <td><span class="math-text">39 + 138 =</span><span class="sum-result">177</span></td>
+                        <td><span class="math-text">14 + 56 =</span><span class="sum-result">70</span></td>
+                        <td><span class="math-text">2 + 7 =</span><span class="sum-result">9</span></td>
+                    </tr>
+                    <tr>
+                        <td>ST <br><span class="math-text">(नए + बैकलॉग)</span></td>
+                        <td><span class="math-text">129 + 870 =</span><span class="sum-result">999</span></td>
+                        <td><span class="math-text">95 + 610 =</span><span class="sum-result">705</span></td>
+                        <td><span class="math-text">22 + 176 =</span><span class="sum-result">198</span></td>
+                        <td><span class="math-text">11 + 69 =</span><span class="sum-result">80</span></td>
+                        <td><span class="math-text">1 + 15 =</span><span class="sum-result">16</span></td>
+                    </tr>
+                    <tr>
+                        <td>सहारिया</td>
+                        <td>12</td><td>8</td><td>2</td><td>2</td><td>0</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td>कुल पद</td>
+                        <td>2736</td><td>1932</td><td>547</td><td>212</td><td>45</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        <div class="card-3d">
-            <h3>📝 Mock Tests</h3>
-            <p>Evaluate your performance with full-length interactive mock tests.</p>
+
+        <!-- Sanskrit Education Table -->
+        <div class="table-container">
+            <h3>2. संस्कृत शिक्षा विभाग (Sanskrit Education Department)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>वर्ग (Category)</th>
+                        <th>कुल पद</th>
+                        <th>सामान्य (Open)</th>
+                        <th>सामान्य महिला</th>
+                        <th>विधवा (Widow)</th>
+                        <th>परित्यक्ता (Divorcee)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>General / UR</td><td>72</td><td>51</td><td>15</td><td>5</td><td>1</td></tr>
+                    <tr><td>OBC</td><td>42</td><td>30</td><td>9</td><td>3</td><td>0</td></tr>
+                    <tr><td>SC</td><td>32</td><td>23</td><td>7</td><td>2</td><td>0</td></tr>
+                    <tr><td>ST</td><td>24</td><td>17</td><td>5</td><td>2</td><td>0</td></tr>
+                    <tr><td>EWS</td><td>20</td><td>14</td><td>5</td><td>1</td><td>0</td></tr>
+                    <tr><td>MBC</td><td>10</td><td>7</td><td>2</td><td>1</td><td>0</td></tr>
+                    <tr class="total-row"><td>कुल पद</td><td>200</td><td>142</td><td>43</td><td>14</td><td>1</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Grand Total Table -->
+        <div class="table-container grand-total-table">
+            <h3>3. कुल सीटें (Grand Total - सामान्य + संस्कृत विभाग)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>वर्ग (Category)</th>
+                        <th>कुल सीट</th>
+                        <th>सामान्य (Open)</th>
+                        <th>सामान्य महिला</th>
+                        <th>विधवा (Widow)</th>
+                        <th>परित्यक्ता (Divorcee)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>General / UR</td><td>515</td><td>360</td><td>109</td><td>37</td><td>9</td></tr>
+                    <tr><td>OBC</td><td>279</td><td>199</td><td>55</td><td>16</td><td>9</td></tr>
+                    <tr><td>EWS</td><td>131</td><td>94</td><td>27</td><td>7</td><td>3</td></tr>
+                    <tr><td>MBC</td><td>65</td><td>45</td><td>10</td><td>10</td><td>0</td></tr>
+                    <tr><td>SC</td><td>911</td><td>646</td><td>184</td><td>72</td><td>9</td></tr>
+                    <tr><td>ST</td><td>1023</td><td>722</td><td>203</td><td>82</td><td>16</td></tr>
+                    <tr><td>सहारिया</td><td>12</td><td>8</td><td>2</td><td>2</td><td>0</td></tr>
+                    <tr class="total-row">
+                        <td>महायोग (Grand Total)</td>
+                        <td>2936</td><td>2074</td><td>590</td><td>226</td><td>46</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Ex-Servicemen Detailed Table -->
+        <div class="table-container">
+            <h3>4. भूतपूर्व सैनिक (Ex-Servicemen) व निःशक्तजन पदों का विवरण</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>वर्ग (Category)</th>
+                        <th>नए पद (Current)</th>
+                        <th>अग्रेषित/बकाया (Backlog)</th>
+                        <th>कुल पद (Total)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>General / UR</td>
+                        <td>39</td>
+                        <td>274</td>
+                        <td><span class="math-text">39 + 274 =</span><span class="sum-result">313</span></td>
+                    </tr>
+                    <tr>
+                        <td>OBC</td>
+                        <td>11</td>
+                        <td>164</td>
+                        <td><span class="math-text">11 + 164 =</span><span class="sum-result">175</span></td>
+                    </tr>
+                    <tr>
+                        <td>SC</td>
+                        <td>8</td>
+                        <td>123</td>
+                        <td><span class="math-text">8 + 123 =</span><span class="sum-result">131</span></td>
+                    </tr>
+                    <tr>
+                        <td>ST</td>
+                        <td>2</td>
+                        <td>92</td>
+                        <td><span class="math-text">2 + 92 =</span><span class="sum-result">94</span></td>
+                    </tr>
+                    <tr>
+                        <td>EWS</td>
+                        <td>2</td>
+                        <td>76</td>
+                        <td><span class="math-text">2 + 76 =</span><span class="sum-result">78</span></td>
+                    </tr>
+                    <tr>
+                        <td>MBC</td>
+                        <td>0</td>
+                        <td>42</td>
+                        <td><span class="math-text">0 + 42 =</span><span class="sum-result">42</span></td>
+                    </tr>
+                    <tr>
+                        <td>सहारिया</td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td><span class="math-text">1 + 0 =</span><span class="sum-result">1</span></td>
+                    </tr>
+                    <tr class="total-row">
+                        <td>भूतपूर्व सैनिक कुल योग</td>
+                        <td>63</td>
+                        <td>771</td>
+                        <td><span class="math-text">63 + 771 =</span><span class="sum-result">834</span></td>
+                    </tr>
+                    <!-- PwD is added as a separate row since it's not Ex-Servicemen -->
+                    <tr style="background-color: var(--table-header-bg);">
+                        <td colspan="2" style="font-weight: bold; text-align: right;">निःशक्तजन (PwD) बैकलॉग पद :</td>
+                        <td colspan="2" style="font-weight: bold; text-align: left; color: #df20b9;">75</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
+    <!-- ========================================== -->
 
     <footer>
         <div class="email-container">

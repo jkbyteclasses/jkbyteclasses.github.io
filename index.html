@@ -20,9 +20,7 @@
             --text-main: #2d3748;
             --text-muted: #718096;
             --brand-gradient: linear-gradient(135deg, #df20b9 0%, #00d2ff 100%);
-            /* Outer shadow for pop-out effect */
             --shadow-out: 9px 9px 16px rgb(163,177,198,0.6), -9px -9px 16px rgba(255,255,255, 0.8);
-            /* Inner shadow for pressed effect */
             --shadow-in: inset 6px 6px 10px 0 rgba(163,177,198, 0.6), inset -6px -6px 10px 0 rgba(255,255,255, 0.8);
             --logo-bg: transparent;
             --table-border: rgba(113, 128, 150, 0.2);
@@ -64,299 +62,126 @@
             border-bottom-right-radius: 20px;
         }
 
-        .brand-container {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            text-decoration: none;
-        }
-
-        .brand-logo {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: var(--logo-bg);
-            box-shadow: var(--shadow-out);
-            padding: 2px;
-            transition: transform 0.3s ease;
-        }
-
-        .logo-text {
-            font-size: 26px;
-            font-weight: 900;
-            background: var(--brand-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
+        .brand-container { display: flex; align-items: center; gap: 15px; text-decoration: none; }
+        .brand-logo { width: 50px; height: 50px; border-radius: 50%; background: var(--logo-bg); box-shadow: var(--shadow-out); padding: 2px; transition: transform 0.3s ease; }
+        .logo-text { font-size: 26px; font-weight: 900; background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
         .theme-toggle {
+            background: var(--surface-color); border: none; color: var(--text-main);
+            font-size: 22px; cursor: pointer; width: 45px; height: 45px; border-radius: 50%;
+            box-shadow: var(--shadow-out); display: flex; align-items: center; justify-content: center;
+        }
+        .theme-toggle:hover { box-shadow: var(--shadow-in); transform: translateY(2px); }
+
+        .hero { text-align: center; padding: 40px 20px 10px 20px; }
+        .hero h1 { font-size: 35px; font-weight: 800; margin: 0 0 10px 0; background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { font-size: 18px; color: var(--text-muted); max-width: 600px; margin: 0 auto; line-height: 1.6; }
+
+        /* ====== 1. QUICK ACTIONS GRID (Survey, Leaderboard, Telegram) ====== */
+        .action-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .action-card {
             background: var(--surface-color);
-            border: none;
-            color: var(--text-main);
-            font-size: 22px;
-            cursor: pointer;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
+            border-radius: 24px;
+            padding: 30px 20px;
+            text-align: center;
             box-shadow: var(--shadow-out);
             transition: all 0.3s ease;
             display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .theme-toggle:hover {
-            box-shadow: var(--shadow-in);
-            transform: translateY(2px);
-        }
-
-        .hero {
-            text-align: center;
-            padding: 40px 20px 20px 20px;
-        }
-
-       .hero h1 {
-            font-size: 35px;
-            font-weight: 800;
-            margin: 0 0 15px 0;
-            background: var(--brand-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            flex-direction: column;
+            justify-content: space-between;
         }
         
-        .hero p {
-            font-size: 18px;
-            color: var(--text-muted);
-            max-width: 600px;
-            margin: 0 auto 20px auto; 
-            line-height: 1.6;
-        }
-
-        .hero-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-top: 15px;
-        }
+        .action-card:hover { transform: translateY(-5px); }
+        .action-card .icon { font-size: 40px; margin-bottom: 10px; }
+        .action-card h3 { font-size: 22px; margin: 0 0 10px 0; color: var(--text-main); }
+        .action-card p { font-size: 14px; color: var(--text-muted); margin: 0 0 25px 0; line-height: 1.5; }
 
         .btn-3d {
-            background: var(--brand-gradient);
-            color: #ffffff;
-            padding: 16px 36px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-size: 18px;
-            font-weight: 800;
-            display: inline-block;
-            box-shadow: 0 10px 20px rgba(223, 32, 185, 0.3), 0 6px 6px rgba(0, 210, 255, 0.2);
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
+            background: var(--brand-gradient); color: #ffffff; padding: 14px 25px;
+            border-radius: 30px; text-decoration: none; font-size: 16px; font-weight: 800;
+            display: inline-block; box-shadow: 0 8px 15px rgba(223, 32, 185, 0.3);
+            border: none; cursor: pointer; transition: all 0.3s ease;
         }
+        .btn-3d:hover { transform: translateY(-3px); box-shadow: 0 12px 20px rgba(223, 32, 185, 0.4); }
+        .btn-3d:active { transform: translateY(2px); box-shadow: 0 5px 10px rgba(223, 32, 185, 0.3); }
 
-        .btn-3d:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 15px 25px rgba(223, 32, 185, 0.4), 0 10px 10px rgba(0, 210, 255, 0.3);
+        .btn-outline {
+            background: var(--surface-color); color: #df20b9; padding: 14px 25px;
+            border-radius: 30px; text-decoration: none; font-size: 16px; font-weight: 800;
+            display: inline-block; box-shadow: var(--shadow-out); transition: all 0.3s ease; border: 2px solid transparent;
         }
-        
-        .btn-3d:active {
-            transform: translateY(2px);
-            box-shadow: 0 5px 10px rgba(223, 32, 185, 0.3);
-        }
+        .btn-outline:hover { box-shadow: var(--shadow-in); color: #00d2ff; }
 
-        .btn-3d-secondary {
-            background: var(--surface-color);
-            color: #df20b9; 
-            padding: 16px 36px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-size: 18px;
-            font-weight: 800;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: var(--shadow-out);
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
+        .btn-telegram {
+            background: #0088cc; color: white; padding: 14px 25px;
+            border-radius: 30px; text-decoration: none; font-size: 16px; font-weight: 800;
+            display: inline-block; box-shadow: 0 8px 15px rgba(0, 136, 204, 0.3); transition: all 0.3s ease;
         }
+        .btn-telegram:hover { transform: translateY(-3px); box-shadow: 0 12px 20px rgba(0, 136, 204, 0.4); }
 
-        .btn-3d-secondary:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-in);
-            color: #00d2ff;
+        /* ====== 2. DATA TABS SECTION ====== */
+        .data-header {
+            text-align: center; margin-top: 60px;
         }
+        .data-header h2 { font-size: 28px; color: var(--text-main); margin-bottom: 5px; }
+        .data-header p { color: var(--text-muted); font-size: 16px; margin-bottom: 25px; }
 
-        .hero-telegram {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
-        
-        .telegram-btn {
-            color: #0088cc !important;
-            padding: 12px 30px;
-            font-size: 16px;
-        }
-        
-        [data-theme="dark"] .telegram-btn {
-            color: #33aadd !important;
-        }
-
-        /* ====== Tabs Styling ====== */
         .tabs-container {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin: 20px auto 40px auto;
-            flex-wrap: wrap;
-            padding: 0 20px;
+            display: flex; justify-content: center; gap: 20px;
+            margin: 0 auto 40px auto; flex-wrap: wrap; padding: 0 20px;
         }
 
         .tab-btn {
-            background: var(--surface-color);
-            color: var(--text-main);
-            padding: 16px 36px;
-            border-radius: 30px;
-            font-size: 18px;
-            font-weight: 800;
-            border: none;
-            cursor: pointer;
-            box-shadow: var(--shadow-out);
-            transition: all 0.3s ease;
+            background: var(--surface-color); color: var(--text-main);
+            padding: 15px 25px; border-radius: 20px; border: none; cursor: pointer;
+            box-shadow: var(--shadow-out); transition: all 0.3s ease;
+            display: flex; flex-direction: column; align-items: center; min-width: 180px;
         }
+        .tab-btn:hover { transform: translateY(-2px); }
+        .tab-btn.active { box-shadow: var(--shadow-in); color: #df20b9; pointer-events: none; }
+        
+        .tab-title { font-size: 18px; font-weight: 800; margin-bottom: 4px; }
+        .tab-desc { font-size: 12px; font-weight: 600; color: var(--text-muted); }
+        .tab-btn.active .tab-desc { color: #df20b9; opacity: 0.8; }
 
-        .tab-btn:hover {
-            transform: translateY(-2px);
-        }
-
-        .tab-btn.active {
-            box-shadow: var(--shadow-in);
-            color: #df20b9;
-            pointer-events: none;
-        }
-
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        .tab-content { display: none; animation: fadeIn 0.5s ease; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         /* ====== Data Tables Styling ====== */
-        .table-wrapper {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 28px;
-            font-weight: 800;
-            margin-bottom: 5px;
-            color: var(--text-main);
-        }
-
-        .section-subtitle {
-            text-align: center;
-            color: #df20b9;
-            font-weight: 700;
-            margin-bottom: 30px;
-            font-size: 18px;
-        }
+        .table-wrapper { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .section-subtitle { text-align: center; color: #df20b9; font-weight: 700; margin-bottom: 30px; font-size: 18px; }
 
         .table-container {
-            background: var(--surface-color);
-            border-radius: 24px;
-            box-shadow: var(--shadow-out);
-            padding: 25px;
-            margin-bottom: 40px;
-            overflow-x: auto;
+            background: var(--surface-color); border-radius: 24px;
+            box-shadow: var(--shadow-out); padding: 25px; margin-bottom: 40px; overflow-x: auto;
         }
+        .table-container h3 { margin-top: 0; color: var(--text-main); text-align: center; font-size: 20px; margin-bottom: 20px; background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        .table-container h3 {
-            margin-top: 0;
-            color: var(--text-main);
-            text-align: center;
-            font-size: 20px;
-            margin-bottom: 20px;
-            background: var(--brand-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            min-width: 700px;
-        }
-
-        th, td {
-            padding: 14px 15px;
-            text-align: center;
-            border-bottom: 1px solid var(--table-border);
-            color: var(--text-main);
-            line-height: 1.4;
-        }
-
+        table { width: 100%; border-collapse: collapse; min-width: 700px; }
+        th, td { padding: 14px 15px; text-align: center; border-bottom: 1px solid var(--table-border); color: var(--text-main); line-height: 1.4; }
         th { font-weight: 700; background: var(--table-header-bg); white-space: nowrap; }
         tr:last-child td { border-bottom: none; }
         tr:hover td { background: var(--table-header-bg); }
 
         .math-text { font-size: 13px; color: var(--text-muted); display: block; margin-bottom: 4px; }
         .sum-result { font-weight: 700; font-size: 16px; }
-
         .total-row { font-weight: 800; background: rgba(223, 32, 185, 0.05) !important; color: #df20b9; }
         .grand-total-table th { background: rgba(0, 210, 255, 0.1); }
         
-        footer {
-            text-align: center;
-            padding: 50px 20px;
-            margin-top: 20px;
-        }
-
-        .email-container {
-            background: var(--surface-color);
-            padding: 15px 25px;
-            border-radius: 50px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            box-shadow: var(--shadow-in);
-            max-width: 90%; 
-            flex-wrap: wrap; 
-            box-sizing: border-box;
-        }
-
-        .email-container span { 
-            color: var(--text-muted); 
-            font-weight: 700; 
-        }
-        
-        .email-link {
-            color: transparent;
-            background: var(--brand-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-decoration: none;
-            font-weight: 800;
-            font-size: 16px;
-            transition: 0.3s;
-            word-break: break-all; 
-            text-align: center;
-        }
-        
+        footer { text-align: center; padding: 50px 20px; margin-top: 20px; }
+        .email-container { background: var(--surface-color); padding: 15px 25px; border-radius: 50px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; box-shadow: var(--shadow-in); max-width: 90%; flex-wrap: wrap; box-sizing: border-box; }
+        .email-container span { color: var(--text-muted); font-weight: 700; }
+        .email-link { color: transparent; background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-decoration: none; font-weight: 800; font-size: 16px; transition: 0.3s; word-break: break-all; }
         .email-link:hover { opacity: 0.8; }
-
     </style>
 </head>
 <body>
@@ -369,44 +194,72 @@
         <button class="theme-toggle" id="themeToggle">🌙</button>
     </header>
 
-    <div id="computerTeacherCampaign">
-        <section class="hero">
-            <h1>Computer Instructor Survey</h1>
-            <p>Participate in our transparent data survey for the recent Computer Instructor Exams. View live rankings.</p>
-            
-            <div class="hero-buttons">
-                <a href="survey/" class="btn-3d">Join The Survey Now</a>
-                <a href="survey/results/" class="btn-3d-secondary">📊 View Leaderboard</a>
-            </div>
+    <section class="hero">
+        <h1>Computer Instructor Portal 2026</h1>
+        <p>Participate in the mega survey, check your live ranking, and analyze full vacancy details below.</p>
+    </section>
 
-            <!-- Telegram Link -->
-            <div class="hero-telegram">
-                <a href="https://t.me/computer_instructor_pass_student" target="_blank" class="btn-3d-secondary telegram-btn">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.888-.667 3.473-1.512 5.79-2.511 6.952-2.998 3.305-1.385 3.992-1.625 4.437-1.632z"/>
-                    </svg>
-                    Join Telegram
-                </a>
-            </div>
-        </section>
+    <!-- ========================================== -->
+    <!-- SECTION 1: QUICK ACTIONS (3 Cards)         -->
+    <!-- ========================================== -->
+    <div class="action-grid">
+        <!-- Card 1: Survey Form -->
+        <div class="action-card">
+            <div class="icon">📝</div>
+            <h3>Mega Survey</h3>
+            <p>Enter your marks and category to participate in the biggest cut-off survey.</p>
+            <a href="survey/" class="btn-3d">Join Survey Now</a>
+        </div>
+
+        <!-- Card 2: Leaderboard -->
+        <div class="action-card">
+            <div class="icon">🏆</div>
+            <h3>Live Leaderboard</h3>
+            <p>Check your current rank and compare your score with thousands of students.</p>
+            <a href="survey/results/" class="btn-outline">View Results</a>
+        </div>
+
+        <!-- Card 3: Telegram -->
+        <div class="action-card">
+            <div class="icon">✈️</div>
+            <h3>Telegram Group</h3>
+            <p>Join our active community for instant updates, discussions, and exam news.</p>
+            <a href="https://t.me/computer_instructor_pass_student" target="_blank" class="btn-telegram">Join Community</a>
+        </div>
     </div>
 
-    <!-- Tab Buttons (No default active) -->
+
+    <!-- ========================================== -->
+    <!-- SECTION 2: DATA & SEATS MATRIX TABS        -->
+    <!-- ========================================== -->
+    <div class="data-header">
+        <h2>📊 Vacancy & Form Data Analytics</h2>
+        <p>Click on any button below to view detailed category-wise seat distribution and filled forms.</p>
+    </div>
+
+    <!-- Tab Buttons (Descriptive) -->
     <div class="tabs-container">
-        <button class="tab-btn" onclick="switchTab(event, 'bci-section')">Basic Computer Anudeshak Seats Data</button>
-        <button class="tab-btn" onclick="switchTab(event, 'sci-section')">Senior Computer Anudeshak Seats Data</button>
+        <button class="tab-btn" onclick="switchTab(event, 'bci-section')">
+            <span class="tab-title">🖥️ BCI Seats Data</span>
+            <span class="tab-desc">Basic Instructor Vacancies</span>
+        </button>
+        
+        <button class="tab-btn" onclick="switchTab(event, 'sci-section')">
+            <span class="tab-title">🎓 Senior Seats Data</span>
+            <span class="tab-desc">Senior Instructor Vacancies</span>
+        </button>
+        
+        <button class="tab-btn" onclick="switchTab(event, 'filled-data-section')">
+            <span class="tab-title">📋 Filled Form Data</span>
+            <span class="tab-desc">Total Applications Received</span>
+        </button>
     </div>
 
-    <!-- ========================================== -->
-    <!-- 1. BCI SEATS DATA (Tab Content)            -->
-    <!-- ========================================== -->
-    <!-- Removed 'active' class to hide on load -->
+    <!-- 1. BCI SEATS DATA (Tab Content) -->
     <div id="bci-section" class="tab-content">
         <div class="table-wrapper">
-            <h2 class="section-title">📊 Basic Computer Anudeshak Seats</h2>
             <div class="section-subtitle">(NON-TSP AREA)</div>
-
-            <!-- BCI Normal -->
+            
             <div class="table-container">
                 <h3>1. सामान्य शिक्षा विभाग (Normal Education Department)</h3>
                 <table>
@@ -440,7 +293,6 @@
                 </table>
             </div>
 
-            <!-- BCI Sanskrit -->
             <div class="table-container">
                 <h3>2. संस्कृत शिक्षा विभाग (Sanskrit Education Department)</h3>
                 <table>
@@ -459,7 +311,6 @@
                 </table>
             </div>
 
-            <!-- BCI Grand Total -->
             <div class="table-container grand-total-table">
                 <h3>3. कुल सीटें (Grand Total - सामान्य + संस्कृत विभाग)</h3>
                 <table>
@@ -479,7 +330,6 @@
                 </table>
             </div>
             
-            <!-- BCI Ex-SM & PwD -->
             <div class="table-container">
                 <h3>4. भूतपूर्व सैनिक व निःशक्तजन पदों का विवरण</h3>
                 <table>
@@ -505,16 +355,11 @@
         </div>
     </div>
 
-
-    <!-- ========================================== -->
-    <!-- 2. SCI SEATS DATA (Tab Content)            -->
-    <!-- ========================================== -->
+    <!-- 2. SCI SEATS DATA (Tab Content) -->
     <div id="sci-section" class="tab-content">
         <div class="table-wrapper">
-            <h2 class="section-title">📊 Senior Computer Anudeshak Seats</h2>
             <div class="section-subtitle">(NON-TSP AREA)</div>
-
-            <!-- SCI Normal -->
+            
             <div class="table-container">
                 <h3>1. सामान्य शिक्षा विभाग (Normal Education Department)</h3>
                 <table>
@@ -522,26 +367,25 @@
                         <tr><th>वर्ग (Category)</th><th>कुल पद</th><th>सामान्य (Open)</th><th>सामान्य महिला</th><th>विधवा (Widow)</th><th>परित्यक्ता (Divorcee)</th></tr>
                     </thead>
                     <tbody>
-                        <tr><td>General / UR</td><td>92</td><td>64</td><td>28</td><td>5</td><td>0</td></tr>
-                        <tr><td>OBC</td><td>51</td><td>36</td><td>15</td><td>5</td><td>0</td></tr>
-                        <tr><td>EWS</td><td>25</td><td>16</td><td>9</td><td>1</td><td>0</td></tr>
+                        <tr><td>General / UR</td><td>92</td><td>64</td><td>23</td><td>5</td><td>0</td></tr>
+                        <tr><td>OBC</td><td>51</td><td>36</td><td>10</td><td>5</td><td>0</td></tr>
+                        <tr><td>EWS</td><td>25</td><td>16</td><td>8</td><td>1</td><td>0</td></tr>
                         <tr><td>MBC</td><td>12</td><td>10</td><td>2</td><td>0</td><td>0</td></tr>
-                        <tr><td>SC</td><td>43</td><td>28</td><td>15</td><td>2</td><td>0</td></tr>
+                        <tr><td>SC</td><td>43</td><td>28</td><td>13</td><td>2</td><td>0</td></tr>
                         <tr>
                             <td>ST <br><span class="math-text">(नए + बैकलॉग)</span></td>
-                            <td><span class="math-text">30 + 7 =</span><span class="sum-result">37</span></td>
-                            <td><span class="math-text">21 + 5 =</span><span class="sum-result">26</span></td>
-                            <td><span class="math-text">9 + 1 =</span><span class="sum-result">10</span></td>
-                            <td><span class="math-text">2 + 1 =</span><span class="sum-result">3</span></td>
+                            <td><span class="math-text">30 + 13 =</span><span class="sum-result">43</span></td>
+                            <td><span class="math-text">21 + 11 =</span><span class="sum-result">32</span></td>
+                            <td><span class="math-text">7 + 2 =</span><span class="sum-result">9</span></td>
+                            <td><span class="math-text">2 + 0 =</span><span class="sum-result">2</span></td>
                             <td>0</td>
                         </tr>
                         <tr><td>सहारिया</td><td>2</td><td>2</td><td>0</td><td>0</td><td>0</td></tr>
-                        <tr class="total-row"><td>कुल पद</td><td>262</td><td>182</td><td>79</td><td>16</td><td>0</td></tr>
+                        <tr class="total-row"><td>कुल पद</td><td>268</td><td>182</td><td>79</td><td>16</td><td>0</td></tr>
                     </tbody>
                 </table>
             </div>
 
-            <!-- SCI Sanskrit -->
             <div class="table-container">
                 <h3>2. संस्कृत शिक्षा विभाग (Sanskrit Education Department)</h3>
                 <table>
@@ -560,7 +404,6 @@
                 </table>
             </div>
 
-            <!-- SCI Grand Total -->
             <div class="table-container grand-total-table">
                 <h3>3. कुल सीटें (Senior - सामान्य + संस्कृत विभाग)</h3>
                 <table>
@@ -580,7 +423,6 @@
                 </table>
             </div>
 
-            <!-- SCI Horizontal -->
             <div class="table-container">
                 <h3>4. विशेष श्रेणी क्षैतिज आरक्षण (Horizontal Reservation)</h3>
                 <table>
@@ -608,6 +450,72 @@
         </div>
     </div>
 
+    <!-- 3. FILLED FORM DATA (Tab Content) -->
+    <div id="filled-data-section" class="tab-content">
+        <div class="table-wrapper">
+            <div class="section-subtitle">(Category-wise Analysis)</div>
+
+            <div class="table-container">
+                <h3>1. Basic Computer Instructor (बेसिक कम्प्यूटर अनुदेशक)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>वर्ग (Category)</th>
+                            <th>महिला (Female)</th>
+                            <th>पुरुष (Male)</th>
+                            <th>कुल आवेदन (Total)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>GEN</td><td>9,582</td><td>21,011</td><td>30,593</td></tr>
+                        <tr><td>EWS</td><td>3,480</td><td>11,090</td><td>14,570</td></tr>
+                        <tr><td>MBC</td><td>484</td><td>2,779</td><td>3,263</td></tr>
+                        <tr><td>OBC</td><td>9,912</td><td>34,661</td><td>44,573</td></tr>
+                        <tr><td>SC</td><td>3,383</td><td>14,483</td><td>17,866</td></tr>
+                        <tr><td>ST</td><td>2,412</td><td>9,693</td><td>12,105</td></tr>
+                        <tr><td>SAHARIA</td><td>4</td><td>28</td><td>32</td></tr>
+                        <tr><td>PH (निःशक्तजन)</td><td>—</td><td>1,121</td><td>1,121</td></tr>
+                        <tr><td>Ex-Serviceman</td><td>—</td><td>579</td><td>579</td></tr>
+                        <tr class="total-row">
+                            <td>Grand Total</td>
+                            <td>29,257</td>
+                            <td>95,445</td>
+                            <td>124,702</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="table-container">
+                <h3>2. Senior Computer Instructor (वरिष्ठ कम्प्यूटर अनुदेशक)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>वर्ग (Category)</th>
+                            <th>महिला (Female)</th>
+                            <th>पुरुष (Male)</th>
+                            <th>कुल आवेदन (Total)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>GEN</td><td>3,271</td><td>5,017</td><td>8,288</td></tr>
+                        <tr><td>EWS</td><td>749</td><td>1,761</td><td>2,510</td></tr>
+                        <tr><td>MBC</td><td>50</td><td>241</td><td>291</td></tr>
+                        <tr><td>OBC</td><td>1,966</td><td>5,008</td><td>6,974</td></tr>
+                        <tr><td>SC</td><td>577</td><td>1,681</td><td>2,258</td></tr>
+                        <tr><td>ST</td><td>140</td><td>474</td><td>614</td></tr>
+                        <tr><td>SAHARIA</td><td>1</td><td>0</td><td>1</td></tr>
+                        <tr class="total-row">
+                            <td>Grand Total</td>
+                            <td>6,754</td>
+                            <td>14,182</td>
+                            <td>20,936</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
     <footer>
         <div class="email-container">
@@ -618,7 +526,6 @@
 
     <!-- Script for Tabs & Theme -->
     <script>
-        // Theme Toggle Logic
         const toggleBtn = document.getElementById('themeToggle');
         const currentTheme = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', currentTheme);
@@ -632,17 +539,13 @@
             toggleBtn.innerHTML = newTheme === 'dark' ? '☀️' : '🌙';
         });
 
-        // Tab Switching Logic
         function switchTab(event, tabId) {
-            // Hide all tab contents
             const contents = document.querySelectorAll('.tab-content');
             contents.forEach(content => content.classList.remove('active'));
 
-            // Remove active class from all buttons
             const buttons = document.querySelectorAll('.tab-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
 
-            // Show selected tab and highlight button
             document.getElementById(tabId).classList.add('active');
             event.currentTarget.classList.add('active');
         }

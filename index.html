@@ -88,66 +88,46 @@
         }
 
         .action-card {
-            background: var(--surface-color);
-            border-radius: 24px;
-            padding: 30px 20px;
-            text-align: center;
-            box-shadow: var(--shadow-out);
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            background: var(--surface-color); border-radius: 24px; padding: 30px 20px; text-align: center;
+            box-shadow: var(--shadow-out); transition: all 0.3s ease; display: flex; flex-direction: column; justify-content: space-between;
         }
-        
         .action-card:hover { transform: translateY(-5px); }
         .action-card .icon { font-size: 40px; margin-bottom: 10px; }
         .action-card h3 { font-size: 22px; margin: 0 0 10px 0; color: var(--text-main); }
         .action-card p { font-size: 14px; color: var(--text-muted); margin: 0 0 25px 0; line-height: 1.5; }
 
         .btn-3d {
-            background: var(--brand-gradient); color: #ffffff; padding: 14px 25px;
-            border-radius: 30px; text-decoration: none; font-size: 16px; font-weight: 800;
-            display: inline-block; box-shadow: 0 8px 15px rgba(223, 32, 185, 0.3);
-            border: none; cursor: pointer; transition: all 0.3s ease;
+            background: var(--brand-gradient); color: #ffffff; padding: 14px 25px; border-radius: 30px; text-decoration: none; font-size: 16px; font-weight: 800;
+            display: inline-block; box-shadow: 0 8px 15px rgba(223, 32, 185, 0.3); border: none; cursor: pointer; transition: all 0.3s ease;
         }
         .btn-3d:hover { transform: translateY(-3px); box-shadow: 0 12px 20px rgba(223, 32, 185, 0.4); }
         .btn-3d:active { transform: translateY(2px); box-shadow: 0 5px 10px rgba(223, 32, 185, 0.3); }
 
         .btn-outline {
-            background: var(--surface-color); color: #df20b9; padding: 14px 25px;
-            border-radius: 30px; text-decoration: none; font-size: 16px; font-weight: 800;
+            background: var(--surface-color); color: #df20b9; padding: 14px 25px; border-radius: 30px; text-decoration: none; font-size: 16px; font-weight: 800;
             display: inline-block; box-shadow: var(--shadow-out); transition: all 0.3s ease; border: 2px solid transparent;
         }
         .btn-outline:hover { box-shadow: var(--shadow-in); color: #00d2ff; }
 
         .btn-telegram {
-            background: #0088cc; color: white; padding: 14px 25px;
-            border-radius: 30px; text-decoration: none; font-size: 16px; font-weight: 800;
+            background: #0088cc; color: white; padding: 14px 25px; border-radius: 30px; text-decoration: none; font-size: 16px; font-weight: 800;
             display: inline-block; box-shadow: 0 8px 15px rgba(0, 136, 204, 0.3); transition: all 0.3s ease;
         }
         .btn-telegram:hover { transform: translateY(-3px); box-shadow: 0 12px 20px rgba(0, 136, 204, 0.4); }
 
         /* ====== 2. DATA TABS SECTION ====== */
-        .data-header {
-            text-align: center; margin-top: 60px;
-        }
+        .data-header { text-align: center; margin-top: 60px; }
         .data-header h2 { font-size: 28px; color: var(--text-main); margin-bottom: 5px; }
         .data-header p { color: var(--text-muted); font-size: 16px; margin-bottom: 25px; }
 
-        .tabs-container {
-            display: flex; justify-content: center; gap: 20px;
-            margin: 0 auto 40px auto; flex-wrap: wrap; padding: 0 20px;
-        }
+        .tabs-container { display: flex; justify-content: center; gap: 20px; margin: 0 auto 40px auto; flex-wrap: wrap; padding: 0 20px; }
 
         .tab-btn {
-            background: var(--surface-color); color: var(--text-main);
-            padding: 15px 25px; border-radius: 20px; border: none; cursor: pointer;
-            box-shadow: var(--shadow-out); transition: all 0.3s ease;
-            display: flex; flex-direction: column; align-items: center; min-width: 180px;
+            background: var(--surface-color); color: var(--text-main); padding: 15px 25px; border-radius: 20px; border: none; cursor: pointer;
+            box-shadow: var(--shadow-out); transition: all 0.3s ease; display: flex; flex-direction: column; align-items: center; min-width: 180px;
         }
         .tab-btn:hover { transform: translateY(-2px); }
         .tab-btn.active { box-shadow: var(--shadow-in); color: #df20b9; pointer-events: none; }
-        
         .tab-title { font-size: 18px; font-weight: 800; margin-bottom: 4px; }
         .tab-desc { font-size: 12px; font-weight: 600; color: var(--text-muted); }
         .tab-btn.active .tab-desc { color: #df20b9; opacity: 0.8; }
@@ -160,10 +140,7 @@
         .table-wrapper { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         .section-subtitle { text-align: center; color: #df20b9; font-weight: 700; margin-bottom: 30px; font-size: 18px; }
 
-        .table-container {
-            background: var(--surface-color); border-radius: 24px;
-            box-shadow: var(--shadow-out); padding: 25px; margin-bottom: 40px; overflow-x: auto;
-        }
+        .table-container { background: var(--surface-color); border-radius: 24px; box-shadow: var(--shadow-out); padding: 25px; margin-bottom: 40px; overflow-x: auto; }
         .table-container h3 { margin-top: 0; color: var(--text-main); text-align: center; font-size: 20px; margin-bottom: 20px; background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
         table { width: 100%; border-collapse: collapse; min-width: 700px; }
@@ -177,6 +154,43 @@
         .total-row { font-weight: 800; background: rgba(223, 32, 185, 0.05) !important; color: #df20b9; }
         .grand-total-table th { background: rgba(0, 210, 255, 0.1); }
         
+        /* ====== Rules Section ====== */
+        .rules-container {
+            max-width: 1100px; margin: 20px auto 50px auto; padding: 0 20px;
+        }
+        
+        .disclaimer-box {
+            background: rgba(255, 77, 77, 0.08);
+            border-left: 5px solid #ff4d4d;
+            padding: 18px 25px;
+            border-radius: 12px;
+            margin: 0 auto 30px auto;
+            color: var(--text-main);
+            font-size: 15px;
+            line-height: 1.6;
+            box-shadow: var(--shadow-out);
+        }
+        
+        .disclaimer-box strong {
+            color: #e53935;
+            font-size: 16px;
+        }
+
+        .rules-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .rule-card {
+            background: var(--surface-color); border-radius: 24px; padding: 30px; box-shadow: var(--shadow-out);
+            border-left: 6px solid #df20b9;
+        }
+        .rule-card h4 { margin: 0 0 15px 0; color: #df20b9; font-size: 22px; display: flex; align-items: center; gap: 10px;}
+        .rule-card p { font-size: 16px; color: var(--text-muted); line-height: 1.6; margin-bottom: 15px; font-weight: 600; }
+        .rule-card ul { padding-left: 20px; color: var(--text-main); font-size: 15px; line-height: 1.7; }
+        .rule-card li { margin-bottom: 12px; }
+
         footer { text-align: center; padding: 50px 20px; margin-top: 20px; }
         .email-container { background: var(--surface-color); padding: 15px 25px; border-radius: 50px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; box-shadow: var(--shadow-in); max-width: 90%; flex-wrap: wrap; box-sizing: border-box; }
         .email-container span { color: var(--text-muted); font-weight: 700; }
@@ -199,9 +213,7 @@
         <p>Participate in the mega survey, check your live ranking, and analyze full vacancy details below.</p>
     </section>
 
-    <!-- ========================================== -->
-    <!-- SECTION 1: QUICK ACTIONS (3 Cards)         -->
-    <!-- ========================================== -->
+    <!-- QUICK ACTIONS -->
     <div class="action-grid">
         <div class="action-card">
             <div class="icon">📝</div>
@@ -224,38 +236,35 @@
     </div>
 
 
-    <!-- ========================================== -->
-    <!-- SECTION 2: DATA & SEATS MATRIX TABS        -->
-    <!-- ========================================== -->
     <div class="data-header">
         <h2>📊 Vacancy & Form Data Analytics</h2>
-        <p>Click on any button below to view detailed category-wise seat distribution and filled forms.</p>
+        <p>Click on any button below to view detailed category-wise seat distribution, filled forms, and rules.</p>
     </div>
 
-    <!-- Tab Buttons (Descriptive) -->
+    <!-- TABS -->
     <div class="tabs-container">
-        <button class="tab-btn" onclick="switchTab(event, 'bci-section')">
+        <button class="tab-btn active" onclick="switchTab(event, 'bci-section')">
             <span class="tab-title">🖥️ BCI Seats Data</span>
             <span class="tab-desc">Basic Instructor Vacancies</span>
         </button>
-        
         <button class="tab-btn" onclick="switchTab(event, 'sci-section')">
             <span class="tab-title">🎓 Senior Seats Data</span>
             <span class="tab-desc">Senior Instructor Vacancies</span>
         </button>
-        
         <button class="tab-btn" onclick="switchTab(event, 'filled-data-section')">
             <span class="tab-title">📋 Filled Form Data</span>
             <span class="tab-desc">Total Applications Received</span>
         </button>
+        <button class="tab-btn" onclick="switchTab(event, 'rules-section')">
+            <span class="tab-title">📜 Rules & Guidelines</span>
+            <span class="tab-desc">Reservation Policies</span>
+        </button>
     </div>
 
-    <!-- ========================================== -->
-    <!-- 1. BCI SEATS DATA (Tab Content)            -->
-    <!-- ========================================== -->
-    <div id="bci-section" class="tab-content">
+    <!-- 1. BCI SEATS DATA TAB -->
+    <div id="bci-section" class="tab-content active">
         <div class="table-wrapper">
-            <div class="section-subtitle">(NON-TSP AREA)</div>
+            <div class="section-subtitle">Basic Computer Anudeshak (NON-TSP)</div>
             
             <div class="table-container">
                 <h3>1. सामान्य शिक्षा विभाग (Normal Education Department)</h3>
@@ -380,15 +389,37 @@
                             <td>63</td><td>24</td><td>771</td>
                             <td>858</td>
                         </tr>
-                        <tr style="background-color: var(--table-header-bg);">
-                            <td style="font-weight: bold;">निःशक्तजन (PwD)</td>
-                            <td>—</td><td>6</td><td>75</td>
-                            <td><span class="math-text">6 + 75 =</span><span class="sum-result" style="color:#df20b9;">81</span></td>
+                        
+                        <tr>
+                            <td>निःशक्तजन (अ) दृष्टि बाधित</td>
+                            <td>19</td><td>2</td><td>93</td>
+                            <td><span class="math-text">19 + 2 + 93 =</span><span class="sum-result">114</span></td>
                         </tr>
+                        <tr>
+                            <td>निःशक्तजन (ब) श्रवण बाधित</td>
+                            <td>11</td><td>2</td><td>94</td>
+                            <td><span class="math-text">11 + 2 + 94 =</span><span class="sum-result">107</span></td>
+                        </tr>
+                        <tr>
+                            <td>निःशक्तजन (स) चलन निःशक्तता</td>
+                            <td>12</td><td>2</td><td>75</td>
+                            <td><span class="math-text">12 + 2 + 75 =</span><span class="sum-result">89</span></td>
+                        </tr>
+                        <tr>
+                            <td>निःशक्तजन (द) बहु दिव्यांगता</td>
+                            <td>14</td><td>2</td><td>78</td>
+                            <td><span class="math-text">14 + 2 + 78 =</span><span class="sum-result">94</span></td>
+                        </tr>
+                        <tr class="total-row" style="background-color: var(--table-header-bg);">
+                            <td>निःशक्तजन (PwD) कुल योग</td>
+                            <td>56</td><td>8</td><td>340</td>
+                            <td><span class="sum-result" style="color:#df20b9;">404</span></td>
+                        </tr>
+
                         <tr style="background-color: var(--table-header-bg);">
                             <td style="font-weight: bold;">उत्कृष्ट खिलाड़ी (Sports Persons)</td>
-                            <td>—</td><td>4</td><td>—</td>
-                            <td><span class="sum-result" style="color:#df20b9;">4</span></td>
+                            <td>19</td><td>4</td><td>—</td>
+                            <td><span class="math-text">19 + 4 =</span><span class="sum-result" style="color:#df20b9;">23</span></td>
                         </tr>
                     </tbody>
                 </table>
@@ -396,12 +427,10 @@
         </div>
     </div>
 
-    <!-- ========================================== -->
-    <!-- 2. SCI SEATS DATA (Tab Content)            -->
-    <!-- ========================================== -->
+    <!-- 2. SCI SEATS DATA TAB -->
     <div id="sci-section" class="tab-content">
         <div class="table-wrapper">
-            <div class="section-subtitle">(NON-TSP AREA)</div>
+            <div class="section-subtitle">Senior Computer Anudeshak (NON-TSP)</div>
             
             <div class="table-container">
                 <h3>1. सामान्य शिक्षा विभाग (Normal Education Department)</h3>
@@ -541,23 +570,15 @@
         </div>
     </div>
 
-    <!-- ========================================== -->
-    <!-- 3. FILLED FORM DATA (Tab Content)          -->
-    <!-- ========================================== -->
+    <!-- 3. FILLED FORM DATA TAB -->
     <div id="filled-data-section" class="tab-content">
         <div class="table-wrapper">
             <div class="section-subtitle">(Category-wise Analysis)</div>
-
             <div class="table-container">
                 <h3>1. Basic Computer Instructor (बेसिक कम्प्यूटर अनुदेशक)</h3>
                 <table>
                     <thead>
-                        <tr>
-                            <th>वर्ग (Category)</th>
-                            <th>महिला (Female)</th>
-                            <th>पुरुष (Male)</th>
-                            <th>कुल आवेदन (Total)</th>
-                        </tr>
+                        <tr><th>वर्ग (Category)</th><th>महिला (Female)</th><th>पुरुष (Male)</th><th>कुल आवेदन (Total)</th></tr>
                     </thead>
                     <tbody>
                         <tr><td>GEN</td><td>9,582</td><td>21,011</td><td>30,593</td></tr>
@@ -569,26 +590,15 @@
                         <tr><td>SAHARIA</td><td>4</td><td>28</td><td>32</td></tr>
                         <tr><td>PH (निःशक्तजन)</td><td>—</td><td>1,121</td><td>1,121</td></tr>
                         <tr><td>Ex-Serviceman</td><td>—</td><td>579</td><td>579</td></tr>
-                        <tr class="total-row">
-                            <td>Grand Total</td>
-                            <td>29,257</td>
-                            <td>95,445</td>
-                            <td>124,702</td>
-                        </tr>
+                        <tr class="total-row"><td>Grand Total</td><td>29,257</td><td>95,445</td><td>124,702</td></tr>
                     </tbody>
                 </table>
             </div>
-
             <div class="table-container">
                 <h3>2. Senior Computer Instructor (वरिष्ठ कम्प्यूटर अनुदेशक)</h3>
                 <table>
                     <thead>
-                        <tr>
-                            <th>वर्ग (Category)</th>
-                            <th>महिला (Female)</th>
-                            <th>पुरुष (Male)</th>
-                            <th>कुल आवेदन (Total)</th>
-                        </tr>
+                        <tr><th>वर्ग (Category)</th><th>महिला (Female)</th><th>पुरुष (Male)</th><th>कुल आवेदन (Total)</th></tr>
                     </thead>
                     <tbody>
                         <tr><td>GEN</td><td>3,271</td><td>5,017</td><td>8,288</td></tr>
@@ -598,14 +608,65 @@
                         <tr><td>SC</td><td>577</td><td>1,681</td><td>2,258</td></tr>
                         <tr><td>ST</td><td>140</td><td>474</td><td>614</td></tr>
                         <tr><td>SAHARIA</td><td>1</td><td>0</td><td>1</td></tr>
-                        <tr class="total-row">
-                            <td>Grand Total</td>
-                            <td>6,754</td>
-                            <td>14,182</td>
-                            <td>20,936</td>
-                        </tr>
+                        <tr class="total-row"><td>Grand Total</td><td>6,754</td><td>14,182</td><td>20,936</td></tr>
                     </tbody>
                 </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- 4. RULES & GUIDELINES TAB CONTENT          -->
+    <!-- ========================================== -->
+    <div id="rules-section" class="tab-content">
+        <div class="data-header">
+            <h2>📌 Important Rules & Guidelines</h2>
+            <p>आरक्षण और पदों के बंटवारे से जुड़े महत्वपूर्ण सरकारी नियम</p>
+        </div>
+        
+        <div class="rules-container">
+            
+            <!-- Disclaimer Box -->
+            <div class="disclaimer-box">
+                <strong>⚠️ महत्वपूर्ण सूचना (Disclaimer):</strong> आधिकारिक, प्रमाणिक और सटीक जानकारी के लिए कृपया <strong>RSSB (राजस्थान कर्मचारी चयन बोर्ड)</strong> की आधिकारिक वेबसाइट (rsmssb.rajasthan.gov.in) और बोर्ड द्वारा जारी आधिकारिक विज्ञप्ति को ही मान्य मानें। इस वेबसाइट पर दी गई जानकारी केवल छात्रों की सुविधा और विश्लेषण के लिए है। डेटा में किसी भी प्रकार की त्रुटि, टाइपिंग मिस्टेक या नियमों में भिन्नता के लिए हमारी (JKByte Classes) कोई कानूनी जिम्मेदारी नहीं होगी।
+            </div>
+
+            <div class="rules-grid">
+                
+                <!-- Rule 1: PwD -->
+                <div class="rule-card">
+                    <h4>♿ दिव्यांगजन (PwD) आरक्षण नियम</h4>
+                    <p>निःशक्तजनों (PwD) को 4% क्षैतिज (Horizontal) आरक्षण दिया जाता है।</p>
+                    <ul>
+                        <li><strong>पासिंग मार्क्स (Passing Marks):</strong> नियमानुसार PwD अभ्यर्थियों को न्यूनतम उत्तीर्णांक में 5% की छूट मिलती है (अर्थात उन्हें 35% अंक लाने होते हैं)।</li>
+                        <li><strong>सीट खाली रहने पर:</strong> यदि योग्य PwD अभ्यर्थी नहीं मिलते, तो उनकी सीट सामान्य अभ्यर्थी को <strong>नहीं</strong> दी जाती है।</li>
+                        <li><strong>बैकलॉग (Backlog):</strong> वह सीट 'बैकलॉग' के रूप में अगली भर्ती (Succeeding year) में जुड़ जाती है।</li>
+                        <li><strong>आरक्षण समाप्ति (Lapsing):</strong> यदि लगातार दूसरी बार भी (अदला-बदली के बाद) PwD अभ्यर्थी नहीं मिलते, तब आरक्षण समाप्त (Lapse) मानकर सीट सामान्य अभ्यर्थी से भर ली जाती है।</li>
+                    </ul>
+                </div>
+
+                <!-- Rule 2: Ex-Servicemen -->
+                <div class="rule-card">
+                    <h4>🎖️ भूतपूर्व सैनिक (Ex-Servicemen) नियम</h4>
+                    <p>भूतपूर्व सैनिकों के आरक्षण की प्रक्रिया दिव्यांगजनों से अलग होती है।</p>
+                    <ul>
+                        <li><strong>क्षैतिज समायोजन:</strong> चयनित भूतपूर्व सैनिक अपनी मूल कैटेगरी (Gen, OBC, SC, ST) की सीट ही घेरते हैं।</li>
+                        <li><strong>सीट खाली रहने पर:</strong> यदि भूतपूर्व सैनिक नहीं मिलते हैं, तो वह सीट उसी वर्तमान भर्ती में <strong>संबंधित वर्ग के सामान्य अभ्यर्थी</strong> द्वारा तुरंत भर ली जाती है।</li>
+                        <li><strong>बैकलॉग (Backlog):</strong> सीट सामान्य अभ्यर्थी से भर तो दी जाती है, लेकिन खाली रही भूतपूर्व सैनिकों की संख्या को डायरी में नोट कर अगली नई भर्ती में 'बैकलॉग' (Carry Forward) के रूप में जोड़ दिया जाता है।</li>
+                    </ul>
+                </div>
+
+                <!-- Rule 3: Sports -->
+                <div class="rule-card">
+                    <h4>🏅 उत्कृष्ट खिलाड़ी (Sports) & जनरल मेरिट</h4>
+                    <p>स्पोर्ट्स कोटे और रिज़र्व कैटेगरी के टॉपर्स के लिए नियम:</p>
+                    <ul>
+                        <li><strong>उत्कृष्ट खिलाड़ी (2%):</strong> यदि योग्य खिलाड़ी नहीं मिलते हैं, तो उनका कोई बैकलॉग <strong>नहीं</strong> बनता। वे सीटें उसी समय सामान्य अभ्यर्थियों से भर ली जाती हैं।</li>
+                        <li><strong>MRC (Merit Migration):</strong> यदि SC/ST/OBC/EWS का कोई छात्र टॉप करके General (UR) की कट-ऑफ पार करता है, तो उसे <strong>General Open (UR)</strong> की सीट दी जाती है।</li>
+                        <li><strong>शर्त:</strong> इसके लिए शर्त यह है कि छात्र ने आयु (Age) या अन्य किसी प्रकार की आरक्षित छूट का लाभ न लिया हो। इससे उसकी खुद की आरक्षित कैटेगरी की सीट अन्य छात्रों के लिए बच जाती है।</li>
+                    </ul>
+                </div>
+
             </div>
         </div>
     </div>

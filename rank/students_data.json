@@ -1,0 +1,102 @@
+[
+  {
+    "roll": "100101",
+    "name": "कमलेश",
+    "category": "GEN",
+    "gender": "MALE",
+    "subCategory": "NONE",
+    "totalMarks": 146.50,
+    "overallRank": 95,
+    "catRank": 95
+  },
+  {
+    "roll": "100102",
+    "name": "रमन बगड़िया",
+    "category": "OBC",
+    "gender": "MALE",
+    "subCategory": "NONE",
+    "totalMarks": 128.25,
+    "overallRank": 390,
+    "catRank": 165
+  },
+  {
+    "roll": "100103",
+    "name": "सुमन रानी",
+    "category": "OBC",
+    "gender": "FEMALE",
+    "subCategory": "NONE",
+    "totalMarks": 121.00,
+    "overallRank": 540,
+    "catRank": 42
+  },
+  {
+    "roll": "100104",
+    "name": "आदित्य शर्मा",
+    "category": "EWS",
+    "gender": "MALE",
+    "subCategory": "NONE",
+    "totalMarks": 118.75,
+    "overallRank": 620,
+    "catRank": 102
+  },
+  {
+    "roll": "100105",
+    "name": "विकास मीणा",
+    "category": "ST",
+    "gender": "MALE",
+    "subCategory": "NONE",
+    "totalMarks": 98.50,
+    "overallRank": 1450,
+    "catRank": 410
+  },
+  {
+    "roll": "100106",
+    "name": "पूजा मेघवाल",
+    "category": "SC",
+    "gender": "FEMALE",
+    "subCategory": "NONE",
+    "totalMarks": 94.00,
+    "overallRank": 1680,
+    "catRank": 120
+  },
+  {
+    "roll": "100107",
+    "name": "महेश गुर्जर",
+    "category": "MBC",
+    "gender": "MALE",
+    "subCategory": "NONE",
+    "totalMarks": 105.25,
+    "overallRank": 1120,
+    "catRank": 68
+  },
+  {
+    "roll": "100108",
+    "name": "राजेंद्र सिंह (Ex-Army)",
+    "category": "OBC",
+    "gender": "MALE",
+    "subCategory": "EX-SM",
+    "totalMarks": 88.00,
+    "overallRank": 2150,
+    "catRank": 210
+  },
+  {
+    "roll": "100109",
+    "name": "दिनेश कुमार",
+    "category": "GEN",
+    "gender": "MALE",
+    "subCategory": "PWD",
+    "totalMarks": 91.50,
+    "overallRank": 1890,
+    "catRank": 145
+  },
+  {
+    "roll": "100110",
+    "name": "संदीप चौधरी",
+    "category": "OBC",
+    "gender": "MALE",
+    "subCategory": "NONE",
+    "totalMarks": 102.00,
+    "overallRank": 1310,
+    "catRank": 490
+  }
+]

@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="hi" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JK Byte Classes | Live Rank & Safe Zone Portal 2026</title>
+    <meta name="description" content="Check your Rajasthan Computer Instructor Total Score, Category Rank, Safe Zone Prediction, and Full BCI Seat Matrix.">
+    <link rel="icon" type="image/png" href="../logo.png">
+
+    <style>
+        :root {
+            /* Light Theme Premium 3D Colours */
+            --bg-color: #e0e5ec;
+            --surface-color: #e0e5ec;
+            --text-main: #2d3748;
+            --text-muted: #718096;
+            --brand-gradient: linear-gradient(135deg, #df20b9 0%, #00d2ff 100%);
+            --shadow-out: 9px 9px 16px rgba(163,177,198,0.6), -9px -9px 16px rgba(255,255,255, 0.7);
+            --shadow-in: inset 6px 6px 10px 0 rgba(163,177,198, 0.6), inset -6px -6px 10px 0 rgba(255,255,255, 0.7);
+            --table-border: rgba(113, 128, 150, 0.15);
+            --table-header-bg: rgba(113, 128, 150, 0.08);
+            --alert-bg: #ffeef0;
+            --alert-border: #ff4757;
+            
+            /* Zone Colors */
+            --safe-bg: rgba(46, 213, 115, 0.12);
+            --safe-border: #2ed573;
+            --safe-text: #1b9c50;
+            --safe-glow: #2ed573;
+            
+            --warn-bg: rgba(255, 165, 2, 0.12);
+            --warn-border: #ffa502;
+            --warn-text: #cc8400;
+            --warn-glow: #ffa502;
+
+            --dark-zone-bg: rgba(255, 71, 87, 0.12);
+            --dark-zone-border: #ff4757;
+            --dark-zone-text: #d63031;
+            --dark-glow: #ff4757;
+        }
+
+        [data-theme="dark"] {
+            /* Dark Theme Premium 3D Colours */
+            --bg-color: #121519;
+            --surface-color: #121519;
+            --text-main: #f7fafc;
+            --text-muted: #a0aec0;
+            --shadow-out: 8px 8px 16px rgba(0,0,0,0.6), -6px -6px 14px rgba(255,255,255,0.03);
+            --shadow-in: inset 5px 5px 10px rgba(0,0,0,0.8), inset -5px -5px 10px rgba(255,255,255,0.03);
+            --table-border: rgba(255, 255, 255, 0.08);
+            --table-header-bg: rgba(255, 255, 255, 0.04);
+            --alert-bg: rgba(255, 71, 87, 0.12);
+            --alert-border: #ff4757;
+
+            --safe-text: #2ed573;
+            --warn-text: #ffa502;
+            --dark-zone-text: #ff6b81;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            margin: 0;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        /* Header */
+        header {
+            position: sticky;
+            top: 0;
+            background: rgba(224, 229, 236, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: var(--shadow-out);
+            border-bottom-left-radius: 25px;
+            border-bottom-right-radius: 25px;
+        }
+        [data-theme="dark"] header { background: rgba(18, 21, 25, 0.85); }
+
+        .brand-container { display: flex; align-items: center; gap: 15px; text-decoration: none; }
+        .brand-logo { width: 45px; height: 45px; border-radius: 50%; box-shadow: var(--shadow-out); padding: 2px; }
+        .logo-text { font-size: 24px; font-weight: 900; background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .nav-right { display: flex; align-items: center; gap: 15px; }
+        .back-btn {
+            background: var(--surface-color); color: var(--text-main); text-decoration: none;
+            padding: 10px 18px; border-radius: 20px; font-weight: 700; font-size: 14px;
+            box-shadow: var(--shadow-out); transition: 0.3s;
+        }
+        .back-btn:hover { box-shadow: var(--shadow-in); color: #df20b9; }
+
+        .theme-toggle {
+            background: var(--surface-color); border: none; color: var(--text-main);
+            font-size: 20px; cursor: pointer; width: 42px; height: 42px; border-radius: 50%;
+            box-shadow: var(--shadow-out); display: flex; align-items: center; justify-content: center; transition: 0.3s;
+        }
+        .theme-toggle:hover { box-shadow: var(--shadow-in); }
+
+        .container { max-width: 1150px; margin: 30px auto; padding: 0 20px; }
+
+        /* ====== 1. TOP DISCLAIMER & RULES ====== */
+        .disclaimer-box {
+            background: var(--alert-bg);
+            border-left: 6px solid var(--alert-border);
+            padding: 22px 25px;
+            border-radius: 20px;
+            font-size: 14.5px;
+            color: var(--text-main);
+            box-shadow: var(--shadow-out);
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        .disclaimer-box strong { color: var(--alert-border); font-size: 16px; }
+
+        .btn-3d {
+            background: var(--brand-gradient); color: #ffffff; padding: 15px 30px; border-radius: 30px;
+            text-decoration: none; font-size: 16px; font-weight: 800; display: inline-block;
+            box-shadow: 0 8px 18px rgba(223, 32, 185, 0.35); border: none; cursor: pointer; transition: all 0.3s ease;
+        }
+        .btn-3d:hover { transform: translateY(-2px); box-shadow: 0 12px 24px rgba(223, 32, 185, 0.5); }
+        .btn-3d:active { transform: translateY(2px); }
+
+        .btn-outline {
+            background: var(--surface-color); color: #df20b9; padding: 13px 25px; border-radius: 25px;
+            font-size: 15px; font-weight: 800; box-shadow: var(--shadow-out); border: none; cursor: pointer; transition: 0.3s;
+        }
+        .btn-outline:hover { box-shadow: var(--shadow-in); color: #00d2ff; }
+
+        /* Collapsible Sections */
+        .collapsible-wrapper {
+            max-height: 0; overflow: hidden; opacity: 0;
+            transition: max-height 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
+        }
+        .collapsible-wrapper.show { max-height: 5000px; opacity: 1; margin-top: 25px; }
+
+        .section-divider {
+            text-align: left; color: var(--text-main); margin: 25px 0 18px 5px; font-size: 21px; font-weight: 800;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .section-divider::before {
+            content: ''; display: inline-block; width: 7px; height: 22px; background: var(--brand-gradient); border-radius: 4px;
+        }
+
+        .rules-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 22px; margin-bottom: 30px; }
+        .rule-card {
+            background: var(--surface-color); border-radius: 22px; padding: 25px;
+            box-shadow: var(--shadow-in); border-left: 4px solid #df20b9;
+        }
+        .rule-card h4 { margin: 0 0 12px 0; color: #df20b9; font-size: 18px; }
+        .rule-card p { font-size: 14px; color: var(--text-muted); margin: 0 0 10px 0; font-weight: 600; }
+        .rule-card ul { padding-left: 18px; margin: 0; font-size: 14px; line-height: 1.6; }
+        .rule-card li { margin-bottom: 8px; }
+
+        /* ========================================================= */
+        /* 2. HIGHLIGHTED SEARCH SECTION WITH ANIMATED COLOR RING    */
+        /* ========================================================= */
+        .glow-search-wrapper {
+            position: relative;
+            border-radius: 34px;
+            padding: 4px; /* Ring thickness */
+            margin: 45px 0;
+            background: linear-gradient(90deg, #ff007f, #00d2ff, #2ed573, #ffa502, #df20b9, #00d2ff);
+            background-size: 300% 300%;
+            animation: glowingBorder 5s ease infinite;
+            box-shadow: 0 0 25px rgba(223, 32, 185, 0.35), 0 0 35px rgba(0, 210, 255, 0.25);
+        }
+
+        @keyframes glowingBorder {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .search-card {
+            background: var(--surface-color);
+            border-radius: 30px;
+            padding: 40px 25px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        /* Animated Glowing Light Ring on the Side of Search Box */
+        .neon-ring-box {
+            position: relative;
+            width: 90px;
+            height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .neon-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 5px solid transparent;
+            border-top-color: #df20b9;
+            border-right-color: #00d2ff;
+            border-bottom-color: #2ed573;
+            animation: spinRing 2.5s linear infinite;
+            filter: drop-shadow(0 0 10px #df20b9) drop-shadow(0 0 15px #00d2ff);
+        }
+        .neon-ring-inner {
+            position: absolute;
+            width: 72%;
+            height: 72%;
+            border-radius: 50%;
+            border: 4px solid transparent;
+            border-left-color: #ffa502;
+            border-bottom-color: #ff007f;
+            animation: spinRingReverse 2s linear infinite;
+        }
+        .neon-ring-icon {
+            font-size: 32px;
+            z-index: 2;
+            animation: pulseIcon 1.8s ease-in-out infinite;
+        }
+
+        @keyframes spinRing { 100% { transform: rotate(360deg); } }
+        @keyframes spinRingReverse { 100% { transform: rotate(-360deg); } }
+        @keyframes pulseIcon {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+
+        .search-content {
+            flex: 1;
+            min-width: 280px;
+            max-width: 650px;
+        }
+
+        .search-card h1 {
+            font-size: 32px; margin: 0 0 10px 0;
+            background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .search-card p { color: var(--text-muted); margin-bottom: 25px; font-size: 15.5px; }
+
+        .search-box {
+            display: flex; justify-content: center; gap: 15px; max-width: 550px; margin: 0 auto; flex-wrap: wrap;
+        }
+        .roll-input {
+            flex: 1; min-width: 220px; padding: 16px 22px; border-radius: 30px;
+            border: 2px solid rgba(223, 32, 185, 0.25);
+            background: var(--surface-color); color: var(--text-main); font-size: 18px; font-weight: 800;
+            box-shadow: var(--shadow-in); outline: none; text-align: center; letter-spacing: 1px;
+            transition: 0.3s;
+        }
+        .roll-input:focus {
+            border-color: #00d2ff;
+            box-shadow: var(--shadow-in), 0 0 15px rgba(0, 210, 255, 0.35);
+        }
+        .roll-input::placeholder { color: var(--text-muted); font-weight: 500; font-size: 15px; letter-spacing: 0; }
+
+        /* ========================================================= */
+        /* 3. RESULT SCORECARD & GLOWING ZONE RING                   */
+        /* ========================================================= */
+        #resultSection { display: none; animation: fadeIn 0.5s ease; margin-bottom: 45px; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        .scorecard {
+            background: var(--surface-color); border-radius: 30px; padding: 30px;
+            box-shadow: var(--shadow-out); position: relative; overflow: hidden;
+        }
+        .student-header {
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;
+            border-bottom: 2px solid var(--table-border); padding-bottom: 18px; margin-bottom: 25px; gap: 15px;
+        }
+        .student-title h2 { margin: 0; font-size: 26px; color: var(--text-main); }
+        .student-title span { font-size: 14.5px; color: var(--text-muted); font-weight: 700; }
+        .cat-badge {
+            background: var(--brand-gradient); color: #fff; padding: 8px 20px;
+            border-radius: 20px; font-weight: 800; font-size: 15px; box-shadow: 0 5px 15px rgba(223,32,185,0.3);
+        }
+
+        .stats-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 20px; margin-bottom: 25px;
+        }
+        .stat-box {
+            background: var(--surface-color); padding: 20px; border-radius: 20px;
+            box-shadow: var(--shadow-in); text-align: center;
+        }
+        .stat-label { font-size: 13.5px; color: var(--text-muted); font-weight: 700; display: block; margin-bottom: 8px; }
+        .stat-value { font-size: 28px; font-weight: 900; color: var(--text-main); }
+        .sub-tag { font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 8px; display: inline-block; margin-top: 6px; background: var(--table-header-bg); color: var(--text-muted); }
+
+        /* Zone Banner with Side Glowing LED Ring */
+        .zone-banner {
+            padding: 25px 30px; border-radius: 24px;
+            border: 2px solid transparent; transition: 0.3s;
+            display: flex; align-items: center; justify-content: center; gap: 25px; flex-wrap: wrap;
+        }
+        .zone-safe { background: var(--safe-bg); border-color: var(--safe-border); color: var(--safe-text); box-shadow: 0 0 25px rgba(46, 213, 115, 0.25); }
+        .zone-warn { background: var(--warn-bg); border-color: var(--warn-border); color: var(--warn-text); box-shadow: 0 0 25px rgba(255, 165, 2, 0.25); }
+        .zone-dark { background: var(--dark-zone-bg); border-color: var(--dark-zone-border); color: var(--dark-zone-text); box-shadow: 0 0 25px rgba(255, 71, 87, 0.25); }
+
+        /* Pulsing Status Light Ring */
+        .status-ring-container {
+            position: relative; width: 68px; height: 68px;
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+        }
+        .status-ring-outer {
+            position: absolute; width: 100%; height: 100%; border-radius: 50%;
+            border: 4px dashed currentColor;
+            animation: spinRing 6s linear infinite;
+        }
+        .status-ring-core {
+            width: 40px; height: 40px; border-radius: 50%;
+            background: currentColor;
+            box-shadow: 0 0 18px currentColor, 0 0 32px currentColor;
+            animation: pulseGlow 1.4s ease-in-out infinite;
+        }
+        @keyframes pulseGlow {
+            0%, 100% { transform: scale(0.9); opacity: 0.85; }
+            50% { transform: scale(1.12); opacity: 1; }
+        }
+
+        .zone-text-box { flex: 1; min-width: 240px; text-align: left; }
+        .zone-title { font-size: 28px; font-weight: 900; margin: 0 0 6px 0; letter-spacing: 0.5px; }
+        .zone-desc { font-size: 15.5px; margin: 0; font-weight: 600; color: var(--text-main); line-height: 1.5; }
+
+        /* ====== 4. TABLES & SEAT MATRIX ====== */
+        .data-header { text-align: center; margin: 50px 0 25px 0; }
+        .data-header h2 { font-size: 27px; color: var(--text-main); margin-bottom: 8px; font-weight: 800; }
+        .data-header p { color: var(--text-muted); font-size: 15.5px; margin-bottom: 20px; }
+
+        .table-container {
+            background: var(--surface-color); border-radius: 28px; box-shadow: var(--shadow-out);
+            padding: 30px; margin-bottom: 35px; overflow-x: auto;
+        }
+        .table-container h3 {
+            margin-top: 0; text-align: center; font-size: 21px; margin-bottom: 18px;
+            background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        table { width: 100%; border-collapse: separate; border-spacing: 0; min-width: 650px; }
+        th, td { padding: 15px 12px; text-align: center; border-bottom: 1px solid var(--table-border); font-size: 14.5px; line-height: 1.5; }
+        th { font-weight: 800; background: var(--table-header-bg); color: var(--text-main); white-space: nowrap; }
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background: var(--table-header-bg); }
+
+        .math-text { font-size: 12.5px; color: var(--text-muted); display: block; margin-bottom: 4px; font-weight: 500; }
+        .sum-result { font-weight: 800; font-size: 16.5px; }
+        .total-row td { font-weight: 800; background: rgba(223, 32, 185, 0.06) !important; color: #df20b9; border-top: 2px solid rgba(223, 32, 185, 0.2); }
+
+        .safe-pill {
+            background: var(--safe-bg); color: var(--safe-text); font-weight: 800;
+            padding: 5px 14px; border-radius: 12px; display: inline-block; font-size: 14px;
+            border: 1px solid rgba(46, 213, 115, 0.3);
+        }
+
+        footer { text-align: center; padding: 40px 20px; color: var(--text-muted); font-size: 14px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="../" class="brand-container">
+            <img src="../logo.png" alt="JK Byte Logo" class="brand-logo" onerror="this.style.display='none'">
+            <div class="logo-text">JKByte Classes</div>
+        </a>
+        <div class="nav-right">
+            <a href="../" class="back-btn">⬅️ Main Portal</a>
+            <button class="theme-toggle" id="themeToggle">🌙</button>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <!-- ========================================== -->
+        <!-- 1. SAFETY DISCLAIMER & COLLAPSIBLE RULES   -->
+        <!-- ========================================== -->
+        <div class="disclaimer-box">
+            <strong>⚠️ महत्वपूर्ण अस्वीकरण (Disclaimer):</strong><br>
+            यह पोर्टल और 'Safe Zone / Dark Zone' विश्लेषण केवल छात्रों की सुविधा और अनुमानित आंकड़ों के लिए बनाया गया है। यहाँ दिखाई गई रैंक और सिलेक्शन ज़ोन की गणना हमारे सर्वे और उपलब्ध सीटों के आधार पर की गई है। किसी भी नियम, सीट संख्या, रोस्टर या अंतिम परिणाम की आधिकारिक पुष्टि के लिए केवल <strong>राजस्थान कर्मचारी चयन बोर्ड (RSSB)</strong> की आधिकारिक वेबसाइट को ही मान्य मानें। किसी भी त्रुटि या विसंगति के लिए हमारी (JK Byte Classes) कोई वैधानिक जिम्मेदारी नहीं होगी।
+            
+            <div style="margin-top: 16px; display: flex; gap: 15px; flex-wrap: wrap; align-items: center;">
+                <button id="rulesToggleBtn" class="btn-outline" onclick="toggleSection('rulesContent', 'rulesToggleBtn', '📌 आरक्षण के महत्वपूर्ण नियम देखें (Show Rules) ▼', '📌 नियम छुपाएं (Hide Rules) ▲')">
+                    📌 आरक्षण के महत्वपूर्ण नियम देखें (Show Rules) ▼
+                </button>
+                <a href="https://rssb.rajasthan.gov.in" target="_blank" class="btn-outline" style="text-decoration: none;">
+                    📄 Official RSSB Website ↗️
+                </a>
+            </div>
+        </div>
+
+        <!-- Hidden Reservation Rules (Opens on Click) -->
+        <div id="rulesContent" class="collapsible-wrapper">
+            <h3 class="section-divider">क्षैतिज आरक्षण (Horizontal Reservation) के नियम</h3>
+            <div class="rules-grid">
+                <div class="rule-card">
+                    <h4>♿ दिव्यांगजन (PwD - 4%)</h4>
+                    <p>निःशक्तजनों के लिए विशेष प्रावधान:</p>
+                    <ul>
+                        <li><strong>रोस्टर समायोजन:</strong> चयनित दिव्यांग अभ्यर्थी अपनी संबंधित मूल कैटेगरी (UR, OBC, SC आदि) की सीट ही घेरेंगे।</li>
+                        <li><strong>सीट खाली रहने पर:</strong> यदि योग्य PwD अभ्यर्थी नहीं मिलते, तो उनकी सीट सामान्य अभ्यर्थी को <strong>नहीं</strong> दी जाती है।</li>
+                        <li><strong>बैकलॉग:</strong> वह सीट 'बैकलॉग' के रूप में अगली भर्ती में जुड़ जाती है।</li>
+                    </ul>
+                </div>
+                <div class="rule-card">
+                    <h4>🎖️ भूतपूर्व सैनिक (Ex-Servicemen)</h4>
+                    <p>भूतपूर्व सैनिकों के आरक्षण की प्रक्रिया:</p>
+                    <ul>
+                        <li><strong>रोस्टर समायोजन:</strong> चयनित भूतपूर्व सैनिक अपनी मूल कैटेगरी (Gen, OBC, SC, ST) की सीट ही लेते हैं।</li>
+                        <li><strong>सीट खाली रहने पर:</strong> सैनिक न मिलने पर वह सीट उसी वर्तमान भर्ती में <strong>संबंधित वर्ग के सामान्य अभ्यर्थी</strong> द्वारा तुरंत भर ली जाती है।</li>
+                        <li><strong>बैकलॉग:</strong> खाली रही भूतपूर्व सैनिकों की संख्या को अगली नई भर्ती में 'बैकलॉग' के रूप में अलग से जोड़ दिया जाता है।</li>
+                    </ul>
+                </div>
+                <div class="rule-card">
+                    <h4>🏅 उत्कृष्ट खिलाड़ी (Sports - 2%)</h4>
+                    <p>उत्कृष्ट खिलाड़ियों के लिए नियम:</p>
+                    <ul>
+                        <li><strong>रोस्टर समायोजन:</strong> ये भी अपनी संबंधित मूल कैटेगरी की ही सीट लेते हैं।</li>
+                        <li><strong>सीट खाली रहने पर:</strong> योग्य खिलाड़ी न मिलने पर सीटें उसी भर्ती में संबंधित वर्ग के सामान्य अभ्यर्थियों को दे दी जाती हैं।</li>
+                        <li><strong>कोई बैकलॉग नहीं:</strong> खेल कोटे की खाली रही सीटों का कोई बैकलॉग <strong>नहीं</strong> बनता है।</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 class="section-divider">लंबवत आरक्षण (Vertical Reservation) के नियम</h3>
+            <div class="rules-grid">
+                <div class="rule-card">
+                    <h4>📜 EWS (आर्थिक रूप से कमजोर वर्ग)</h4>
+                    <ul>
+                        <li><strong>सीट खाली रहने पर:</strong> यदि EWS के योग्य उम्मीदवार पूरे नहीं मिलते हैं, तो उन खाली पदों को उसी भर्ती में <strong>General (UR - Open)</strong> के अभ्यर्थियों से भर लिया जाता है।</li>
+                        <li><strong>कोई बैकलॉग नहीं:</strong> EWS की सीटों का कोई 'बैकलॉग' नहीं बनता।</li>
+                    </ul>
+                </div>
+                <div class="rule-card">
+                    <h4>🎓 मेरिट माइग्रेशन (MRC - Topper Rule)</h4>
+                    <ul>
+                        <li>यदि SC/ST/OBC/EWS/MBC का कोई छात्र टॉप करके General (UR) की कट-ऑफ पार करता है, तो उसे <strong>General Open (UR)</strong> की ही सीट दी जाती है।</li>
+                        <li><strong>शर्त:</strong> छात्र ने आयु (Age) या अन्य किसी आरक्षित छूट का लाभ न लिया हो। इससे उसकी आरक्षित कैटेगरी की सीट अन्य छात्रों के लिए बच जाती है।</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- 2. HIGHLIGHTED ROLL NUMBER SEARCH WITH GLOWING COLOR RING -->
+        <!-- ========================================================= -->
+        <div class="glow-search-wrapper">
+            <div class="search-card">
+                <!-- Glowing Animated Light Ring on the Side -->
+                <div class="neon-ring-box">
+                    <div class="neon-ring"></div>
+                    <div class="neon-ring-inner"></div>
+                    <span class="neon-ring-icon">🎯</span>
+                </div>
+
+                <div class="search-content">
+                    <h1>🔍 Check Your Rank & Safe Zone</h1>
+                    <p>अपना रोल नंबर दर्ज करें और कुल प्राप्तांक (Total Marks) व कैटेगरी रैंक के आधार पर अपना सिलेक्शन ज़ोन देखें</p>
+                    
+                    <div class="search-box">
+                        <input type="text" id="rollInput" class="roll-input" placeholder="Enter Roll Number..." onkeypress="if(event.key === 'Enter') checkRank()">
+                        <button class="btn-3d" onclick="checkRank()">Check Status 🚀</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- 3. DYNAMIC RESULT SCORECARD WITH PULSING LED RING         -->
+        <!-- ========================================================= -->
+        <div id="resultSection">
+            <div class="scorecard">
+                <div class="student-header">
+                    <div class="student-title">
+                        <h2 id="resName">Student Name</h2>
+                        <span id="resRoll">Roll No: ------</span>
+                    </div>
+                    <div class="cat-badge" id="resCat">Category</div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <span class="stat-label">Total Marks (Out of 200)</span>
+                        <div class="stat-value" id="resTotal" style="color: #df20b9;">0.00</div>
+                        <span class="sub-tag">Official Total Score</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Overall Rank</span>
+                        <div class="stat-value" id="resOverallRank">#0</div>
+                        <span class="sub-tag">All Categories Combined</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Your Category Rank</span>
+                        <div class="stat-value" id="resCatRank" style="color: #00d2ff;">#0</div>
+                        <span class="sub-tag" id="resSafeLimit">Safe Rank Limit: --</span>
+                    </div>
+                </div>
+
+                <!-- Safe Zone / Dark Zone Output Box with Pulsing Light Ring -->
+                <div id="zoneBanner" class="zone-banner">
+                    <div class="status-ring-container">
+                        <div class="status-ring-outer"></div>
+                        <div class="status-ring-core"></div>
+                    </div>
+                    <div class="zone-text-box">
+                        <h3 class="zone-title" id="zoneTitle">ZONE STATUS</h3>
+                        <p class="zone-desc" id="zoneDesc">Detailed explanation here...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- 4. COLLAPSIBLE SAFE RANK ZONE SECTION (SIMPLIFIED)        -->
+        <!-- ========================================================= -->
+        <div class="data-header">
+            <h2>🛡️ Safe Rank Zone List (Category & Gender Wise)</h2>
+            <p>प्रत्येक कैटेगरी (Male/Open, Female, Widow, Divorcee, PwD, Ex-SM) की कुल सीटें और सेफ रैंक सीमा देखने के लिए क्लिक करें</p>
+            <button id="safeRankToggleBtn" class="btn-3d" onclick="toggleSection('safeRankContent', 'safeRankToggleBtn', '📊 Open Safe Rank Zone List ▼', '📊 Hide Safe Rank Zone List ▲')">
+                📊 Open Safe Rank Zone List ▼
+            </button>
+        </div>
+
+        <div id="safeRankContent" class="collapsible-wrapper">
+            <div class="table-container">
+                <h3>1. लंबवत आरक्षण सेफ रैंक ज़ोन (सामान्य + संस्कृत शिक्षा कुल 2936 पद)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>कैटेगरी (Category)</th>
+                            <th>कुल सीटें</th>
+                            <th>सामान्य / Male (Open)<br><span class="math-text">Safe Rank Range</span></th>
+                            <th>सामान्य महिला (Female)<br><span class="math-text">Safe Rank Range</span></th>
+                            <th>विधवा (Widow)<br><span class="math-text">Safe Rank Range</span></th>
+                            <th>परित्यक्ता (Divorcee)<br><span class="math-text">Safe Rank Range</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>General (UR)</strong></td>
+                            <td>515</td>
+                            <td><span class="safe-pill">Rank 1 - 360</span></td>
+                            <td><span class="safe-pill">Rank 1 - 109</span></td>
+                            <td><span class="safe-pill">Rank 1 - 37</span></td>
+                            <td><span class="safe-pill">Rank 1 - 9</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>OBC</strong></td>
+                            <td>279</td>
+                            <td><span class="safe-pill">Rank 1 - 199</span></td>
+                            <td><span class="safe-pill">Rank 1 - 55</span></td>
+                            <td><span class="safe-pill">Rank 1 - 16</span></td>
+                            <td><span class="safe-pill">Rank 1 - 9</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>EWS</strong></td>
+                            <td>131</td>
+                            <td><span class="safe-pill">Rank 1 - 94</span></td>
+                            <td><span class="safe-pill">Rank 1 - 27</span></td>
+                            <td><span class="safe-pill">Rank 1 - 7</span></td>
+                            <td><span class="safe-pill">Rank 1 - 3</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>MBC</strong></td>
+                            <td>65</td>
+                            <td><span class="safe-pill">Rank 1 - 45</span></td>
+                            <td><span class="safe-pill">Rank 1 - 10</span></td>
+                            <td><span class="safe-pill">Rank 1 - 10</span></td>
+                            <td>—</td>
+                        </tr>
+                        <tr>
+                            <td><strong>SC (नए + बैकलॉग)</strong></td>
+                            <td>911</td>
+                            <td><span class="safe-pill">Rank 1 - 646</span></td>
+                            <td><span class="safe-pill">Rank 1 - 184</span></td>
+                            <td><span class="safe-pill">Rank 1 - 72</span></td>
+                            <td><span class="safe-pill">Rank 1 - 9</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>ST (नए + बैकलॉग)</strong></td>
+                            <td>1023</td>
+                            <td><span class="safe-pill">Rank 1 - 722</span></td>
+                            <td><span class="safe-pill">Rank 1 - 203</span></td>
+                            <td><span class="safe-pill">Rank 1 - 82</span></td>
+                            <td><span class="safe-pill">Rank 1 - 16</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>सहरिया (Sahariya)</strong></td>
+                            <td>12</td>
+                            <td><span class="safe-pill">Rank 1 - 8</span></td>
+                            <td><span class="safe-pill">Rank 1 - 2</span></td>
+                            <td><span class="safe-pill">Rank 1 - 2</span></td>
+                            <td>—</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Simplified Horizontal Safe Rank Table (Only Total Seats & Safe Rank) -->
+            <div class="table-container">
+                <h3>2. क्षैतिज आरक्षण सेफ रैंक ज़ोन (PwD, Ex-Servicemen & Sports)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>विशेष श्रेणी (Horizontal Category)</th>
+                            <th>कुल उपलब्ध सीटें (Total Seats)</th>
+                            <th>सेफ रैंक सीमा (Safe Rank Zone)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>भूतपूर्व सैनिक (Ex-Servicemen - All Categories)</strong></td>
+                            <td><span class="sum-result">858</span></td>
+                            <td><span class="safe-pill">Ex-SM Rank 1 - 858</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>निःशक्तजन (अ) दृष्टि बाधित (BL/LV)</strong></td>
+                            <td><span class="sum-result">114</span></td>
+                            <td><span class="safe-pill">BL/LV Rank 1 - 114</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>निःशक्तजन (ब) श्रवण बाधित (HI)</strong></td>
+                            <td><span class="sum-result">107</span></td>
+                            <td><span class="safe-pill">HI Rank 1 - 107</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>निःशक्तजन (स) चलन निःशक्तता (LD/CP)</strong></td>
+                            <td><span class="sum-result">89</span></td>
+                            <td><span class="safe-pill">LD/CP Rank 1 - 89</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>निःशक्तजन (द) बहु दिव्यांगता (MD)</strong></td>
+                            <td><span class="sum-result">94</span></td>
+                            <td><span class="safe-pill">MD Rank 1 - 94</span></td>
+                        </tr>
+                        <tr class="total-row">
+                            <td><strong>निःशक्तजन (PwD) कुल योग</strong></td>
+                            <td>404</td>
+                            <td><span class="safe-pill">Overall PwD Rank 1 - 404</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>उत्कृष्ट खिलाड़ी (Sports Person)</strong></td>
+                            <td><span class="sum-result">23</span></td>
+                            <td><span class="safe-pill">Sports Rank 1 - 23</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- 5. COLLAPSIBLE FULL BCI SEAT DISTRIBUTION TABLES          -->
+        <!-- ========================================================= -->
+        <div class="data-header">
+            <h2>🖥️ BCI Complete Seat Distribution (NON-TSP)</h2>
+            <p>बेसिक कंप्यूटर अनुदेशक (सामान्य शिक्षा + संस्कृत शिक्षा विभाग) का संपूर्ण वर्ग-वार सीट विवरण देखने के लिए क्लिक करें</p>
+            <button id="seatDistToggleBtn" class="btn-outline" style="padding: 15px 32px; font-size: 16px;" onclick="toggleSection('seatDistContent', 'seatDistToggleBtn', '🖥️ Open BCI Seat Distribution Tables ▼', '🖥️ Hide BCI Seat Distribution Tables ▲')">
+                🖥️ Open BCI Seat Distribution Tables ▼
+            </button>
+        </div>
+
+        <div id="seatDistContent" class="collapsible-wrapper">
+            <div class="table-container">
+                <h3>1. सामान्य शिक्षा विभाग (Normal Education Department)</h3>
+                <table>
+                    <thead>
+                        <tr><th>वर्ग (Category)</th><th>कुल पद</th><th>सामान्य (Open)</th><th>सामान्य महिला</th><th>विधवा (Widow)</th><th>परित्यक्ता (Divorcee)</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>General / UR</td><td>443</td><td>309</td><td>94</td><td>32</td><td>8</td></tr>
+                        <tr><td>OBC</td><td>237</td><td>169</td><td>46</td><td>13</td><td>9</td></tr>
+                        <tr><td>EWS</td><td>111</td><td>80</td><td>22</td><td>6</td><td>3</td></tr>
+                        <tr><td>MBC</td><td>55</td><td>38</td><td>8</td><td>9</td><td>0</td></tr>
+                        <tr>
+                            <td>SC <br><span class="math-text">(नए + बैकलॉग)</span></td>
+                            <td><span class="math-text">185 + 694 =</span><span class="sum-result">879</span></td>
+                            <td><span class="math-text">130 + 493 =</span><span class="sum-result">623</span></td>
+                            <td><span class="math-text">39 + 138 =</span><span class="sum-result">177</span></td>
+                            <td><span class="math-text">14 + 56 =</span><span class="sum-result">70</span></td>
+                            <td><span class="math-text">2 + 7 =</span><span class="sum-result">9</span></td>
+                        </tr>
+                        <tr>
+                            <td>ST <br><span class="math-text">(नए + बैकलॉग)</span></td>
+                            <td><span class="math-text">129 + 870 =</span><span class="sum-result">999</span></td>
+                            <td><span class="math-text">95 + 610 =</span><span class="sum-result">705</span></td>
+                            <td><span class="math-text">22 + 176 =</span><span class="sum-result">198</span></td>
+                            <td><span class="math-text">11 + 69 =</span><span class="sum-result">80</span></td>
+                            <td><span class="math-text">1 + 15 =</span><span class="sum-result">16</span></td>
+                        </tr>
+                        <tr><td>सहरिया</td><td>12</td><td>8</td><td>2</td><td>2</td><td>0</td></tr>
+                        <tr class="total-row"><td>कुल पद</td><td>2736</td><td>1932</td><td>547</td><td>212</td><td>45</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="table-container">
+                <h3>2. संस्कृत शिक्षा विभाग (Sanskrit Education Department)</h3>
+                <table>
+                    <thead>
+                        <tr><th>वर्ग</th><th>कुल पद</th><th>सामान्य (Open)</th><th>सामान्य महिला</th><th>विधवा</th><th>परित्यक्ता</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>General / UR</td><td>72</td><td>51</td><td>15</td><td>5</td><td>1</td></tr>
+                        <tr><td>OBC</td><td>42</td><td>30</td><td>9</td><td>3</td><td>0</td></tr>
+                        <tr><td>SC</td><td>32</td><td>23</td><td>7</td><td>2</td><td>0</td></tr>
+                        <tr><td>ST</td><td>24</td><td>17</td><td>5</td><td>2</td><td>0</td></tr>
+                        <tr><td>EWS</td><td>20</td><td>14</td><td>5</td><td>1</td><td>0</td></tr>
+                        <tr><td>MBC</td><td>10</td><td>7</td><td>2</td><td>1</td><td>0</td></tr>
+                        <tr class="total-row"><td>कुल पद</td><td>200</td><td>142</td><td>43</td><td>14</td><td>1</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="table-container">
+                <h3>3. कुल सीटें (Grand Total - सामान्य + संस्कृत विभाग)</h3>
+                <table>
+                    <thead>
+                        <tr><th>वर्ग</th><th>कुल सीट</th><th>सामान्य (Open)</th><th>सामान्य महिला</th><th>विधवा</th><th>परित्यक्ता</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>General / UR</td><td>515</td><td>360</td><td>109</td><td>37</td><td>9</td></tr>
+                        <tr><td>OBC</td><td>279</td><td>199</td><td>55</td><td>16</td><td>9</td></tr>
+                        <tr><td>EWS</td><td>131</td><td>94</td><td>27</td><td>7</td><td>3</td></tr>
+                        <tr><td>MBC</td><td>65</td><td>45</td><td>10</td><td>10</td><td>0</td></tr>
+                        <tr><td>SC</td><td>911</td><td>646</td><td>184</td><td>72</td><td>9</td></tr>
+                        <tr><td>ST</td><td>1023</td><td>722</td><td>203</td><td>82</td><td>16</td></tr>
+                        <tr><td>सहरिया</td><td>12</td><td>8</td><td>2</td><td>2</td><td>0</td></tr>
+                        <tr class="total-row"><td>महायोग (Grand Total)</td><td>2936</td><td>2074</td><td>590</td><td>226</td><td>46</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="table-container">
+                <h3>4. विशेष श्रेणी क्षैतिज आरक्षण (Horizontal Reservation - BCI)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>वर्ग / श्रेणी</th>
+                            <th>सामान्य शिक्षा<br><span class="math-text">(Normal)</span></th>
+                            <th>संस्कृत शिक्षा<br><span class="math-text">(Sanskrit)</span></th>
+                            <th>अग्रेषित<br><span class="math-text">(Backlog)</span></th>
+                            <th>कुल योग<br><span class="math-text">(Total)</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>भूतपूर्व सैनिक (General / UR)</td>
+                            <td>39</td><td>9</td><td>274</td>
+                            <td><span class="math-text">39 + 9 + 274 =</span><span class="sum-result">322</span></td>
+                        </tr>
+                        <tr>
+                            <td>भूतपूर्व सैनिक (OBC)</td>
+                            <td>11</td><td>5</td><td>164</td>
+                            <td><span class="math-text">11 + 5 + 164 =</span><span class="sum-result">180</span></td>
+                        </tr>
+                        <tr>
+                            <td>भूतपूर्व सैनिक (SC)</td>
+                            <td>8</td><td>4</td><td>123</td>
+                            <td><span class="math-text">8 + 4 + 123 =</span><span class="sum-result">135</span></td>
+                        </tr>
+                        <tr>
+                            <td>भूतपूर्व सैनिक (ST)</td>
+                            <td>2</td><td>3</td><td>92</td>
+                            <td><span class="math-text">2 + 3 + 92 =</span><span class="sum-result">97</span></td>
+                        </tr>
+                        <tr>
+                            <td>भूतपूर्व सैनिक (EWS)</td>
+                            <td>2</td><td>2</td><td>76</td>
+                            <td><span class="math-text">2 + 2 + 76 =</span><span class="sum-result">80</span></td>
+                        </tr>
+                        <tr>
+                            <td>भूतपूर्व सैनिक (MBC)</td>
+                            <td>0</td><td>1</td><td>42</td>
+                            <td><span class="math-text">0 + 1 + 42 =</span><span class="sum-result">43</span></td>
+                        </tr>
+                        <tr>
+                            <td>भूतपूर्व सैनिक (सहरिया)</td>
+                            <td>1</td><td>0</td><td>0</td>
+                            <td><span class="math-text">1 + 0 + 0 =</span><span class="sum-result">1</span></td>
+                        </tr>
+                        <tr class="total-row">
+                            <td>भूतपूर्व सैनिक कुल योग</td>
+                            <td>63</td><td>24</td><td>771</td>
+                            <td>858</td>
+                        </tr>
+                        <tr>
+                            <td>निःशक्तजन (अ) दृष्टि बाधित</td>
+                            <td>19</td><td>2</td><td>93</td>
+                            <td><span class="math-text">19 + 2 + 93 =</span><span class="sum-result">114</span></td>
+                        </tr>
+                        <tr>
+                            <td>निःशक्तजन (ब) श्रवण बाधित</td>
+                            <td>11</td><td>2</td><td>94</td>
+                            <td><span class="math-text">11 + 2 + 94 =</span><span class="sum-result">107</span></td>
+                        </tr>
+                        <tr>
+                            <td>निःशक्तजन (स) चलन निःशक्तता</td>
+                            <td>12</td><td>2</td><td>75</td>
+                            <td><span class="math-text">12 + 2 + 75 =</span><span class="sum-result">89</span></td>
+                        </tr>
+                        <tr>
+                            <td>निःशक्तजन (द) बहु दिव्यांगता</td>
+                            <td>14</td><td>2</td><td>78</td>
+                            <td><span class="math-text">14 + 2 + 78 =</span><span class="sum-result">94</span></td>
+                        </tr>
+                        <tr class="total-row">
+                            <td>निःशक्तजन (PwD) कुल योग</td>
+                            <td>56</td><td>8</td><td>340</td>
+                            <td>404</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold;">उत्कृष्ट खिलाड़ी (Sports Persons)</td>
+                            <td>19</td><td>4</td><td>—</td>
+                            <td><span class="math-text">19 + 4 =</span><span class="sum-result" style="color:#df20b9;">23</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>© 2026 JKByte Classes | Contact Support: teamjkbyteclasses@gmail.com</p>
+    </footer>
+
+    <!-- ========================================== -->
+    <!-- JAVASCRIPT: JSON FETCH & SAFE ZONE LOGIC   -->
+    <!-- ========================================== -->
+    <script>
+        // 1. Theme Toggle
+        const toggleBtn = document.getElementById('themeToggle');
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        toggleBtn.innerHTML = currentTheme === 'dark' ? '☀️' : '🌙';
+
+        toggleBtn.addEventListener('click', () => {
+            let newTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            toggleBtn.innerHTML = newTheme === 'dark' ? '☀️' : '🌙';
+        });
+
+        // 2. Generic Collapsible Section Function with Smooth Scroll
+        function toggleSection(contentId, btnId, showText, hideText) {
+            const content = document.getElementById(contentId);
+            const btn = document.getElementById(btnId);
+            content.classList.toggle('show');
+            if (content.classList.contains('show')) {
+                btn.innerHTML = hideText;
+                setTimeout(() => {
+                    btn.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+            } else {
+                btn.innerHTML = showText;
+            }
+        }
+
+        // 3. Safe Rank Limits Matrix (Total Seats Wise - Male/Open & Female)
+        const SAFE_RANK_LIMITS = {
+            "GEN_MALE": 360,
+            "GEN_FEMALE": 109,
+            "GEN_WIDOW": 37,
+            "GEN_DIVORCEE": 9,
+            "OBC_MALE": 199,
+            "OBC_FEMALE": 55,
+            "OBC_WIDOW": 16,
+            "OBC_DIVORCEE": 9,
+            "EWS_MALE": 94,
+            "EWS_FEMALE": 27,
+            "EWS_WIDOW": 7,
+            "EWS_DIVORCEE": 3,
+            "MBC_MALE": 45,
+            "MBC_FEMALE": 10,
+            "MBC_WIDOW": 10,
+            "SC_MALE": 646,
+            "SC_FEMALE": 184,
+            "SC_WIDOW": 72,
+            "SC_DIVORCEE": 9,
+            "ST_MALE": 722,
+            "ST_FEMALE": 203,
+            "ST_WIDOW": 82,
+            "ST_DIVORCEE": 16,
+            "SAHARIYA_MALE": 8,
+            "SAHARIYA_FEMALE": 2,
+            "PWD": 404,
+            "EX-SM": 858,
+            "SPORTS": 23
+        };
+
+        let allStudentsData = [];
+
+        // 4. Fetch JSON file from same folder
+        async function loadStudentJSON() {
+            try {
+                const response = await fetch('students_data.json');
+                if (!response.ok) throw new Error("Could not load students_data.json");
+                allStudentsData = await response.json();
+            } catch (err) {
+                console.error("Error loading JSON:", err);
+            }
+        }
+        loadStudentJSON();
+
+        // 5. Check Roll Number & Calculate Zone
+        function checkRank() {
+            const inputRoll = document.getElementById('rollInput').value.trim();
+            if (!inputRoll) {
+                alert("कृपया अपना रोल नंबर दर्ज करें!");
+                return;
+            }
+
+            const student = allStudentsData.find(s => String(s.roll) === inputRoll);
+            const resultDiv = document.getElementById('resultSection');
+
+            if (!student) {
+                alert("यह रोल नंबर उपलब्ध लिस्ट में नहीं मिला! कृपया रोल नंबर की जांच करें।");
+                resultDiv.style.display = 'none';
+                return;
+            }
+
+            // Determine Category Key for Safe Limit
+            let limitKey = `${student.category}_${student.gender || 'MALE'}`;
+            if (student.subCategory && student.subCategory !== "NONE") {
+                limitKey = student.subCategory;
+            }
+
+            const safeLimit = SAFE_RANK_LIMITS[limitKey] || SAFE_RANK_LIMITS[`${student.category}_MALE`] || 100;
+            const borderlineLimit = Math.round(safeLimit * 1.15); // 15% buffer
+
+            // Populate Scorecard
+            document.getElementById('resName').innerText = student.name;
+            document.getElementById('resRoll').innerText = `Roll No: ${student.roll}`;
+            
+            let badgeText = `${student.category} (${student.gender || 'OPEN'})`;
+            if (student.subCategory && student.subCategory !== "NONE") {
+                badgeText += ` - ${student.subCategory}`;
+            }
+            document.getElementById('resCat').innerText = badgeText;
+
+            document.getElementById('resTotal').innerText = Number(student.totalMarks).toFixed(2);
+            document.getElementById('resOverallRank').innerText = `#${student.overallRank}`;
+            document.getElementById('resCatRank').innerText = `#${student.catRank}`;
+            document.getElementById('resSafeLimit').innerText = `Safe Rank Limit: Top ${safeLimit}`;
+
+            // Zone Calculation
+            const banner = document.getElementById('zoneBanner');
+            const zTitle = document.getElementById('zoneTitle');
+            const zDesc = document.getElementById('zoneDesc');
+
+            if (student.catRank <= safeLimit) {
+                banner.className = "zone-banner zone-safe";
+                zTitle.innerHTML = "🟢 SAFE ZONE";
+                zDesc.innerText = `बधाई हो! आपकी कैटेगरी रैंक (#${student.catRank}) आपकी श्रेणी की सुरक्षित सीट सीमा (Top ${safeLimit}) के अंदर है। आपके चयन की संभावना बहुत प्रबल है।`;
+            } else if (student.catRank <= borderlineLimit) {
+                banner.className = "zone-banner zone-warn";
+                zTitle.innerHTML = "🟡 BORDERLINE / WAITING ZONE";
+                zDesc.innerText = `आपकी कैटेगरी रैंक (#${student.catRank}) सेफ ज़ोन (Top ${safeLimit}) के बिल्कुल करीब है। यदि कुछ टॉपर छात्र General (UR) सीट पर माइग्रेट होते हैं, तो आप सेफ ज़ोन में आ जाएंगे।`;
+            } else {
+                banner.className = "zone-banner zone-dark";
+                zTitle.innerHTML = "🔴 DARK ZONE";
+                zDesc.innerText = `आपकी कैटेगरी रैंक (#${student.catRank}) आपकी श्रेणी की उपलब्ध कुल सुरक्षित सीटों (Top ${safeLimit}) से बाहर है।`;
+            }
+
+            resultDiv.style.display = 'block';
+            resultDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    </script>
+</body>
+</html>

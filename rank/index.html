@@ -60063,17 +60063,17 @@
 
             if (relevantRank <= safeLimit) {
                 banner.className = "zone-banner zone-safe";
-                zTitle.innerHTML = "🟢 SAFE ZONE";
-                zDesc.innerText = `बधाई हो! आपकी संबंधित रैंक (#${relevantRank}) आपकी श्रेणी की सुरक्षित सीमा (Top ${safeLimit}) के अंदर है।`;
+                zTitle.innerHTML = ".";
+                zDesc.innerText = ` ।`;
             } else if (relevantRank <= borderlineLimit) {
                 banner.className = "zone-banner zone-warn";
-                zTitle.innerHTML = "🟡 WAITING / BORDERLINE ZONE";
-                zDesc.innerText = `आपकी संबंधित रैंक (#${relevantRank}) सेफ ज़ोन (Top ${safeLimit}) के बेहद करीब है।`;
+                zTitle.innerHTML = ".";
+                zDesc.innerText = `.`;
             } else {
                 banner.className = "zone-banner zone-dark";
-                zTitle.innerHTML = "🔴 DARK ZONE";
-                zDesc.innerText = `आपकी संबंधित रैंक (#${relevantRank}) वर्तमान सुरक्षित सीटों (Top ${safeLimit}) से बाहर है।`;
-            }
+                zTitle.innerHTML = "";
+                zDesc.innerText = `।`;
+            
 
             resultDiv.style.display = 'block';
             resultDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });

@@ -1,0 +1,1385 @@
+<!DOCTYPE html>
+<html lang="hi" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JK Byte Classes | Live Rank & Safe Zone Portal 2026</title>
+    <meta name="description" content="Check your Rajasthan Computer Instructor Total Score, Category Rank, Safe Zone Prediction, and Full BCI Seat Matrix.">
+    <link rel="icon" type="image/png" href="../logo.png">
+
+    <style>
+        :root {
+            /* Light Theme Premium 3D Colours */
+            --bg-color: #e0e5ec;
+            --surface-color: #e0e5ec;
+            --text-main: #2d3748;
+            --text-muted: #718096;
+            --brand-gradient: linear-gradient(135deg, #df20b9 0%, #00d2ff 100%);
+            --shadow-out: 9px 9px 16px rgba(163,177,198,0.6), -9px -9px 16px rgba(255,255,255, 0.7);
+            --shadow-in: inset 6px 6px 10px 0 rgba(163,177,198, 0.6), inset -6px -6px 10px 0 rgba(255,255,255, 0.7);
+            --table-border: rgba(113, 128, 150, 0.15);
+            --table-header-bg: rgba(113, 128, 150, 0.12);
+            --alert-bg: #ffeef0;
+            --alert-border: #ff4757;
+            
+            /* Zone Colors */
+            --safe-bg: rgba(46, 213, 115, 0.12);
+            --safe-border: #2ed573;
+            --safe-text: #1b9c50;
+            
+            --warn-bg: rgba(255, 165, 2, 0.12);
+            --warn-border: #ffa502;
+            --warn-text: #cc8400;
+
+            --dark-zone-bg: rgba(255, 71, 87, 0.12);
+            --dark-zone-border: #ff4757;
+            --dark-zone-text: #d63031;
+        }
+
+        [data-theme="dark"] {
+            /* Dark Theme Premium 3D Colours */
+            --bg-color: #121519;
+            --surface-color: #121519;
+            --text-main: #f7fafc;
+            --text-muted: #a0aec0;
+            --shadow-out: 8px 8px 16px rgba(0,0,0,0.6), -6px -6px 14px rgba(255,255,255,0.03);
+            --shadow-in: inset 5px 5px 10px rgba(0,0,0,0.8), inset -5px -5px 10px rgba(255,255,255,0.03);
+            --table-border: rgba(255, 255, 255, 0.08);
+            --table-header-bg: rgba(255, 255, 255, 0.06);
+            --alert-bg: rgba(255, 71, 87, 0.12);
+            --alert-border: #ff4757;
+
+            --safe-text: #2ed573;
+            --warn-text: #ffa502;
+            --dark-zone-text: #ff6b81;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            margin: 0;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        /* Header & Tabs */
+        header {
+            position: sticky;
+            top: 0;
+            background: rgba(224, 229, 236, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: var(--shadow-out);
+            border-bottom-left-radius: 25px;
+            border-bottom-right-radius: 25px;
+        }
+        [data-theme="dark"] header { background: rgba(18, 21, 25, 0.85); }
+
+        .brand-container { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .brand-logo { width: 40px; height: 40px; border-radius: 50%; box-shadow: var(--shadow-out); padding: 2px; }
+        .logo-text { font-size: 20px; font-weight: 900; background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .nav-right { display: flex; align-items: center; gap: 15px; }
+        
+        /* New Tab Buttons */
+        .nav-tabs { display: flex; gap: 10px; flex-wrap: wrap; }
+        .tab-btn {
+            background: var(--surface-color); color: var(--text-main); text-decoration: none;
+            padding: 10px 18px; border-radius: 20px; font-weight: 700; font-size: 14px;
+            box-shadow: var(--shadow-out); transition: 0.3s; border: none; cursor: pointer;
+        }
+        .tab-btn:hover { box-shadow: var(--shadow-in); color: #df20b9; }
+        .tab-btn.active {
+            background: var(--brand-gradient); color: #fff;
+            box-shadow: 0 5px 15px rgba(223,32,185,0.3);
+        }
+
+        .theme-toggle {
+            background: var(--surface-color); border: none; color: var(--text-main);
+            font-size: 20px; cursor: pointer; width: 42px; height: 42px; border-radius: 50%;
+            box-shadow: var(--shadow-out); display: flex; align-items: center; justify-content: center; transition: 0.3s;
+            flex-shrink: 0;
+        }
+        .theme-toggle:hover { box-shadow: var(--shadow-in); }
+
+        .container { max-width: 1350px; margin: 30px auto; padding: 0 20px; }
+
+        /* View Control */
+        .view-section { display: none; animation: fadeIn 0.4s ease; }
+        .view-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ====== 1. TOP DISCLAIMER ====== */
+        .disclaimer-box {
+            background: var(--alert-bg); border-left: 6px solid var(--alert-border);
+            padding: 18px 20px; border-radius: 15px; font-size: 14px; color: var(--text-main);
+            box-shadow: var(--shadow-out); line-height: 1.5; margin-bottom: 25px;
+        }
+        .disclaimer-box strong { color: var(--alert-border); font-size: 15px; }
+
+        .btn-3d {
+            background: var(--brand-gradient); color: #ffffff; padding: 14px 28px; border-radius: 30px;
+            font-size: 15px; font-weight: 800; display: inline-block;
+            box-shadow: 0 8px 18px rgba(223, 32, 185, 0.35); border: none; cursor: pointer; transition: all 0.3s ease;
+        }
+        .btn-3d:hover { transform: translateY(-2px); box-shadow: 0 12px 24px rgba(223, 32, 185, 0.5); }
+
+        .btn-outline {
+            background: var(--surface-color); color: var(--text-main); padding: 10px 18px; border-radius: 20px;
+            font-size: 13px; font-weight: 700; box-shadow: var(--shadow-out); border: none; cursor: pointer; transition: 0.3s;
+        }
+        .btn-outline:hover { box-shadow: var(--shadow-in); color: #df20b9; }
+
+        .section-divider {
+            text-align: left; color: var(--text-main); margin: 25px 0 18px 5px; font-size: 21px; font-weight: 800;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .section-divider::before {
+            content: ''; display: inline-block; width: 7px; height: 22px; background: var(--brand-gradient); border-radius: 4px;
+        }
+
+        .rules-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 22px; margin-bottom: 30px; }
+        .rule-card { background: var(--surface-color); border-radius: 22px; padding: 25px; box-shadow: var(--shadow-in); border-left: 4px solid #df20b9; }
+        .rule-card h4 { margin: 0 0 12px 0; color: #df20b9; font-size: 18px; }
+        .rule-card p, .rule-card ul { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+
+        /* ====== SEARCH SECTION ====== */
+        .glow-search-wrapper {
+            position: relative; border-radius: 34px; padding: 4px; margin: 25px 0;
+            background: linear-gradient(90deg, #ff007f, #00d2ff, #2ed573, #ffa502, #df20b9, #00d2ff);
+            background-size: 300% 300%; animation: glowingBorder 5s ease infinite;
+            box-shadow: 0 0 25px rgba(223, 32, 185, 0.35), 0 0 35px rgba(0, 210, 255, 0.25);
+        }
+        @keyframes glowingBorder { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+        .search-card {
+            background: var(--surface-color); border-radius: 30px; padding: 35px 25px;
+            text-align: center;
+        }
+        .search-content h1 { font-size: 28px; margin: 0 0 10px 0; background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .search-content p { color: var(--text-muted); margin-bottom: 20px; font-size: 15px; }
+
+        .search-box { display: flex; justify-content: center; gap: 15px; max-width: 680px; margin: 0 auto; flex-wrap: wrap; position: relative; }
+        .roll-input {
+            flex: 1; min-width: 240px; padding: 14px 22px; border-radius: 30px;
+            border: 2px solid rgba(223, 32, 185, 0.25); background: var(--surface-color); color: var(--text-main); font-size: 16px; font-weight: 700;
+            box-shadow: var(--shadow-in); outline: none; text-align: center; transition: 0.3s;
+        }
+        .roll-input:focus { border-color: #00d2ff; box-shadow: var(--shadow-in), 0 0 15px rgba(0, 210, 255, 0.35); }
+
+        /* Search Suggestions Dropdown for Name/Roll Matches */
+        #searchSuggestions {
+            display: none;
+            max-width: 680px;
+            margin: 15px auto 0 auto;
+            background: var(--surface-color);
+            border-radius: 20px;
+            box-shadow: var(--shadow-out);
+            padding: 12px;
+            max-height: 280px;
+            overflow-y: auto;
+            text-align: left;
+        }
+        .suggestion-item {
+            padding: 10px 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--table-border);
+            transition: 0.2s;
+            font-size: 14px;
+        }
+        .suggestion-item:last-child { border-bottom: none; }
+        .suggestion-item:hover { background: var(--table-header-bg); color: #df20b9; font-weight: 700; }
+
+        /* ====== RESULT SCORECARD ====== */
+        #resultSection { display: none; margin-bottom: 45px; }
+        .scorecard { background: var(--surface-color); border-radius: 30px; padding: 30px; box-shadow: var(--shadow-out); }
+        .student-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; border-bottom: 2px solid var(--table-border); padding-bottom: 18px; margin-bottom: 20px; gap: 15px; }
+        .student-title h2 { margin: 0 0 6px 0; font-size: 24px; }
+        .student-meta { font-size: 14px; color: var(--text-muted); font-weight: 600; display: flex; flex-wrap: wrap; gap: 15px; }
+        .cat-badge { background: var(--brand-gradient); color: #fff; padding: 8px 18px; border-radius: 20px; font-weight: 800; font-size: 14px; }
+        
+        /* Full 15-Attribute Grid in Scorecard */
+        .attributes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+            gap: 14px;
+            margin-bottom: 25px;
+        }
+        .stat-box { background: var(--surface-color); padding: 14px 12px; border-radius: 18px; box-shadow: var(--shadow-in); text-align: center; }
+        .stat-label { font-size: 12px; color: var(--text-muted); font-weight: 700; margin-bottom: 5px; display: block; text-transform: uppercase; letter-spacing: 0.4px; }
+        .stat-value { font-size: 19px; font-weight: 900; word-break: break-word; }
+        
+        .zone-banner { padding: 20px; border-radius: 20px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+        .zone-safe { background: var(--safe-bg); border: 2px solid var(--safe-border); color: var(--safe-text); }
+        .zone-warn { background: var(--warn-bg); border: 2px solid var(--warn-border); color: var(--warn-text); }
+        .zone-dark { background: var(--dark-zone-bg); border: 2px solid var(--dark-zone-border); color: var(--dark-zone-text); }
+
+        /* ====== ADVANCED FILTER & DATA EXPLORER ====== */
+        .filter-panel {
+            background: var(--surface-color);
+            border-radius: 25px;
+            padding: 25px;
+            box-shadow: var(--shadow-out);
+            margin-bottom: 25px;
+        }
+        .filter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 18px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--table-border);
+        }
+        .filter-header h3 { margin: 0; font-size: 19px; background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+            gap: 15px;
+        }
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .filter-group label {
+            font-size: 12px;
+            font-weight: 800;
+            color: var(--text-muted);
+            padding-left: 6px;
+        }
+        .filter-input, .filter-select {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 14px;
+            border: 1px solid var(--table-border);
+            background: var(--surface-color);
+            color: var(--text-main);
+            font-size: 13px;
+            font-weight: 700;
+            box-shadow: var(--shadow-in);
+            outline: none;
+            transition: 0.2s;
+        }
+        .filter-input:focus, .filter-select:focus {
+            border-color: #00d2ff;
+        }
+        .range-pair {
+            display: flex;
+            gap: 8px;
+        }
+        .range-pair .filter-input {
+            width: 50%;
+            text-align: center;
+            padding: 10px 8px;
+        }
+
+        /* Column Visibility Toggles (View Filter) */
+        .col-toggles-box {
+            margin-top: 18px;
+            padding-top: 15px;
+            border-top: 1px solid var(--table-border);
+        }
+        .col-toggles-title {
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .col-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .col-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 700;
+            background: var(--surface-color);
+            box-shadow: var(--shadow-out);
+            cursor: pointer;
+            user-select: none;
+            transition: 0.2s;
+        }
+        .col-chip input { accent-color: #df20b9; cursor: pointer; }
+        .col-chip.unchecked { opacity: 0.5; box-shadow: var(--shadow-in); }
+
+        /* ====== TABLES & PAGINATION ====== */
+        .data-header { text-align: center; margin: 20px 0 25px 0; }
+        .data-header h2 { font-size: 24px; color: var(--text-main); margin-bottom: 8px; font-weight: 800; }
+        .data-header p { color: var(--text-muted); font-size: 15px; }
+
+        .table-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+        .record-counter {
+            font-size: 14px;
+            font-weight: 800;
+            padding: 8px 16px;
+            border-radius: 15px;
+            background: var(--surface-color);
+            box-shadow: var(--shadow-in);
+        }
+
+        .table-container { background: var(--surface-color); border-radius: 20px; box-shadow: var(--shadow-out); padding: 20px; margin-bottom: 30px; overflow-x: auto; }
+        .table-container h3 { margin-top: 0; text-align: center; font-size: 18px; margin-bottom: 15px; background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        table { width: 100%; border-collapse: separate; border-spacing: 0; min-width: 900px; }
+        th, td { padding: 11px 10px; text-align: center; border-bottom: 1px solid var(--table-border); font-size: 13px; white-space: nowrap; }
+        th { font-weight: 800; background: var(--table-header-bg); cursor: pointer; user-select: none; position: sticky; top: 0; }
+        th:hover { color: #df20b9; }
+        tr.clickable-row { cursor: pointer; transition: background 0.15s; }
+        tr.clickable-row:hover { background: rgba(223, 32, 185, 0.08); }
+        tr.female-row { background: rgba(255, 107, 129, 0.05); }
+        .safe-pill { background: var(--safe-bg); color: var(--safe-text); font-weight: 800; padding: 4px 10px; border-radius: 10px; font-size: 12px; }
+        
+        .pagination-bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 18px;
+        }
+
+        footer { text-align: center; padding: 20px; color: var(--text-muted); font-size: 14px; }
+
+        /* ====== MOBILE RESPONSIVENESS ====== */
+        @media (max-width: 768px) {
+            header { flex-direction: column; padding: 15px; gap: 15px; }
+            .brand-container { width: 100%; justify-content: center; }
+            .nav-right { width: 100%; justify-content: space-between; flex-wrap: nowrap; gap: 10px;}
+            .nav-tabs { flex: 1; justify-content: center; flex-wrap: wrap; gap: 8px; }
+            .tab-btn { padding: 8px 12px; font-size: 12px; }
+            
+            .search-card { padding: 25px 15px; }
+            .search-content h1 { font-size: 22px; }
+            .btn-3d { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="brand-container">
+            <img src="../logo.png" alt="Logo" class="brand-logo" onerror="this.style.display='none'">
+            <div class="logo-text">JKByte</div>
+        </a>
+        <div class="nav-right">
+            <div class="nav-tabs">
+                <button class="tab-btn active" id="tabBtnMain" onclick="switchView('view-main', this)">🎯 Rank & Search</button>
+                <button class="tab-btn" id="tabBtnExplorer" onclick="switchView('view-explorer', this)">📊 All Data & Filters</button>
+                <button class="tab-btn" id="tabBtnRules" onclick="switchView('view-rules', this)">📜 Rules</button>
+                <button class="tab-btn" id="tabBtnSeats" onclick="switchView('view-seats', this)">💺 Seats</button>
+            </div>
+            <button class="theme-toggle" id="themeToggle">🌙</button>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <!-- ========================================== -->
+        <!-- VIEW 1: MAIN PORTAL (RANK CHECK & DETAILS) -->
+        <!-- ========================================== -->
+        <div id="view-main" class="view-section active">
+            
+            <div class="disclaimer-box">
+                <strong>⚠️ अस्वीकरण (Disclaimer):</strong> यह पोर्टल छात्रों की सुविधा और RSSB प्रोविजनल मेरिट लिस्ट (3,481 अभ्यर्थी) के विश्लेषण पर आधारित है। अंतिम परिणामों, नियमों और सीटों के लिए <strong>RSSB की आधिकारिक वेबसाइट</strong> को ही मान्य मानें। किसी त्रुटि के लिए JK Byte Classes जिम्मेदार नहीं होगा।
+            </div>
+
+            <!-- Search Section (Roll No or Name) -->
+            <div class="glow-search-wrapper">
+                <div class="search-card">
+                    <div class="search-content">
+                        <h1>🔍 Check Rank, Full Details & Safe Zone</h1>
+                        <p>अपना <strong>Roll Number</strong> या <strong>Candidate Name / Father Name</strong> दर्ज करें और सभी 15+ विवरण देखें</p>
+                        <div class="search-box">
+                            <input type="text" id="rollInput" class="roll-input" placeholder="Enter Roll No or Candidate Name..." oninput="handleLiveSearchInput()" onkeypress="if(event.key === 'Enter') checkRank()">
+                            <button class="btn-3d" onclick="checkRank()">Check Status 🚀</button>
+                        </div>
+                        <div id="searchSuggestions"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Result Scorecard (Shows ALL 15 Attributes of a Candidate) -->
+            <div id="resultSection">
+                <div class="scorecard">
+                    <div class="student-header">
+                        <div class="student-title">
+                            <h2 id="resName">Student Name</h2>
+                            <div class="student-meta">
+                                <span id="resRoll">Roll No: ------</span>
+                                <span id="resFather">Father: ------</span>
+                                <span id="resMother">Mother: ------</span>
+                            </div>
+                        </div>
+                        <div class="cat-badge" id="resCat">Category</div>
+                    </div>
+
+                    <!-- Complete 15 Attributes Grid -->
+                    <div class="attributes-grid">
+                        <div class="stat-box">
+                            <span class="stat-label">General Rank (Overall)</span>
+                            <div class="stat-value" id="attrGenRank" style="color: #00d2ff;">#0</div>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-label">Roll Number</span>
+                            <div class="stat-value" id="attrRollNo">0000000</div>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-label">Total Marks</span>
+                            <div class="stat-value" id="attrMarks" style="color: #df20b9;">0.0000</div>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-label">Gender</span>
+                            <div class="stat-value" id="attrGender">-</div>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-label">Category</span>
+                            <div class="stat-value" id="attrCategory">-</div>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-label">Sub Category (SubCat)</span>
+                            <div class="stat-value" id="attrSubCat">None</div>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-label">TSP Area</span>
+                            <div class="stat-value" id="attrTSP">NO</div>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-label">General Male Rank</span>
+                            <div class="stat-value" id="attrGenMaleRank">-</div>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-label">General Female Rank</span>
+                            <div class="stat-value" id="attrGenFemaleRank">-</div>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-label">Category Rank (Combined)</span>
+                            <div class="stat-value" id="attrCatRank" style="color: #00d2ff;">#0</div>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-label">Category Male Rank</span>
+                            <div class="stat-value" id="attrCatMaleRank">-</div>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-label">Category Female Rank</span>
+                            <div class="stat-value" id="attrCatFemaleRank">-</div>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-label">Father's Name</span>
+                            <div class="stat-value" id="attrFather" style="font-size:15px;">-</div>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-label">Mother's Name</span>
+                            <div class="stat-value" id="attrMother" style="font-size:15px;">-</div>
+                        </div>
+                        <div class="stat-box">
+                            <span class="stat-label">Safe Limit Target</span>
+                            <div class="stat-value" id="resSafeLimit" style="font-size:16px; color:#2ed573;">Top --</div>
+                        </div>
+                    </div>
+
+                    <div id="zoneBanner" class="zone-banner">
+                        <div style="flex: 1;">
+                            <h3 style="margin:0 0 5px 0; font-size:22px;" id="zoneTitle">ZONE STATUS</h3>
+                            <p style="margin:0; font-size:14px; line-height: 1.5;" id="zoneDesc">Description...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- VIEW 2: ADVANCED FILTER & FULL DATA TABLE  -->
+        <!-- ========================================== -->
+        <div id="view-explorer" class="view-section">
+            <div class="data-header">
+                <h2>📊 BCI Complete Merit List & Multi-Column Filter</h2>
+                <p>प्रत्येक कॉलम (Name, Roll No, Category, Gender, Marks और सभी Ranks) को फ़िल्टर करें एवं कॉलम व्यू कस्टमाइज़ करें</p>
+            </div>
+
+            <div class="filter-panel">
+                <div class="filter-header">
+                    <h3>🎛️ All Column Filters (सभी कॉलम फ़िल्टर)</h3>
+                    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                        <button class="btn-outline" onclick="resetAllFilters()">🔄 Reset All Filters</button>
+                        <button class="btn-outline" onclick="exportFilteredCSV()">📥 Export Filtered CSV</button>
+                    </div>
+                </div>
+
+                <div class="filters-grid">
+                    <!-- 1. Candidate Name -->
+                    <div class="filter-group">
+                        <label>👤 Candidate Name</label>
+                        <input type="text" id="fName" class="filter-input" placeholder="Search Name..." oninput="applyFilters()">
+                    </div>
+                    <!-- 2. Roll No -->
+                    <div class="filter-group">
+                        <label>🔢 Roll No</label>
+                        <input type="text" id="fRoll" class="filter-input" placeholder="Search Roll No..." oninput="applyFilters()">
+                    </div>
+                    <!-- 3. Father Name -->
+                    <div class="filter-group">
+                        <label>👨 Father Name</label>
+                        <input type="text" id="fFather" class="filter-input" placeholder="Search Father Name..." oninput="applyFilters()">
+                    </div>
+                    <!-- 4. Mother Name -->
+                    <div class="filter-group">
+                        <label>👩 Mother Name</label>
+                        <input type="text" id="fMother" class="filter-input" placeholder="Search Mother Name..." oninput="applyFilters()">
+                    </div>
+                    <!-- 5. Category -->
+                    <div class="filter-group">
+                        <label>🏷️ Category</label>
+                        <select id="fCategory" class="filter-select" onchange="applyFilters()">
+                            <option value="">All Categories</option>
+                            <option value="GEN">GEN</option>
+                            <option value="OBC">OBC</option>
+                            <option value="EWS">EWS</option>
+                            <option value="MBC">MBC</option>
+                            <option value="SC">SC</option>
+                            <option value="ST">ST</option>
+                        </select>
+                    </div>
+                    <!-- 6. Gender -->
+                    <div class="filter-group">
+                        <label>⚧ Gender</label>
+                        <select id="fGender" class="filter-select" onchange="applyFilters()">
+                            <option value="">All Genders</option>
+                            <option value="MALE">MALE</option>
+                            <option value="FEMALE">FEMALE</option>
+                        </select>
+                    </div>
+                    <!-- 7. SubCat -->
+                    <div class="filter-group">
+                        <label>♿ Sub-Category (SubCat)</label>
+                        <select id="fSubCat" class="filter-select" onchange="applyFilters()">
+                            <option value="">All (Including None)</option>
+                            <option value="NONE_ONLY">None (General/Open Only)</option>
+                            <option value="ANY_SUBCAT">All Special Sub-Categories</option>
+                            <option value="DIV">DIV (Divorcee)</option>
+                            <option value="WID">WID (Widow)</option>
+                            <option value="EXM">EXM (Ex-Servicemen)</option>
+                            <option value="SP">SP (Sports)</option>
+                            <option value="LD/CP">LD/CP (PwD)</option>
+                            <option value="LD/CP EXM">LD/CP EXM</option>
+                            <option value="MI/MD">MI/MD (PwD)</option>
+                        </select>
+                    </div>
+                    <!-- 8. TSP -->
+                    <div class="filter-group">
+                        <label>🌲 TSP Area</label>
+                        <select id="fTSP" class="filter-select" onchange="applyFilters()">
+                            <option value="">All (TSP + Non-TSP)</option>
+                            <option value="YES">TSP Only (YES)</option>
+                            <option value="NO">Non-TSP Only</option>
+                        </select>
+                    </div>
+                    <!-- 9. Marks Range -->
+                    <div class="filter-group">
+                        <label>📈 Marks (Min - Max)</label>
+                        <div class="range-pair">
+                            <input type="number" step="0.01" id="fMarksMin" class="filter-input" placeholder="Min" oninput="applyFilters()">
+                            <input type="number" step="0.01" id="fMarksMax" class="filter-input" placeholder="Max" oninput="applyFilters()">
+                        </div>
+                    </div>
+                    <!-- 10. General Rank (Total Rank) -->
+                    <div class="filter-group">
+                        <label>🏆 General (Total) Rank</label>
+                        <div class="range-pair">
+                            <input type="number" id="fGenRankMin" class="filter-input" placeholder="From" oninput="applyFilters()">
+                            <input type="number" id="fGenRankMax" class="filter-input" placeholder="To" oninput="applyFilters()">
+                        </div>
+                    </div>
+                    <!-- 11. General Male Rank -->
+                    <div class="filter-group">
+                        <label>🚹 General Male Rank</label>
+                        <div class="range-pair">
+                            <input type="number" id="fGenMaleMin" class="filter-input" placeholder="From" oninput="applyFilters()">
+                            <input type="number" id="fGenMaleMax" class="filter-input" placeholder="To" oninput="applyFilters()">
+                        </div>
+                    </div>
+                    <!-- 12. General Female Rank -->
+                    <div class="filter-group">
+                        <label>🚺 General Female Rank</label>
+                        <div class="range-pair">
+                            <input type="number" id="fGenFemMin" class="filter-input" placeholder="From" oninput="applyFilters()">
+                            <input type="number" id="fGenFemMax" class="filter-input" placeholder="To" oninput="applyFilters()">
+                        </div>
+                    </div>
+                    <!-- 13. Category Rank -->
+                    <div class="filter-group">
+                        <label>🎯 Category Rank (Total)</label>
+                        <div class="range-pair">
+                            <input type="number" id="fCatRankMin" class="filter-input" placeholder="From" oninput="applyFilters()">
+                            <input type="number" id="fCatRankMax" class="filter-input" placeholder="To" oninput="applyFilters()">
+                        </div>
+                    </div>
+                    <!-- 14. Category Male Rank -->
+                    <div class="filter-group">
+                        <label>♂️ Category Male Rank</label>
+                        <div class="range-pair">
+                            <input type="number" id="fCatMaleMin" class="filter-input" placeholder="From" oninput="applyFilters()">
+                            <input type="number" id="fCatMaleMax" class="filter-input" placeholder="To" oninput="applyFilters()">
+                        </div>
+                    </div>
+                    <!-- 15. Category Female Rank -->
+                    <div class="filter-group">
+                        <label>♀️ Category Female Rank</label>
+                        <div class="range-pair">
+                            <input type="number" id="fCatFemMin" class="filter-input" placeholder="From" oninput="applyFilters()">
+                            <input type="number" id="fCatFemMax" class="filter-input" placeholder="To" oninput="applyFilters()">
+                        </div>
+                    </div>
+                    <!-- 16. Sort By Option -->
+                    <div class="filter-group">
+                        <label>⇅ Sort By Column</label>
+                        <select id="fSortBy" class="filter-select" onchange="applyFilters()">
+                            <option value="General Rank:asc">General Rank (1 to 3481)</option>
+                            <option value="General Rank:desc">General Rank (High to Low)</option>
+                            <option value="Marks:desc">Marks (High to Low)</option>
+                            <option value="Marks:asc">Marks (Low to High)</option>
+                            <option value="Category Rank:asc">Category Rank (Low to High)</option>
+                            <option value="General Male Rank:asc">General Male Rank (Low to High)</option>
+                            <option value="General Female Rank:asc">General Female Rank (Low to High)</option>
+                            <option value="Category Male Rank:asc">Category Male Rank (Low to High)</option>
+                            <option value="Category Female Rank:asc">Category Female Rank (Low to High)</option>
+                            <option value="Candidate Name:asc">Candidate Name (A-Z)</option>
+                            <option value="Roll No:asc">Roll No (Ascending)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Column View Filter (Show/Hide Columns) -->
+                <div class="col-toggles-box">
+                    <div class="col-toggles-title">
+                        <span>👁️ View Filter (टेबल में कौन-कौन से कॉलम देखने हैं चुनें):</span>
+                        <div style="display:flex; gap:8px;">
+                            <button class="btn-outline" style="padding:5px 12px; font-size:11px;" onclick="toggleAllColumns(true)">Select All</button>
+                            <button class="btn-outline" style="padding:5px 12px; font-size:11px;" onclick="toggleAllColumns(false)">Compact View</button>
+                        </div>
+                    </div>
+                    <div class="col-chips" id="columnTogglesContainer"></div>
+                </div>
+            </div>
+
+            <!-- Table Toolbar -->
+            <div class="table-toolbar">
+                <div class="record-counter" id="recordCounter">Showing 0 of 0 Candidates</div>
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span style="font-size:13px; font-weight:700; color:var(--text-muted);">Rows per page:</span>
+                    <select id="rowsPerPageSelect" class="filter-select" style="width:90px; padding:7px 10px;" onchange="changeRowsPerPage()">
+                        <option value="25">25</option>
+                        <option value="50" selected>50</option>
+                        <option value="100">100</option>
+                        <option value="250">250</option>
+                        <option value="500">500</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Results Table -->
+            <div class="table-container">
+                <p style="font-size:12px; color:var(--text-muted); margin:0 0 10px 0; text-align:right;">💡 किसी भी छात्र की पूरी कुंडली व Safe Zone देखने के लिए उसकी पंक्ति (Row) पर क्लिक करें</p>
+                <table id="meritTable">
+                    <thead id="meritTableHead"></thead>
+                    <tbody id="meritTableBody"></tbody>
+                </table>
+
+                <div class="pagination-bar">
+                    <button class="btn-outline" id="prevPageBtn" onclick="changePage(-1)">⬅️ Prev</button>
+                    <span id="pageIndicator" style="font-weight:800; font-size:14px;">Page 1 of 1</span>
+                    <button class="btn-outline" id="nextPageBtn" onclick="changePage(1)">Next ➡️</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- VIEW 3: RESERVATION RULES                  -->
+        <!-- ========================================== -->
+        <div id="view-rules" class="view-section">
+            <div class="data-header">
+                <h2>📜 आरक्षण के महत्वपूर्ण नियम</h2>
+                <p>राजस्थान कर्मचारी चयन बोर्ड द्वारा लागू आरक्षण प्रक्रिया</p>
+            </div>
+            
+            <h3 class="section-divider">क्षैतिज आरक्षण (Horizontal)</h3>
+            <div class="rules-grid">
+                <div class="rule-card">
+                    <h4>♿ दिव्यांगजन (PwD - 4%)</h4>
+                    <ul>
+                        <li>चयनित दिव्यांग अभ्यर्थी अपनी संबंधित मूल कैटेगरी (UR, OBC आदि) की सीट घेरेंगे।</li>
+                        <li>सीट खाली रहने पर यह सामान्य अभ्यर्थी को नहीं दी जाती है, बल्कि बैकलॉग बनती है।</li>
+                    </ul>
+                </div>
+                <div class="rule-card">
+                    <h4>🎖️ भूतपूर्व सैनिक (Ex-Servicemen)</h4>
+                    <ul>
+                        <li>सैनिक न मिलने पर वह सीट वर्तमान भर्ती में संबंधित वर्ग के सामान्य अभ्यर्थी द्वारा भरी जाती है।</li>
+                        <li>खाली सीटें अगली भर्ती में 'बैकलॉग' बनती हैं।</li>
+                    </ul>
+                </div>
+                <div class="rule-card">
+                    <h4>🏅 उत्कृष्ट खिलाड़ी (Sports - 2%)</h4>
+                    <ul>
+                        <li>खिलाड़ी न मिलने पर सीटें संबंधित वर्ग के सामान्य अभ्यर्थियों को दी जाती हैं।</li>
+                        <li>इनका कोई बैकलॉग नहीं बनता।</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 class="section-divider">लंबवत आरक्षण (Vertical)</h3>
+            <div class="rules-grid">
+                <div class="rule-card">
+                    <h4>📜 EWS (आर्थिक रूप कमजोर वर्ग)</h4>
+                    <ul>
+                        <li>EWS के उम्मीदवार पूरे न मिलने पर खाली पद General (UR) से भरे जाते हैं। कोई बैकलॉग नहीं।</li>
+                    </ul>
+                </div>
+                <div class="rule-card">
+                    <h4>🎓 मेरिट माइग्रेशन (Topper Rule)</h4>
+                    <ul>
+                        <li>SC/ST/OBC/EWS का छात्र जनरल कट-ऑफ पार करता है (बिना किसी आयु छूट के), तो उसे General Open की सीट दी जाती है।</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- VIEW 4: SEAT DISTRIBUTION & SAFE RANK      -->
+        <!-- ========================================== -->
+        <div id="view-seats" class="view-section">
+            <div class="data-header">
+                <h2>💺 Seat Matrix & Safe Zone</h2>
+                <p>वर्ग-वार कुल सीटें और सुरक्षित रैंक सीमा</p>
+            </div>
+
+            <div class="table-container">
+                <h3>1. लंबवत आरक्षण सेफ रैंक ज़ोन (सामान्य + संस्कृत कुल 2936 पद)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>कैटेगरी</th>
+                            <th>कुल सीटें</th>
+                            <th>सामान्य (Male/Open)</th>
+                            <th>सामान्य महिला</th>
+                            <th>विधवा</th>
+                            <th>परित्यक्ता</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>General (UR)</strong></td>
+                            <td>515</td>
+                            <td><span class="safe-pill">Rank 1 - 360</span></td>
+                            <td><span class="safe-pill">Rank 1 - 109</span></td>
+                            <td><span class="safe-pill">Rank 1 - 37</span></td>
+                            <td><span class="safe-pill">Rank 1 - 9</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>OBC</strong></td>
+                            <td>279</td>
+                            <td><span class="safe-pill">Rank 1 - 199</span></td>
+                            <td><span class="safe-pill">Rank 1 - 55</span></td>
+                            <td><span class="safe-pill">Rank 1 - 16</span></td>
+                            <td><span class="safe-pill">Rank 1 - 9</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>EWS</strong></td>
+                            <td>131</td>
+                            <td><span class="safe-pill">Rank 1 - 94</span></td>
+                            <td><span class="safe-pill">Rank 1 - 27</span></td>
+                            <td><span class="safe-pill">Rank 1 - 7</span></td>
+                            <td><span class="safe-pill">Rank 1 - 3</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>MBC</strong></td>
+                            <td>65</td>
+                            <td><span class="safe-pill">Rank 1 - 45</span></td>
+                            <td><span class="safe-pill">Rank 1 - 10</span></td>
+                            <td><span class="safe-pill">Rank 1 - 10</span></td>
+                            <td>—</td>
+                        </tr>
+                        <tr>
+                            <td><strong>SC</strong></td>
+                            <td>911</td>
+                            <td><span class="safe-pill">Rank 1 - 646</span></td>
+                            <td><span class="safe-pill">Rank 1 - 184</span></td>
+                            <td><span class="safe-pill">Rank 1 - 72</span></td>
+                            <td><span class="safe-pill">Rank 1 - 9</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>ST</strong></td>
+                            <td>1023</td>
+                            <td><span class="safe-pill">Rank 1 - 722</span></td>
+                            <td><span class="safe-pill">Rank 1 - 203</span></td>
+                            <td><span class="safe-pill">Rank 1 - 82</span></td>
+                            <td><span class="safe-pill">Rank 1 - 16</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="table-container">
+                <h3>2. क्षैतिज आरक्षण सेफ रैंक (PwD, Ex-SM, Sports)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>विशेष श्रेणी</th>
+                            <th>कुल सीटें</th>
+                            <th>सेफ रैंक सीमा</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>भूतपूर्व सैनिक (Ex-SM)</strong></td>
+                            <td>858</td>
+                            <td><span class="safe-pill">Rank 1 - 858</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>निःशक्तजन (PwD Total)</strong></td>
+                            <td>404</td>
+                            <td><span class="safe-pill">Rank 1 - 404</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>उत्कृष्ट खिलाड़ी (Sports)</strong></td>
+                            <td>23</td>
+                            <td><span class="safe-pill">Rank 1 - 23</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>© 2026 JKByte Classes | Contact: teamjkbyteclasses@gmail.com</p>
+    </footer>
+
+    <script>
+        // 1. Theme Toggle
+        const toggleBtn = document.getElementById('themeToggle');
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        toggleBtn.innerHTML = currentTheme === 'dark' ? '☀️' : '🌙';
+
+        toggleBtn.addEventListener('click', () => {
+            let newTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            toggleBtn.innerHTML = newTheme === 'dark' ? '☀️' : '🌙';
+        });
+
+        // 2. Tab Navigation Logic
+        function switchView(viewId, btnElement) {
+            document.querySelectorAll('.view-section').forEach(view => view.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(viewId).classList.add('active');
+            if (btnElement) btnElement.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // 3. Safe Rank Limits Matrix
+        const SAFE_RANK_LIMITS = {
+            "GEN_MALE": 360, "GEN_FEMALE": 109, "GEN_WID": 37, "GEN_DIV": 9,
+            "OBC_MALE": 199, "OBC_FEMALE": 55, "OBC_WID": 16, "OBC_DIV": 9,
+            "EWS_MALE": 94, "EWS_FEMALE": 27, "EWS_WID": 7, "EWS_DIV": 3,
+            "MBC_MALE": 45, "MBC_FEMALE": 10, "MBC_WID": 10,
+            "SC_MALE": 646, "SC_FEMALE": 184, "SC_WID": 72, "SC_DIV": 9,
+            "ST_MALE": 722, "ST_FEMALE": 203, "ST_WID": 82, "ST_DIV": 16,
+            "PWD": 404, "EXM": 858, "SP": 23
+        };
+
+        // 4. All 15 Columns Configuration for View Filter & Table
+        const ALL_COLUMNS = [
+            { key: "General Rank", label: "Gen Rank", visible: true },
+            { key: "Roll No", label: "Roll No", visible: true },
+            { key: "Candidate Name", label: "Candidate Name", visible: true },
+            { key: "Father Name", label: "Father Name", visible: true },
+            { key: "Mother Name", label: "Mother Name", visible: true },
+            { key: "Marks", label: "Marks", visible: true },
+            { key: "Gender", label: "Gender", visible: true },
+            { key: "Category", label: "Category", visible: true },
+            { key: "SubCat", label: "SubCat", visible: true },
+            { key: "TSP", label: "TSP", visible: true },
+            { key: "General Male Rank", label: "Gen Male Rank", visible: true },
+            { key: "General Female Rank", label: "Gen Female Rank", visible: true },
+            { key: "Category Rank", label: "Cat Rank", visible: true },
+            { key: "Category Male Rank", label: "Cat Male Rank", visible: true },
+            { key: "Category Female Rank", label: "Cat Female Rank", visible: true }
+        ];
+
+        let allStudentsData = [];
+        let filteredData = [];
+        let currentPage = 1;
+        let rowsPerPage = 50;
+
+        // Normalize a record so it works with both BCI_Result_Ranks.json keys and legacy keys
+        function normalizeRecord(raw) {
+            return {
+                "General Rank": raw["General Rank"] ?? raw.overallRank ?? null,
+                "Roll No": raw["Roll No"] ?? raw.roll ?? null,
+                "Candidate Name": String(raw["Candidate Name"] ?? raw.name ?? "").trim(),
+                "Father Name": String(raw["Father Name"] ?? raw.fatherName ?? "").trim(),
+                "Mother Name": String(raw["Mother Name"] ?? raw.motherName ?? "").trim(),
+                "Marks": raw["Marks"] !== undefined ? Number(raw["Marks"]) : Number(raw.totalMarks || 0),
+                "Gender": String(raw["Gender"] ?? raw.gender ?? "MALE").trim().toUpperCase(),
+                "Category": String(raw["Category"] ?? raw.category ?? "GEN").trim().toUpperCase(),
+                "SubCat": raw["SubCat"] ?? (raw.subCategory && raw.subCategory !== "NONE" ? raw.subCategory : null),
+                "TSP": raw["TSP"] ?? raw.tsp ?? null,
+                "General Male Rank": raw["General Male Rank"] ?? null,
+                "General Female Rank": raw["General Female Rank"] ?? null,
+                "Category Rank": raw["Category Rank"] ?? raw.catRank ?? null,
+                "Category Male Rank": raw["Category Male Rank"] ?? null,
+                "Category Female Rank": raw["Category Female Rank"] ?? null
+            };
+        }
+
+        // 5. Smart Fetch JSON file (Specifically targeting students_data.json on GitHub Pages)
+        async function loadStudentJSON() {
+            const filesToTry = [
+                'students_data.json',
+                './students_data.json',
+                '/rank/students_data.json',
+                'BCI_Result_Ranks.json'
+            ];
+
+            const cacheBuster = '?v=' + new Date().getTime();
+
+            for (const file of filesToTry) {
+                try {
+                    const response = await fetch(file + cacheBuster);
+                    if (response.ok) {
+                        const rawData = await response.json();
+                        if (Array.isArray(rawData) && rawData.length > 0) {
+                            allStudentsData = rawData.map(normalizeRecord);
+                            filteredData = [...allStudentsData];
+                            initColumnToggles();
+                            applyFilters();
+                            console.log(`✅ Loaded ${allStudentsData.length} records from ${file}`);
+                            document.getElementById('recordCounter').style.color = 'inherit';
+                            return; // Stop trying once successfully loaded
+                        }
+                    }
+                } catch (err) {
+                    console.warn(`Skipping ${file}:`, err);
+                }
+            }
+
+            // Error state if file doesn't load
+            console.error("❌ JSON File could not be loaded from any path!");
+            const counterEl = document.getElementById('recordCounter');
+            if (counterEl) {
+                counterEl.innerHTML = `<span style="color:#ff4757;">⚠️ JSON फ़ाइल लोड नहीं हुई! कृपया GitHub पर 'students_data.json' फ़ाइल चेक करें।</span>`;
+            }
+        }
+        
+        // Ensure DOM is fully loaded before fetching
+        document.addEventListener('DOMContentLoaded', () => {
+            loadStudentJSON();
+        });
+
+        // 6. Initialize Column Visibility Chips (View Filter)
+        function initColumnToggles() {
+            const container = document.getElementById('columnTogglesContainer');
+            container.innerHTML = '';
+            ALL_COLUMNS.forEach((col, index) => {
+                const label = document.createElement('label');
+                label.className = `col-chip ${col.visible ? '' : 'unchecked'}`;
+                label.innerHTML = `
+                    <input type="checkbox" ${col.visible ? 'checked' : ''} onchange="toggleColumn(${index}, this)">
+                    <span>${col.label}</span>
+                `;
+                container.appendChild(label);
+            });
+        }
+
+        function toggleColumn(index, checkbox) {
+            ALL_COLUMNS[index].visible = checkbox.checked;
+            checkbox.parentElement.classList.toggle('unchecked', !checkbox.checked);
+            renderTable();
+        }
+
+        function toggleAllColumns(showAll) {
+            const compactKeys = ["General Rank", "Roll No", "Candidate Name", "Marks", "Gender", "Category", "Category Rank"];
+            ALL_COLUMNS.forEach(col => {
+                col.visible = showAll ? true : compactKeys.includes(col.key);
+            });
+            initColumnToggles();
+            renderTable();
+        }
+
+        // 7. Live Search Suggestions (Name / Roll No / Father Name) in Main View
+        function handleLiveSearchInput() {
+            const query = document.getElementById('rollInput').value.trim().toUpperCase();
+            const suggBox = document.getElementById('searchSuggestions');
+            if (!query || query.length < 2) {
+                suggBox.style.display = 'none';
+                return;
+            }
+
+            const matches = allStudentsData.filter(s =>
+                String(s["Roll No"]).includes(query) ||
+                s["Candidate Name"].toUpperCase().includes(query) ||
+                s["Father Name"].toUpperCase().includes(query)
+            ).slice(0, 15);
+
+            if (matches.length === 0) {
+                suggBox.innerHTML = `<div style="padding:10px; color:var(--text-muted); text-align:center;">कोई परिणाम नहीं मिला (No matching candidate)</div>`;
+                suggBox.style.display = 'block';
+                return;
+            }
+
+            suggBox.innerHTML = matches.map(s => `
+                <div class="suggestion-item" onclick="selectCandidateByRoll('${s["Roll No"]}')">
+                    <div>
+                        <strong>${s["Candidate Name"]}</strong> <span style="color:var(--text-muted); font-size:12px;">(S/O: ${s["Father Name"]})</span>
+                    </div>
+                    <div style="display:flex; gap:10px; align-items:center;">
+                        <span class="safe-pill">Roll: ${s["Roll No"]}</span>
+                        <span style="font-weight:800; color:#df20b9;">${s["Marks"].toFixed(2)}</span>
+                        <span style="font-size:12px; font-weight:700;">Rank #${s["General Rank"]}</span>
+                    </div>
+                </div>
+            `).join('');
+            suggBox.style.display = 'block';
+        }
+
+        function selectCandidateByRoll(rollNo) {
+            document.getElementById('rollInput').value = rollNo;
+            document.getElementById('searchSuggestions').style.display = 'none';
+            checkRank();
+        }
+
+        // 8. Display Single Candidate Full Details & Safe Zone Prediction
+        function checkRank() {
+            const query = document.getElementById('rollInput').value.trim().toUpperCase();
+            if (!query) {
+                alert("कृपया अपना रोल नंबर या नाम दर्ज करें!");
+                return;
+            }
+
+            // Exact Roll No match first, then Name match
+            let student = allStudentsData.find(s => String(s["Roll No"]) === query);
+            if (!student) {
+                const nameMatches = allStudentsData.filter(s =>
+                    s["Candidate Name"].toUpperCase().includes(query) ||
+                    String(s["Roll No"]).includes(query)
+                );
+                if (nameMatches.length === 1) {
+                    student = nameMatches[0];
+                } else if (nameMatches.length > 1) {
+                    handleLiveSearchInput();
+                    student = nameMatches[0];
+                }
+            }
+
+            const resultDiv = document.getElementById('resultSection');
+
+            if (!student) {
+                alert("यह रोल नंबर या नाम उपलब्ध लिस्ट में नहीं मिला! कृपया जांच करें।");
+                resultDiv.style.display = 'none';
+                return;
+            }
+
+            document.getElementById('searchSuggestions').style.display = 'none';
+
+            // Populate Header
+            document.getElementById('resName').innerText = student["Candidate Name"];
+            document.getElementById('resRoll').innerText = `🔢 Roll No: ${student["Roll No"]}`;
+            document.getElementById('resFather').innerText = `👨 Father: ${student["Father Name"] || '-'}`;
+            document.getElementById('resMother').innerText = `👩 Mother: ${student["Mother Name"] || '-'}`;
+
+            let badgeText = `${student["Category"]} (${student["Gender"]})`;
+            if (student["SubCat"]) badgeText += ` | ${student["SubCat"]}`;
+            if (student["TSP"] === "YES") badgeText += ` | TSP`;
+            document.getElementById('resCat').innerText = badgeText;
+
+            // Populate All 15 Attributes
+            document.getElementById('attrGenRank').innerText = `#${student["General Rank"]}`;
+            document.getElementById('attrRollNo').innerText = student["Roll No"];
+            document.getElementById('attrMarks').innerText = Number(student["Marks"]).toFixed(4);
+            document.getElementById('attrGender').innerText = student["Gender"];
+            document.getElementById('attrCategory').innerText = student["Category"];
+            document.getElementById('attrSubCat').innerText = student["SubCat"] || "None";
+            document.getElementById('attrTSP').innerText = student["TSP"] === "YES" ? "YES (TSP)" : "NO (Non-TSP)";
+            document.getElementById('attrGenMaleRank').innerText = student["General Male Rank"] ? `#${student["General Male Rank"]}` : "N/A";
+            document.getElementById('attrGenFemaleRank').innerText = student["General Female Rank"] ? `#${student["General Female Rank"]}` : "N/A";
+            document.getElementById('attrCatRank').innerText = `#${student["Category Rank"]}`;
+            document.getElementById('attrCatMaleRank').innerText = student["Category Male Rank"] ? `#${student["Category Male Rank"]}` : "N/A";
+            document.getElementById('attrCatFemaleRank').innerText = student["Category Female Rank"] ? `#${student["Category Female Rank"]}` : "N/A";
+            document.getElementById('attrFather').innerText = student["Father Name"] || "-";
+            document.getElementById('attrMother').innerText = student["Mother Name"] || "-";
+
+            // Determine Relevant Rank & Safe Limit for Zone Banner
+            let limitKey = `${student["Category"]}_${student["Gender"]}`;
+            let relevantRank = student["Gender"] === "FEMALE"
+                ? (student["Category Female Rank"] || student["Category Rank"])
+                : (student["Category Male Rank"] || student["Category Rank"]);
+
+            if (student["SubCat"]) {
+                const sub = student["SubCat"].toUpperCase();
+                if (sub === "WID" || sub === "DIV") {
+                    limitKey = `${student["Category"]}_${sub}`;
+                } else if (sub.includes("EXM")) {
+                    limitKey = "EXM";
+                } else if (sub === "SP") {
+                    limitKey = "SP";
+                } else if (sub.includes("LD") || sub.includes("MI")) {
+                    limitKey = "PWD";
+                }
+            }
+
+            const safeLimit = SAFE_RANK_LIMITS[limitKey] || SAFE_RANK_LIMITS[`${student["Category"]}_MALE`] || 100;
+            const borderlineLimit = Math.round(safeLimit * 1.15);
+
+            document.getElementById('resSafeLimit').innerText = `Top ${safeLimit} (${limitKey})`;
+
+            const banner = document.getElementById('zoneBanner');
+            const zTitle = document.getElementById('zoneTitle');
+            const zDesc = document.getElementById('zoneDesc');
+
+            if (relevantRank <= safeLimit) {
+                banner.className = "zone-banner zone-safe";
+                zTitle.innerHTML = "🟢 SAFE ZONE";
+                zDesc.innerText = `बधाई हो! आपकी संबंधित रैंक (#${relevantRank}) आपकी श्रेणी की सुरक्षित सीमा (Top ${safeLimit}) के अंदर है।`;
+            } else if (relevantRank <= borderlineLimit) {
+                banner.className = "zone-banner zone-warn";
+                zTitle.innerHTML = "🟡 WAITING / BORDERLINE ZONE";
+                zDesc.innerText = `आपकी संबंधित रैंक (#${relevantRank}) सेफ ज़ोन (Top ${safeLimit}) के बेहद करीब है। मेरिट माइग्रेशन होने पर आपका चांस बन सकता है।`;
+            } else {
+                banner.className = "zone-banner zone-dark";
+                zTitle.innerHTML = "🔴 DARK ZONE";
+                zDesc.innerText = `आपकी संबंधित रैंक (#${relevantRank}) वर्तमान सुरक्षित सीटों (Top ${safeLimit}) से बाहर है।`;
+            }
+
+            resultDiv.style.display = 'block';
+            resultDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // 9. Multi-Column Filter Logic
+        function inRange(val, minStr, maxStr) {
+            if (minStr === "" && maxStr === "") return true;
+            if (val === null || val === undefined || val === "") return false;
+            const num = Number(val);
+            if (minStr !== "" && num < Number(minStr)) return false;
+            if (maxStr !== "" && num > Number(maxStr)) return false;
+            return true;
+        }
+
+        function applyFilters() {
+            const fName = document.getElementById('fName').value.trim().toUpperCase();
+            const fRoll = document.getElementById('fRoll').value.trim();
+            const fFather = document.getElementById('fFather').value.trim().toUpperCase();
+            const fMother = document.getElementById('fMother').value.trim().toUpperCase();
+            const fCategory = document.getElementById('fCategory').value;
+            const fGender = document.getElementById('fGender').value;
+            const fSubCat = document.getElementById('fSubCat').value;
+            const fTSP = document.getElementById('fTSP').value;
+
+            const fMarksMin = document.getElementById('fMarksMin').value;
+            const fMarksMax = document.getElementById('fMarksMax').value;
+
+            const fGenRankMin = document.getElementById('fGenRankMin').value;
+            const fGenRankMax = document.getElementById('fGenRankMax').value;
+
+            const fGenMaleMin = document.getElementById('fGenMaleMin').value;
+            const fGenMaleMax = document.getElementById('fGenMaleMax').value;
+
+            const fGenFemMin = document.getElementById('fGenFemMin').value;
+            const fGenFemMax = document.getElementById('fGenFemMax').value;
+
+            const fCatRankMin = document.getElementById('fCatRankMin').value;
+            const fCatRankMax = document.getElementById('fCatRankMax').value;
+
+            const fCatMaleMin = document.getElementById('fCatMaleMin').value;
+            const fCatMaleMax = document.getElementById('fCatMaleMax').value;
+
+            const fCatFemMin = document.getElementById('fCatFemMin').value;
+            const fCatFemMax = document.getElementById('fCatFemMax').value;
+
+            filteredData = allStudentsData.filter(s => {
+                if (fName && !s["Candidate Name"].toUpperCase().includes(fName)) return false;
+                if (fRoll && !String(s["Roll No"]).includes(fRoll)) return false;
+                if (fFather && !s["Father Name"].toUpperCase().includes(fFather)) return false;
+                if (fMother && !s["Mother Name"].toUpperCase().includes(fMother)) return false;
+                if (fCategory && s["Category"] !== fCategory) return false;
+                if (fGender && s["Gender"] !== fGender) return false;
+
+                if (fSubCat === "NONE_ONLY" && s["SubCat"] !== null) return false;
+                if (fSubCat === "ANY_SUBCAT" && s["SubCat"] === null) return false;
+                if (fSubCat && fSubCat !== "NONE_ONLY" && fSubCat !== "ANY_SUBCAT" && s["SubCat"] !== fSubCat) return false;
+
+                if (fTSP === "YES" && s["TSP"] !== "YES") return false;
+                if (fTSP === "NO" && s["TSP"] === "YES") return false;
+
+                if (!inRange(s["Marks"], fMarksMin, fMarksMax)) return false;
+                if (!inRange(s["General Rank"], fGenRankMin, fGenRankMax)) return false;
+                if (!inRange(s["General Male Rank"], fGenMaleMin, fGenMaleMax)) return false;
+                if (!inRange(s["General Female Rank"], fGenFemMin, fGenFemMax)) return false;
+                if (!inRange(s["Category Rank"], fCatRankMin, fCatRankMax)) return false;
+                if (!inRange(s["Category Male Rank"], fCatMaleMin, fCatMaleMax)) return false;
+                if (!inRange(s["Category Female Rank"], fCatFemMin, fCatFemMax)) return false;
+
+                return true;
+            });
+
+            // Sorting
+            const sortVal = document.getElementById('fSortBy').value;
+            const [sortKey, sortDir] = sortVal.split(':');
+            const dirMultiplier = sortDir === 'desc' ? -1 : 1;
+
+            filteredData.sort((a, b) => {
+                const valA = a[sortKey];
+                const valB = b[sortKey];
+                if (valA === null || valA === undefined) return 1;
+                if (valB === null || valB === undefined) return -1;
+                if (typeof valA === 'string') {
+                    return valA.localeCompare(valB) * dirMultiplier;
+                }
+                return (valA - valB) * dirMultiplier;
+            });
+
+            currentPage = 1;
+            renderTable();
+        }
+
+        function resetAllFilters() {
+            document.querySelectorAll('.filter-input').forEach(inp => inp.value = '');
+            document.querySelectorAll('.filter-select').forEach(sel => {
+                if (sel.id === 'fSortBy') sel.value = 'General Rank:asc';
+                else if (sel.id !== 'rowsPerPageSelect') sel.value = '';
+            });
+            applyFilters();
+        }
+
+        // 10. Render Data Table & Pagination
+        function renderTable() {
+            const visibleCols = ALL_COLUMNS.filter(c => c.visible);
+            const thead = document.getElementById('meritTableHead');
+            const tbody = document.getElementById('meritTableBody');
+
+            thead.innerHTML = `<tr>${visibleCols.map(c => `<th onclick="quickSortColumn('${c.key}')">${c.label} ⇅</th>`).join('')}</tr>`;
+
+            const totalRecords = filteredData.length;
+            const totalPages = Math.max(1, Math.ceil(totalRecords / rowsPerPage));
+            if (currentPage > totalPages) currentPage = totalPages;
+
+            const startIdx = (currentPage - 1) * rowsPerPage;
+            const pageItems = filteredData.slice(startIdx, startIdx + rowsPerPage);
+
+            document.getElementById('recordCounter').innerText =
+                `Showing ${pageItems.length ? startIdx + 1 : 0} - ${startIdx + pageItems.length} of ${totalRecords} Candidates (Total: ${allStudentsData.length})`;
+
+            document.getElementById('pageIndicator').innerText = `Page ${currentPage} of ${totalPages}`;
+            document.getElementById('prevPageBtn').disabled = currentPage <= 1;
+            document.getElementById('nextPageBtn').disabled = currentPage >= totalPages;
+
+            if (pageItems.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="${visibleCols.length}" style="padding:30px; font-weight:700; color:var(--text-muted);">कोई डेटा नहीं मिला! कृपया फ़िल्टर बदलें।</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = pageItems.map(row => {
+                const isFemale = row["Gender"] === "FEMALE";
+                const cells = visibleCols.map(col => {
+                    let val = row[col.key];
+                    if (val === null || val === undefined || val === "") return `<td>-</td>`;
+                    if (col.key === "Marks") return `<td style="font-weight:800; color:#df20b9;">${Number(val).toFixed(4)}</td>`;
+                    if (col.key === "General Rank" || col.key === "Category Rank") return `<td><span class="safe-pill">#${val}</span></td>`;
+                    if (col.key === "Candidate Name") return `<td style="font-weight:800; text-align:left;">${val}</td>`;
+                    if (col.key === "Father Name" || col.key === "Mother Name") return `<td style="text-align:left;">${val}</td>`;
+                    return `<td>${val}</td>`;
+                }).join('');
+                return `<tr class="clickable-row ${isFemale ? 'female-row' : ''}" onclick="openCandidateFromTable('${row["Roll No"]}')">${cells}</tr>`;
+            }).join('');
+        }
+
+        function quickSortColumn(colKey) {
+            const sortSelect = document.getElementById('fSortBy');
+            const currentVal = sortSelect.value;
+            const [currKey, currDir] = currentVal.split(':');
+            const nextDir = (currKey === colKey && currDir === 'asc') ? 'desc' : 'asc';
+
+            // Add option dynamically if not present
+            const newOptionVal = `${colKey}:${nextDir}`;
+            if (![...sortSelect.options].some(o => o.value === newOptionVal)) {
+                const opt = document.createElement('option');
+                opt.value = newOptionVal;
+                opt.text = `${colKey} (${nextDir.toUpperCase()})`;
+                sortSelect.add(opt);
+            }
+            sortSelect.value = newOptionVal;
+            applyFilters();
+        }
+
+        function changePage(delta) {
+            currentPage += delta;
+            renderTable();
+        }
+
+        function changeRowsPerPage() {
+            rowsPerPage = Number(document.getElementById('rowsPerPageSelect').value);
+            currentPage = 1;
+            renderTable();
+        }
+
+        function openCandidateFromTable(rollNo) {
+            document.getElementById('rollInput').value = rollNo;
+            switchView('view-main', document.getElementById('tabBtnMain'));
+            checkRank();
+        }
+
+        // 11. Export Filtered Data to CSV
+        function exportFilteredCSV() {
+            if (!filteredData.length) {
+                alert("एक्सपोर्ट करने के लिए कोई डेटा नहीं है!");
+                return;
+            }
+            const visibleCols = ALL_COLUMNS.filter(c => c.visible);
+            const headers = visibleCols.map(c => `"${c.key}"`).join(',');
+            const rows = filteredData.map(row =>
+                visibleCols.map(c => `"${row[c.key] ?? ''}"`).join(',')
+            );
+            const csvContent = "data:text/csv;charset=utf-8," + [headers, ...rows].join('
+');
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement('a');
+            link.setAttribute('href', encodedUri);
+            link.setAttribute('download', `BCI_Filtered_Ranks_${filteredData.length}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
+</body>
+</html>
